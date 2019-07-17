@@ -1,35 +1,37 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
-import React from "react"
+import React, { useState } from "react"
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
+const Header = ({ siteTitle }) => {
+  const [acNav, setAcNav] = useState(false)
+  document.addEventListener("scroll", () =>
+    window.scrollY == 0 ? setAcNav(false) : setAcNav(true)
+  )
+
+  return (
+    <header
+      style={
+        acNav
+          ? {
+              background: "#fecd0ee3",
+
+              boxShadow: "-1px 4px 2px 2px wheat",
+            }
+          : {}
+      }
     >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
+      <nav>
+        <Link to="/blog">tech</Link>
+        <Link to="/notes">note</Link>
+        <Link to="/">
+          <div className="logo">{siteTitle}</div>
         </Link>
-      </h1>
-    </div>
-  </header>
-)
+        <a>essay</a>
+        <a>about</a>
+      </nav>
+    </header>
+  )
+}
 
 Header.propTypes = {
   siteTitle: PropTypes.string,

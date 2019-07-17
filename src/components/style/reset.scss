@@ -1,27 +1,28 @@
-html {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-}
+$info: #e3d432;
+$warning: #fff700;
+$danger: #c62f24;
+$white: #faf8ec;
+$primary: #704427;
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $white;
 }
-article,
+/* article,
 aside,
 details,
 figcaption,
 figure,
 footer,
-header,
 main,
 menu,
 nav,
 section,
 summary {
   display: block;
-}
+} */
 audio,
 canvas,
 progress,
@@ -200,7 +201,7 @@ html {
 }
 body {
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  // font-family: georgia, serif;
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
@@ -614,9 +615,4 @@ pre code:after,
 pre tt:before,
 pre tt:after {
   content: "";
-}
-@media only screen and (max-width: 480px) {
-  html {
-    font-size: 100%;
-  }
 }

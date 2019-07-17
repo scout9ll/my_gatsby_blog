@@ -1,0 +1,193 @@
+// .calendar {
+//   display: grid;
+//   grid-template-columns: repeat(7, 1fr);
+//   grid-template-rows: repeat(6, 1fr);
+//   place-content: center;
+// }
+$info: #e3d432;
+$warning: #fff700;
+$danger: #c62f24;
+$white: #faf8ec;
+$primary: #704427;
+$link: #26b9c8;
+$blue: #0457a0;
+$pink: #ff69b4;
+.note {
+  grid-column: full-start/full-end;
+  display: grid;
+  grid-template-columns: 1fr 80% 1fr;
+}
+.note-list {
+  display: grid;
+  grid-column: 2/3;
+  grid-template-columns: repeat(3, 1fr);
+  grid-row-gap: 6%;
+  grid-column-gap: 4%;
+  margin-top: 50px;
+}
+.note-block {
+  // perspective: 800px; //会产生定位效果,relationtive
+}
+.note-view-container {
+  perspective: 800px;
+}
+.note-card {
+  border: 2px solid rgba(129, 95, 95, 0.74);
+  height: 200px;
+  // overflow: hidden;
+  display: grid;
+  position: relative;
+  background-color: #f1f1f1;
+  width: 100%;
+
+  text-decoration: none;
+  border-radius: 5px;
+  transform-style: preserve-3d;
+  // perspective: 800px;
+  // backface-visibility: hidden;
+  transition: all 1s ease;
+}
+.note-card-front {
+  // backface-visibility: hidden;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  text-align: center;
+  // transform: perspective(800px);
+
+  // transition: all 1s ease;
+}
+.note-card-back {
+  // backface-visibility: hidden;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform: rotateY(180deg);
+
+  top: 0;
+  left: 0;
+  background-color: rgb(10, 184, 76);
+  // transition: all 1s ease;
+}
+
+.note-block:hover .note-card {
+  transform: rotateY(180deg);
+}
+// .note-block:hover .note-title-back {
+//   transform: perspective(800px) rotateY(0deg);
+// }
+.note-content {
+  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  position: absolute;
+  margin-top: 50px;
+  background-color: wheat;
+  padding: 30px 40px;
+  border-bottom: 0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  z-index: 1011;
+  width: 80%;
+  min-height: 800px;
+}
+.note-modal-delete {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  z-index: 1013;
+}
+.note-content-mask {
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+
+  right: 0;
+  top: 0;
+  z-index: 1010;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  transition: all 1s ease;
+  transform: scale(1);
+}
+@media screen and (max-width: 960px) {
+  .note-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 750px) {
+  .note-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+.blogs {
+  grid-column: full-start/full-end;
+  display: grid;
+  grid-template-columns: 1fr 60% 1fr;
+  margin-top: 60px;
+}
+.blog-list {
+  grid-column: 2/3;
+  position: relative;
+}
+
+.blog-block {
+  display: flex;
+  flex-direction: column;
+  background-color: #f1f1f1;
+  width: 100%;
+  border: 2px dashed $primary;
+  border-style: double;
+  margin-top: 20px;
+  height: 100px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.blog-title {
+  font-size: 20px;
+  font-family: franz_sans_light;
+}
+
+.blog-post-container {
+  margin-top: 60px;
+  grid-column: half-start/half-end;
+}
+
+.tags .tag {
+  align-self: center;
+  background: 0 0;
+  border: 2px solid #41403e;
+  color: #41403e;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  outline: 0;
+  transition: all 235ms ease 0s;
+  box-shadow: 10px 19px 17px -13px rgba(0, 0, 0, 0.2);
+  font-size: 0.75rem;
+  padding: 0.1rem;
+  margin-right: 10px;
+  &:hover {
+    -webkit-transform: translate3d(0, 2px, 0);
+    transform: translate3d(0, 2px, 0);
+    box-shadow: 2px 8px 8px -5px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.tag:nth-child(6n + 1) {
+  background: $warning;
+}
+.tag:nth-child(6n + 2) {
+  background: $pink;
+}
+.tag:nth-child(6n + 3) {
+  background: $link;
+}
+.tag:nth-child(6n + 4) {
+  background: $info;
+}
