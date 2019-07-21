@@ -38,10 +38,41 @@ tags: ["AJAX", "Fetch", "axios"]
 由于 Vue 流行起来的请求库,在 ajax 基础上更完善的封装.
 
 - 特点
+
   - 浏览器端同样采用 XHR 接口
   - 可运行在 node 环境中,其采用 http 接口 😍
   - 同样支持拦截器
   - 结合了 es6 的 promise,回调更加优雅.😍
+
+- 简单实现
+
+```js
+let axios={
+  get(url,data){
+    return new Promise((resolve, reject) => {　　//　创建并返回一个新的promise对象 　　
+      const request = new XMLHttpRequest();　　//　创建一个XML HttpRequcst 对象
+      request.open("GET", url);
+      requset.setRequestHeader(data.header)　　//　初始化请求
+      request.onload = function() {　　//　注册一个onload方法，当服务端响应 后会被调用 　　　　
+        try { 　　　　
+          　if (this.status === 200) {　　
+          resolve(JSON.parse(this.response));　　　　
+        } else { 　　　　　　　　
+          reject(this.status + " " + this.statusText); 　　　　
+        　} 　　　　
+        }
+        catch (e) { 　　　　
+            　reject(e.message); 　　//　如果服务器返回了不同的状态码，或者如果 在解析JSON字符串时发生了异常，则对该promise执行reject方法注意
+      　　　　}
+      　request.onerror = function() { 　　　　　
+        reject(this.status + " " + this.statusText); 　　//　如果和服务 器端通信过程中发生了错误，则对该promise执行reject方法 　　　
+      　};
+      　request.send();　　//　发送请求 　　
+    　  })
+  }
+
+}
+```
 
 ### fetch
 
