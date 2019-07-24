@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import "./style/blog.scss"
@@ -27,10 +27,34 @@ const Blog = () => {
   `)
   const initBlogs = data.allMarkdownRemark.edges
   const [blogs, setBlogs] = useState(initBlogs)
+  const [query, setQuery] = useState("")
+
+  useEffect(
+    () =>
+      setBlogs(
+        query.trim() == ""
+          ? initBlogs
+          : initBlogs.filter(edge =>
+              edge.node.frontmatter.tags.some(tag =>
+                tag.toUpperCase().includes(query.toUpperCase())
+              )
+            )
+      ),
+    [query]
+  )
 
   return (
     <Layout>
       <div className="blogs">
+        <input
+          className="blog-search"
+          value={query}
+          onChange={e => {
+            setQuery(e.target.value)
+          }}
+          placeholder={"Preceding keywords to match tags."}
+        />
+
         <div className="blog-list">
           {blogs.map(({ node }) => {
             return (
@@ -44,13 +68,7 @@ const Blog = () => {
                     <span
                       className="tag"
                       name={tag}
-                      onClick={() =>
-                        setBlogs(
-                          initBlogs.filter(edge =>
-                            edge.node.frontmatter.tags.includes(tag)
-                          )
-                        )
-                      }
+                      onClick={() => setQuery(tag)}
                     >
                       {tag}
                     </span>
