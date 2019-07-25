@@ -4,13 +4,13 @@ import React, { useState, useEffect } from "react"
 
 const Header = ({ siteTitle }) => {
   const [acNav, setAcNav] = useState(false)
-  useEffect(
-    () =>
-      document.addEventListener("scroll", () =>
-        window.scrollY == 0 ? setAcNav(false) : setAcNav(true)
-      ),
-    []
-  )
+  const [href, setHref] = useState("")
+  useEffect(() => {
+    document.addEventListener("scroll", () =>
+      window.scrollY == 0 ? setAcNav(false) : setAcNav(true)
+    )
+    setHref(window.location.href)
+  }, [])
 
   return (
     <header
@@ -25,15 +25,12 @@ const Header = ({ siteTitle }) => {
       }
     >
       <nav>
-        <Link
-          to="/blog"
-          className={window.location.href.includes("blog") ? "nav-active" : ""}
-        >
+        <Link to="/blog" className={href.includes("blog") ? "nav-active" : ""}>
           tech
         </Link>
         <Link
           to="/notes"
-          className={window.location.href.includes("notes") ? "nav-active" : ""}
+          className={href.includes("notes") ? "nav-active" : ""}
         >
           note
         </Link>
