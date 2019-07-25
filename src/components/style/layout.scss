@@ -66,9 +66,7 @@ header {
     transition: all 0.25s ease-in-out;
     text-decoration: none;
     background-image: none;
-    border-bottom: 5px solid #8c3d21;
-    border-bottom-left-radius: 15px 3px;
-    border-bottom-right-radius: 15px 5px;
+
     color: #41403e;
     padding-bottom: 0.1rem;
     font-size: 1.6rem;
@@ -79,7 +77,11 @@ header {
     }
   }
 }
-
+.nav-active {
+  border-bottom: 5px solid #8c3d21;
+  border-bottom-left-radius: 15px 3px;
+  border-bottom-right-radius: 15px 5px;
+}
 @media screen and (max-width: 1200px) {
   html {
     font-size: 100%;

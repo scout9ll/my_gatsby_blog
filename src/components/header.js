@@ -25,8 +25,18 @@ const Header = ({ siteTitle }) => {
       }
     >
       <nav>
-        <Link to="/blog">tech</Link>
-        <Link to="/notes">note</Link>
+        <Link
+          to="/blog"
+          className={window.location.href.includes("blog") ? "nav-active" : ""}
+        >
+          tech
+        </Link>
+        <Link
+          to="/notes"
+          className={window.location.href.includes("notes") ? "nav-active" : ""}
+        >
+          note
+        </Link>
         <Link to="/">
           <div className="logo">{siteTitle}</div>
         </Link>

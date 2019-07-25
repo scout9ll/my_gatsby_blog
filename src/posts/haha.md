@@ -5,6 +5,8 @@ title: "test"
 tags: ["测试"]
 ---
 
+![dd](/static/gatsby-icon-4a9773549091c227cd2eb82ccd9c5e3a.png)
+
 ## 聊聊几种异步请求
 
 ### AJAX
