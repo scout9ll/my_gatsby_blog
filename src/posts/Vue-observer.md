@@ -11,6 +11,10 @@ tags: ["VUE", "Observer"]
 
 vue 是一个 MVVM 的框架,简单的说是一个数据绑定视图的模式,Vue 的该单项绑定是通过观察者模式实现的,即函数订阅数据,当其数据改变,则所有函数触发.
 
+>     看一看官方的原理图
+>
+> ![VUE](https://cn.vuejs.org/images/data.png)
+
 ### convert object
 
 > 首先要实现 Vue 中的 Data.anyState = 'something' ==> something will change
@@ -173,3 +177,5 @@ state.test++
 
 document.body.addEventListener("click", () => state.test++)
 ```
+
+这里只是简单的绑定了原生 DOM 渲染,真正的 VUE 上是绑定组件的`virtual Dom`渲染函数,之后将结合响应系统，Vue 能够智能地计算出最少需要重新渲染多少组件(`更新列队`,`diff比对`)，并把 DOM 操作次数减到最少。
