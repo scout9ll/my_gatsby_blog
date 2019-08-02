@@ -55,7 +55,7 @@ setInterval(() => {
 ```
 
 Bingo!!成功得到了数据
-![](../images/SV-1.gif)
+![test](../images/SV-1.gif)
 
 ### 连接音频数据,导入 canvas 绘图
 
