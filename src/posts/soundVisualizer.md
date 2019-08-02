@@ -96,7 +96,7 @@ function rockMusic() {
 }
 ```
 
-![bar](../images/sv-2.gif)
+![bar](../images/SV-2.gif)
 
 ## 花样拓展
 
@@ -107,14 +107,14 @@ function rockMusic() {
 > 环绕的话,需要设置绕环原点,要用到`canvasCtx.translate`和`canvasCtx.rorato`
 
 效果
-![circleBar](../images/sv-3.gif)
+![circleBar](../images/SV-3.gif)
 
 ### 做个动感球
 
 > 这个球要能动的话,则需要将其保存为对象,需要一个容器然后 forEach
 
 效果
-![Ball](../images/sv-4.gif)
+![Ball](../images/SV-4.gif)
 
 ## 总结
 
