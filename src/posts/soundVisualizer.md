@@ -15,7 +15,7 @@ tags: ["canvas", "audio", "axios"]
 source(声音源)=>middle(声音处理器,包括混响,过滤器,还有我们需要的音频分析器)=>terminal(输出终端)
 
 > 让我看看官方的图:  
-> ![](https://mdn.mozillademos.org/files/12241/webaudioAPI_en.svg)
+> ![audioContext diagram](https://mdn.mozillademos.org/files/12241/webaudioAPI_en.svg)
 
 现在,尝试一下接口
 
@@ -55,6 +55,7 @@ setInterval(() => {
 ```
 
 Bingo!!成功得到了数据
+![](../images/SV-1.gif)
 
 ### 连接音频数据,导入 canvas 绘图
 
@@ -66,21 +67,57 @@ Bingo!!成功得到了数据
 
 ```js
 // 获取canvas,canvarCtx
-let canvas =document.querySelecter('canvas')
-let canvasCtx = canvas.getContext('2d')
-//获取不同音频的数量bufferLength
-  let dataArray = new Uint8Array(bufferLength)
-  analyser.getByteFrequencyData(dataArray)
-//一次绘制
-const bar_w = canvas.width / bufferLength;
- for (let i = 0; i < bufferLength; i++) {
-    const bar_x = i * bar_w;
-    const bar_h = (dataArray[i] / 255) * canvas.height;
-    canvasCtx.fillStyle = `rgba(63, 99, 191, ${i / 100})`;
-    canvasCtx.fillRect(bar_x, canvas.height - bar_h, bar_w, bar_h);
-   }
-}
+const canvas =document.querySelector('canvas')
+const canvasCtx = canvas.getContext('2d')
 
+//一次绘制
+function draw(){
+  let  dataArray = new Uint8Array(bufferLength)
+  analyser.getByteFrequencyData(dataArray)
+  const bar_w = canvas.width / bufferLength;
+  for (let i = 0; i < bufferLength; i++) {
+      let bar_x = i * bar_w;
+      let  bar_h = (dataArray[i] / 255) * canvas.height;
+      let bar_y = canvas.height - bar_h
+      canvasCtx.fillStyle = `green`;
+      canvasCtx.fillRect(bar_x, bar_y, bar_w, bar_h);
+    }
+  }
+}
 ```
 
-##
+然后,组成动画
+
+```js
+function rockMusic() {
+  requestAnimationFrame(rockMusic)
+  analyser.getByteFrequencyData(dataArray)
+  draw()
+}
+```
+
+![bar](../images/sv-2.gif)
+
+## 花样拓展
+
+将数据具象为各种图形样式
+
+### 做个环绕型的 bar
+
+> 环绕的话,需要设置绕环原点,要用到`canvasCtx.translate`和`canvasCtx.rorato`
+
+效果
+![circleBar](../images/sv-3.gif)
+
+### 做个动感球
+
+> 这个球要能动的话,则需要将其保存为对象,需要一个容器然后 forEach
+
+效果
+![Ball](../images/sv-4.gif)
+
+## 总结
+
+这里只是简单的使用了 webAudio 的一个小小的分析器,我想这个东西应该还可以有很多有专业的东西可以挖掘;另外,在可视化中,我也只是用了简单的 canvas,有兴趣的同学可以利用其他的库自己设计各种炫酷的效果.
+
+最后,附上源码[git](https://github.com/steve9II/JS-30days-30miniprojects/tree/master/day16-soundVisualizer)
