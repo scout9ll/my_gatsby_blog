@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "../pages/style/blog.scss"
 
-const Note = ({ noteContent, title }) => {
+const Note = ({ noteContent, title, subTitle }) => {
   //   const [open, setOpen] = useState(false)
   const [scale, setScale] = useState(0)
   //   let ss = () => (open ? setScale(1) : "")
@@ -16,7 +16,13 @@ const Note = ({ noteContent, title }) => {
       <div className="note-view-container">
         <div className="note-card">
           <div className="note-card-front">{title[1]}</div>
-          <div className="note-card-back">back</div>
+          <div className="note-card-back">
+            {subTitle.map((st, index) => (
+              <span key={st}>
+                {index + 1 + "." + st.match(/<h3>([^<]+)<\/h3>/)[1]}{" "}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
       {

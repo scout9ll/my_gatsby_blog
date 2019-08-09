@@ -7,7 +7,7 @@ const Header = ({ siteTitle }) => {
   const [href, setHref] = useState("")
   useEffect(() => {
     document.addEventListener("scroll", () =>
-      window.scrollY == 0 ? setAcNav(false) : setAcNav(true)
+      window.scrollY === 0 ? setAcNav(false) : setAcNav(true)
     )
     setHref(window.location.href)
   }, [])

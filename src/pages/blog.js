@@ -32,7 +32,7 @@ const Blog = () => {
   useEffect(
     () =>
       setBlogs(
-        query.trim() == ""
+        query.trim() === ""
           ? initBlogs
           : initBlogs.filter(edge =>
               edge.node.frontmatter.tags.some(tag =>

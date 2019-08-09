@@ -29,12 +29,15 @@ const Notes = () => {
               let weekNote = "<h2>" + node
 
               let weekTitle = weekNote.match(/<h2>([a-zA-Z0-9_ ]+)<\/h2>/)
-              console.log(weekTitle)
+              let weekSubTitle = weekNote.match(/<h3>([^<]+)<\/h3>/g)
+
+              // console.log(weekSubTitle, weekTitle)
               return (
                 <Note
                   key={weekTitle}
                   title={weekTitle}
                   noteContent={weekNote}
+                  subTitle={weekSubTitle}
                 />
               )
             })}
