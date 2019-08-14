@@ -17,7 +17,7 @@ exports.createPages = ({ actions, graphql }) => {
       allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___date] }
         limit: 1000
-        filter: { frontmatter: { path: { regex: "/blog/" } } }
+        filter: { frontmatter: { path: { regex: "/" } } }
       ) {
         edges {
           node {
@@ -34,11 +34,16 @@ exports.createPages = ({ actions, graphql }) => {
     }
 
     return result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      createPage({
-        path: node.frontmatter.path,
-        component: blogPostTemplate,
-        context: {}, // additional data can be passed via context
-      })
+      const path = node.frontmatter.path
+      if (path.includes("blog")) {
+        createPage({
+          path: path,
+          component: blogPostTemplate,
+          context: {}, // additional data can be passed via context
+        })
+      } else if (path.includes("essay")) {
+        return
+      }
     })
   })
 }

@@ -538,3 +538,169 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 #### keywords
 
 #### description
+
+### 汇编语言 (assembly language)
+
+#### 简单定义
+
+机器码的标识符，可利用汇编编译器直接编译为机器码
+
+#### 特点
+
+- 高效，编译更直接，代码直接操作硬件
+- 逻辑简单，不易编写复杂应用
+- 不易维护
+
+### intersectionObserver
+
+#### 定义
+
+提供了一种异步观察目标元素与其祖先元素或顶级文档视窗(viewport)交叉状态的方法。可代替监听 scroll 事件中不停获取 getBoundingClientRect()，从而优化性能
+
+#### 使用方法
+
+```js
+var options = {
+  root: document.querySelector("#scrollArea"), //设置需监听的相对元素，默认为视窗
+  rootMargin: "0px", //距离补偿
+  threshold: 1.0, //监听元素出现在ROOT中的比例，1.0则是全出
+}
+//callback 当出现时候的回调函数
+var observer = new IntersectionObserver(callback, options)
+var target = document.querySelector("#listItem")
+observer.observe(target) //开始监听#listItem元素
+```
+
+- `.observe(element)`
+
+```js
+var target = document.querySelector("#listItem")
+observer.observe(target) //开始监听#listItem元素
+```
+
+- `.unobserve(element)`
+  停止监听 element
+- `.disconnect()`
+  停止对象监听工作
+
+### Immutable.js
+
+### vue 收集哪些依赖
+
+相应数据只收集渲染函数和监听属性,
+
+#### render function
+
+```js
+components.forEach(component => autoRun(component.render))
+```
+
+#### watch
+
+```js
+Object.defineProperty(this, watchedData, {
+  set() {
+    watchedData()
+  },
+})
+```
+
+#### computed
+
+```js
+let computedData //用来缓存合成属性,render时直接读取
+computedDatas.forEach(computedData => autoRun(computedData()))
+```
+
+### component 和 pureComponent
+
+#### 主要区别
+
+- component 每次 setState 都会重新 update(render)
+
+- pureComponent 每次 setState 后会`shouldeComponentUpdate`
+
+```js
+if (this._compositeType === CompositeTypes.PureClass) {
+  shouldUpdate =
+    !shallowEqual(prevProps, nextProps) || !shallowEqual(inst.state, nextState)
+}
+```
+
+> 因此,使用 pureComponent 可以一定程度上减少不必要的渲染
+
+#### pureComponent 浅比较原理
+
+```js
+// 用原型链的方法
+const hasOwn = Object.prototype.hasOwnProperty
+
+// 这个函数实际上是Object.is()的polyfill
+//+0 === -0 // true，但我们期待它返回false
+//NaN === NaN // false，我们期待它返回true
+function is(x, y) {
+  // SameValue algorithm
+  if (x === y) {
+    // 处理为+0 != -0的情况
+    return x !== 0 || 1 / x === 1 / y
+  } else {
+    // 处理 NaN === NaN的情况
+    return x !== x && y !== y
+  }
+}
+
+export default function shallowEqual(objA, objB) {
+  // 首先对基本数据类型的比较
+  if (is(objA, objB)) return true
+  // 由于Obejct.is()可以对基本数据类型做一个精确的比较， 所以如果不等
+  // 只有一种情况是误判的，那就是object,所以在判断两个对象都不是object
+  // 之后，就可以返回false了
+  if (
+    typeof objA !== "object" ||
+    objA === null ||
+    typeof objB !== "object" ||
+    objB === null
+  ) {
+    return false
+  }
+
+  // 过滤掉基本数据类型之后，就是对对象的比较了
+  // 首先拿出key值，对key的长度进行对比
+
+  const keysA = Object.keys(objA)
+  const keysB = Object.keys(objB)
+
+  // 长度不等直接返回false
+  if (keysA.length !== keysB.length) return false
+  // key相等的情况下，在去循环比较
+  for (let i = 0; i < keysA.length; i++) {
+    // key值相等的时候
+    // 借用原型链上真正的 hasOwnProperty 方法，判断ObjB里面是否有A的key的key值
+    // 属性的顺序不影响结果也就是{name:'daisy', age:'24'} 跟{age:'24'，name:'daisy' }是一样的
+    // 最后，对对象的value进行一个基本数据类型的比较，返回结果
+    if (!hasOwn.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false
+    }
+  }
+
+  return true
+}
+```
+
+> 由上面的分析可以看到，当对比的类型为 Object 的时候并且 key 的长度相等的时候，浅比较也仅仅是用 Object.is()对 Object 的 value 做了一个基本数据类型的比较，所以如果 key 里面是对象的话，有可能出现比较不符合预期的情况，所以浅比较是不适用于嵌套类型的比较的。  
+> 例如,`shallowEqual({a:{b:2}},{a:{b:2}}) == false`
+
+#### 浅比较的补充-Immutable.js
+
+> 由于深浅比较不能判断相同的引用类型数据的变化,例如  
+> `const { data } = this.state;data.push(news) setState({data})`
+> 则不能发现改变,可以利用`Immutable.js`这个库解决此问题
+
+- 什么是 Immutable.js  
+  Facebook 在 2014 年出的持久性数据结构的库，持久性指的是数据一旦创建，就不能再被更改，任何修改或添加删除操作都会返回一个新的 Immutable 对象。可以让我们更容易的去处理缓存、回退、数据变化检测等问题，简化开发。并且提供了大量的类似原生 JS 的方法，还有`Lazy Operation`的特性，完全的函数式编程。
+
+### webpack
+
+#### webpack 简单理解
+
+将所有依赖一起打包的工具
