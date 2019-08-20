@@ -147,6 +147,59 @@ reg.test(undefined) //返回true
 
 ## week 3
 
+### Iterables 和 array-like
+
+两种对象类型
+
+#### 分辨特征
+
+- array-like 有 length 属性
+- Iterables 有[Symbol.iterator]方法
+
+#### Iterables
+
+Iterables 意为可迭代的对象,当用`forEach`,`for of`时,会调用其[Symbol.iterator]方法,生成 iterator,然后依次调用`iterator.next()`完成迭代
+
+> `for of`内部实现
+
+```js
+let str = "Hello"
+
+// 和下面代码完成的功能一致
+// for (let char of str) alert(char);
+
+let iterator = str[Symbol.iterator]()
+
+while (true) {
+  let result = iterator.next()
+  if (result.done) break
+  alert(result.value) // 一个一个输出字符
+}
+```
+
+> 让一个对象变成 iterable
+
+```js
+let normalObj = { a: 2, b: 3 }
+
+normalObj[Symbol.iterator] = function() {
+  let arr = Object.keys(this)
+  let i = -1
+  return {
+    next: () => {
+      i++
+      return this[arr[i]]
+        ? { done: false, value: this[arr[i]] }
+        : { done: true }
+    },
+  }
+}
+
+for (const value of normalObj) {
+  console.log(value)
+} // 2 3
+```
+
 ### array map set
 
 - array
@@ -300,7 +353,9 @@ reg.test(undefined) //返回true
 
 ## week6
 
-### 偏函数(partial function)
+### 偏函数(partial function)&&纯函数(Pure Functions)
+
+#### 偏函数
 
 - 偏函数的意义:将多参数的函数固定几个参数后变为少参数函数,例如 send(from,to) =>> toSend(to)
 
@@ -332,6 +387,18 @@ reg.test(undefined) //返回true
     }
   }
   ```
+
+#### 纯函数
+
+- 纯函数定义
+  函数类的变量都在函数作用域内,不依赖外部变量,保证函数在任何环境同一输出
+
+- 纯函数意义
+  - 容易可测试(testable)
+  - 因为相同的输入必定是相同的输出，因此结果可以缓(cacheable)
+  - 自我记录(Self documenting),因为需要的变量都是参数，参数命名良好的
+  - 情况下即便很久以后再去看这个函数依旧可以很容易知道这个函数需要哪些参数
+  - 因为不用担心有副作用(side-effects),因此可以更好地工作
 
 ### react 子向父跨组件通信的几种方法
 
@@ -704,3 +771,36 @@ export default function shallowEqual(objA, objB) {
 #### webpack 简单理解
 
 将所有依赖一起打包的工具
+
+#### 打包过程
+
+### 扩展运算符(...)
+
+#### 定义
+
+用来取出变量中的所有可遍历属性,属于对属性的一次浅拷贝
+
+> `...[a,b,c]===> a b c`
+
+#### 常用方法
+
+- 函数参数的解构
+
+```js
+function foo(a, ...b) {
+  //此时相当于 let [a,...b]=agruments
+  // ...b ==> argruments[1] argruments[2]  argruments[3] ~~~
+  console.log(b)
+}
+foo(1, 2, 3, 4) // [2,3,4]
+```
+
+> ps `...`只能用在最后一位
+
+- 将 Iteratable(可迭代对象) 的类型转为数组
+
+```js
+const nodeList = document.querySelectorAll("div")
+
+const array = [...nodeList]
+```
