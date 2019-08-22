@@ -768,11 +768,58 @@ export default function shallowEqual(objA, objB) {
 
 ### webpack
 
+#### webpack 作用
+
+将所有依赖一起打包的工具.
+
+> 任何时候，一个文件依赖于另一个文件，webpack 就把此视为文件之间有 依赖关系。这使得 webpack 可以接收非代码资源(non-code asset)（例如 images 或 web fonts），并且可以把它们作为 _依赖_ 提供给你的应用程序。
+> webpack 从命令行或配置文件中定义的一个模块列表开始，处理你的应用程序。 从这些 入口起点 开始，webpack 递归地构建一个依赖图，这个依赖图包含着应用程序所需的每个模块，然后将所有这些模块打包为少量的 bundle - 通常只有一个 - 可由浏览器加载。
+
 #### webpack 简单理解
 
-将所有依赖一起打包的工具
+> webpack 整体是一个插件架构，所有的功能都以插件的方式集成在构建流程中，通过发布订阅事件来触发各个插件执行。webpack 核心使用 Tapable 来实现插件(plugins)的 binding 和 applying.
 
 #### 打包过程
+
+- 读取文件分析模块依赖
+- 对模块进行解析执行(深度遍历)
+- 针对不同的模块使用相应的 loader
+- 编译模块，生成抽象语法树 AST。
+- 循环遍历 AST 树，拼接输出 js
+
+#### loader 和 plugin
+
+##### loader
+
+webpack 本身只处理 js 文件中的依赖关系(`import /export`),对其他内容或不同文件可通过 loader 进行编译
+Loaders 是用来告诉 webpack 如何转化处理某一类型的文件，并且引入到打包出的文件中
+
+> 常用 loader:`file-loader(deal png)`,`css-loader(deal style)`,`babel(deal es6)`
+
+##### plugin
+
+webpack 插件是一个具有 `apply` 属性的 `JavaScript` 对象。`apply` 属性会被 `webpack compiler` 调用，并且 `compiler` 对象可在整个编译生命周期访问。
+这个 apply 方法在安装插件时，会被 webpack compiler 调用一次。apply 方法可以接收一个 webpack compiler 对象的引用，从而可以在回调函数中访问到 compiler 对象。一个简单的插件结构如下：
+
+```js
+function HelloWorldPlugin(options) {
+  // 使用 options 设置插件实例……
+}
+
+HelloWorldPlugin.prototype.apply = function(compiler) {
+  // 初始时通过apply将插件注入到 compiler周期钩子中
+  compiler.plugin("done", function(compilation) {
+    console.log("Hello World!")
+     // 现在，设置回调来访问 compilation 中的步骤：
+    compilation.plugin("optimize", function() {
+      console.log("Assets are being optimized.");
+  })
+}
+
+module.exports = HelloWorldPlugin
+```
+
+> - 常用 plugin:`CommonsChunkPlugin (extract common module in different bundle)`,`HtmlWebpackPlugin(简单创建 HTML 文件，用于服务器访问)`,`UglifyJsPlugin(compress js file)`
 
 ### 扩展运算符(...)
 
@@ -804,3 +851,17 @@ const nodeList = document.querySelectorAll("div")
 
 const array = [...nodeList]
 ```
+
+## week11
+
+### webGL
+
+#### 什么是 webGL
+
+WebGL（全写 Web Graphics Library）是一种 3D 绘图协议，这种绘图技术标准允许把 JavaScript 和 OpenGL ES 2.0 结合在一起，通过增加 OpenGL ES 2.0 的一个 JavaScript 绑定，WebGL 可以为 HTML5 Canvas 提供硬件 3D 加速渲染，这样 Web 开发人员就可以借助系统显卡来在浏览器里更流畅地展示 3D 场景和模型了，还能创建复杂的导航和数据视觉化。
+
+#### 为什么需要 OpenGL
+
+webGL 的优势就是可以利用 GPU 处理图像,GPU 可以多核并行处理将大大优于 CPU 处理图像,而 OpenGL 则是显卡的底层驱动接口,webGL 通过结合 OpenGL 从而实现最好的图形处理途径,以至于能够在浏览器中创造精致的动画.
+
+JavaScript-> Canvas -> WebGL -> OpenGL ->.... -> 显卡
