@@ -865,3 +865,15 @@ WebGL（全写 Web Graphics Library）是一种 3D 绘图协议，这种绘图�
 webGL 的优势就是可以利用 GPU 处理图像,GPU 可以多核并行处理将大大优于 CPU 处理图像,而 OpenGL 则是显卡的底层驱动接口,webGL 通过结合 OpenGL 从而实现最好的图形处理途径,以至于能够在浏览器中创造精致的动画.
 
 JavaScript-> Canvas -> WebGL -> OpenGL ->.... -> 显卡
+
+### redis
+
+#### redis 是什么
+
+Redis 是一个使用 ANSI C 语言编写、支持网络、可基于内存亦可持久化的日志型、高性能的 key-value 数据库
+
+#### redis 的作用
+
+- 存储数据在缓存在内存中，可以加快数据的提取发送，在部分场合可以对关系数据库起到很好的补充作用
+
+- redis 会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。
