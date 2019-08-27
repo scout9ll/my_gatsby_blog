@@ -877,3 +877,97 @@ Redis 是一个使用 ANSI C 语言编写、支持网络、可基于内存亦可
 - 存储数据在缓存在内存中，可以加快数据的提取发送，在部分场合可以对关系数据库起到很好的补充作用
 
 - redis 会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。
+
+### AI 为什么用 python
+
+python 作为一个运行效率在所有语言中倒数的语言为什么成为了 AI 这种主要是计算数据的任务的主流语言?
+
+> 人工智能的核心算法是完全依赖于 C/C++的，而且 Python 历史上也一直都是科学计算和数据分析的重要工具。Python 虽然是脚本语言，但是因为容易学，迅速成为科学家的工具（MATLAB 等也能搞科学计算，但是软件要钱，且很贵），从而积累了大量的工具库、架构，人工智能涉及大量的数据计算，用 Python 是很自然的，简单高效。
+
+#### 易学
+
+对于编程只是副业的 AI 科学家们来说，没那么多时间去学习和使用 C++，还是把大量时间用来研究研究算法比较实在。
+
+#### 调用的数据处理的接口(库)是 C++
+
+Python 虽然慢但是它只是调用 AI 接口，真正的计算全是 C/C++写好的数据底层，用 Python 只是写相应的逻辑，几行代码就出来了。换成 C++的话，不仅代码量太大，而且开发效率太低，不是说用 C++写不了上层逻辑，，而是换来总体速度提升 1%，得不偿失。
+
+#### 生态丰富
+
+Python 在拥有简洁的语法和丰富的生态环境从而提高开发速度的同时，对 C 的支持也很好，python 结合了语言的优点，又通过对 C 的高度兼容弥补了速度慢的缺点，自然受到数据科学研究者与机器学习程序员的青睐。
+
+### svg
+
+#### svg 是什么
+
+svg 是属于 XML 的可扩展的矢量图形(scalable vector graphic),本质上是属于一种 XML 语法,故可以被浏览器识别
+
+#### svg 主要属性
+
+- fill
+- stroke
+- path
+- stroke-miterlimit
+- stroke-dasharry
+
+#### svg 主要功能
+
+- animateTransfrom
+  > SVG 专属动画
+
+```html
+<path fill="red" d="...">
+  <animateTransform
+    id="foo"
+    attributeName="transform"
+    attributeType="XML"
+    type="translate"
+    dur="1s"
+    begin="1"
+    value="0,15;0,-15;0,15"
+    repeatCount="indefinite"
+  />
+</path>
+```
+
+- filter
+  > svg 专属滤镜
+
+```HTML
+<html>
+  <title>SVG Filter</title>
+  <body>
+    <h1>Sample SVG Filter</h1>
+
+    <svg width="800" height="800">
+      <defs>
+        <filter id="filter1" x="0" y="0">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
+        </filter>
+
+        <filter id="filter2" x="0" y="0" width="200%" height="200%">
+          <feOffset result="offOut" in="SourceAlpha" dx="20" dy="20" />
+          <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+          <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+      </defs>
+
+      <g>
+        <text x="30" y="50">
+          Using Filters (Blur Effect):{" "}
+        </text>
+        <rect
+          x="100"
+          y="100"
+          width="90"
+          height="90"
+          stroke="green"
+          stroke-width="3"
+          fill="green"
+          filter="url(#filter1)"
+        />
+      </g>
+    </svg>
+  </body>
+</html>
+```
