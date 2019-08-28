@@ -31,9 +31,28 @@ title: "note"
 
 ### 关键渲染路径
 
-- style>layout>paint>composite
-- 应用中的元素样式>这些元素生成形状和位置——布局>每个元素填充像素>绘制这些图层
-- 故应该尽量用 transform 这样的不改变布局的属性；
+#### 基本渲染前流程
+
+html=>dom-|  
+css=>cssom-| =>download+resolve=>renderTree=>begin render=>style  
+js------------ |
+
+> - renderTree 是渲染树,不包括 DOM 中的 display 为 none 的对象
+> - cssom,css 对象模型
+> - js 的加载会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,transition 在进入页面时将看不见
+
+#### 渲染(render)路径
+
+style>layout>paint>composite
+应用中的元素样式>这些元素生成形状和位置——布局>每个元素填充像素>绘制这些图层
+
+#### 重绘(repainting)和重排(reflow)
+
+- Reflow（回流/重排）：当它发现了某个部分发生了变化影响了布局，渲染树需要重新计算。
+- Repaint（重绘）：改变了某个元素的背景颜色，文字颜色等，不影响元素周围或内部布局的属性，将只会引起浏览器的 repaint，根据元素的新属性重新绘制，使元素呈现新的外观。重绘不会带来重新布局，并不一定伴随重排；
+  Reflow 要比 Repaint 更花费时间，也就更影响性能。所以在写代码的时候，要尽量避免过多的 Reflow。
+
+> 故应该尽量用 transform 这样的不改变布局的属性,既不会 repaint 也不会 reflow；
 
 ### =100%?/
 
@@ -586,7 +605,7 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 #### preload
 
 - 定义
-  优先预加载，优先级高，可以在 render DOM tree 时候异步加载，但不会执行导致 render 阻塞
+  优先预加载，_优先级高_，可以在 render tree 时候异步加载，但不会执行导致 render 阻塞
 
 - 用法  
   `<link rel="preload" href="..." as="..." onload="preloadFinished()">`
@@ -594,7 +613,11 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 #### prefetch
 
-- 预获取，将在页面加载完成后提前加载，作为下一页的部分
+- 预获取，_优先级低_,将在页面加载完成后提前加载，作为下一页的部分
+
+#### 应用
+
+在 VUE SSR 生成的页面中，首页的资源均使用 preload，而路由对应的资源，则使用 prefetch
 
 ### lazy-load
 
