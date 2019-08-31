@@ -619,6 +619,10 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 在 VUE SSR 生成的页面中，首页的资源均使用 preload，而路由对应的资源，则使用 prefetch
 
+#### 扩展
+
+给 script 标签设置`defer`也能延迟加载,页面加载完后才加载执行该 js 文件
+
 ### lazy-load
 
 ### SEO 策略
@@ -881,10 +885,13 @@ const array = [...nodeList]
 
 #### 什么是 webGL
 
+![webGL](../images/webGL.png)
+
 WebGL（全写 Web Graphics Library）是一种 3D 绘图协议，这种绘图技术标准允许把 JavaScript 和 OpenGL ES 2.0 结合在一起，通过增加 OpenGL ES 2.0 的一个 JavaScript 绑定，WebGL 可以为 HTML5 Canvas 提供硬件 3D 加速渲染，这样 Web 开发人员就可以借助系统显卡来在浏览器里更流畅地展示 3D 场景和模型了，还能创建复杂的导航和数据视觉化。
 
 #### 为什么需要 OpenGL
 
+![webGL](../images/webGL2.png)
 webGL 的优势就是可以利用 GPU 处理图像,GPU 可以多核并行处理将大大优于 CPU 处理图像,而 OpenGL 则是显卡的底层驱动接口,webGL 通过结合 OpenGL 从而实现最好的图形处理途径,以至于能够在浏览器中创造精致的动画.
 
 JavaScript-> Canvas -> WebGL -> OpenGL ->.... -> 显卡
@@ -994,3 +1001,13 @@ svg 是属于 XML 的可扩展的矢量图形(scalable vector graphic),本质上
   </body>
 </html>
 ```
+
+### cookie 和 token
+
+#### 最大区别
+
+cookie 自动对相同域名发送  
+token 需要手动发送(在前端页面设置)
+
+> 因此类似表达对安全要求高的提交用 token  
+> 例如一个购买请求`www.buybuybuy.com/buy?game1=1`,若用 cookie 验证,极易遭遇`CSRF`（Cross-site request forgery,跨站请求伪造）,他人发来一个这样的地址,若不小心点击则会中招
