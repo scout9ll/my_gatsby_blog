@@ -7,6 +7,7 @@ const Blog = () => {
   const data = useStaticQuery(graphql`
     {
       allMarkdownRemark(
+        sort: { order: DESC, fields: [frontmatter___date] }
         filter: { frontmatter: { path: { regex: "/blog/" } } }
       ) {
         edges {
