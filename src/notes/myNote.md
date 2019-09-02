@@ -27,7 +27,7 @@ title: "note"
 - offsetTop 为元素 top 距离祖先元素的距离，若计算绝对到顶端的距离可以使用 scollY+obj.getBoundingClientRect.Y(元素到窗口的高度)
 - offsetHeight 为元素高度包括 padding 和 border，也可直接用 height,scrollHeight 若子元素大于父元素则为子元素的高度
 - innerHeight 为 窗口的高度
-- window 事件 :page 鼠标到页面顶的坐标,包括卷入的高度,client 不包括
+- window 事件 :page 鼠标到页面顶的坐标,包括卷入的高度,client 不包括 border
 
 ### 关键渲染路径
 
@@ -245,7 +245,7 @@ for (const value of normalObj) {
 
 - set
   - 唯一数组类型,创建方式:`new Set([a,...])`
-  - 特点:成员的值唯一,构建时和 map 一样通过 hash 运算散射索引.
+  - 特点:成员的值唯一,内部为二叉树.
 
 ## week 4
 
@@ -1004,10 +1004,57 @@ svg 是属于 XML 的可扩展的矢量图形(scalable vector graphic),本质上
 
 ### cookie 和 token
 
-#### 最大区别
+#### cookie
 
-cookie 自动对相同域名发送  
-token 需要手动发送(在前端页面设置)
+http 协议中浏览器中的一种缓存类型,是服务器或脚本可以维护客户工作站上信息的一种方式
 
-> 因此类似表达对安全要求高的提交用 token  
-> 例如一个购买请求`www.buybuybuy.com/buy?game1=1`,若用 cookie 验证,极易遭遇`CSRF`（Cross-site request forgery,跨站请求伪造）,他人发来一个这样的地址,若不小心点击则会中招
+- 大小  
+  一个浏览器能创建的 Cookie 数量最多为 300 个，并且每个不能超过 4KB，每个 Web 站点能设置的 Cookie 总数不能超过 20 个
+- 存储位置  
+  Cookie 是个存储在浏览器目录的文本文件，当浏览器运行时，存储在 RAM 中。一旦你从该网站或网络服务器退出，Cookie 也可存储在计算机的硬驱上。当访客结束其浏览器对话时，即终止的所有 Cookie。
+- 存储时间  
+  由服务器设置的时间决定(`max-age`||`Expire`),也可自行删除
+- 使用注意
+  Cookie 必须在 HTML 文件的内容输出之前设置
+
+#### token
+
+token 一般指 http 协议中请求头中`authorization`中设置的一个`key-Value`
+
+#### 相同点
+
+- 维持客户-服务器
+- 都在请求头中发送
+
+#### 区别
+
+- 发送方式
+  cookie 自动对相同域名发送  
+  token 需要手动发送(在前端页面设置)
+
+  > 因此类似表达对安全要求高的提交用 token  
+  > 例如一个购买请求`www.buybuybuy.com/buy?game1=1`,若用 cookie 验证,极易遭遇`CSRF`（Cross-site request forgery,跨站请求伪造）,他人发来一个这样的地址,若不小心点击则会中招
+
+- 设置方式
+  cookie 由服务端 `Set-Cookie header`后自动存储
+
+```python
+Set-Cookie: name = VALUE;
+expires = DATE;
+path = PATH;
+domain = DOMAIN_NAME; #设置发送域名,在请求时会首先搜索
+```
+
+token 需从服务端获得后再在前端设置存储(`localStorage.set`)
+
+### Design Psychology
+
+#### affordance
+
+能唤醒人们无意识的行为进行交互
+
+#### empathy map
+
+同理心图 ,用户图谱
+
+####
