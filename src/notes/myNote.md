@@ -343,6 +343,72 @@ for (const value of normalObj) {
 
 - 主要区别:get 是获取 node 的指针(node 变,则随其改变),query 深克隆获取具体 node.
 
+## 总结
+
+有 6 种主要的方法，可以在 DOM 中进行搜素：
+
+<table>
+<thead>
+<tr>
+<td>Method</td>
+<td>Searches by...</td>
+<td>Can call on an element?</td>
+<td>Live?</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getElementById</code></td>
+<td><code>id</code></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>getElementsByName</code></td>
+<td><code>name</code></td>
+<td>-</td>
+<td>✔</td>
+</tr>
+<tr>
+<td><code>getElementsByTagName</code></td>
+<td>tag or <code>'*'</code></td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td><code>getElementsByClassName</code></td>
+<td>class</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td><code>querySelector</code></td>
+<td>CSS-selector</td>
+<td>✔</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>querySelectorAll</code></td>
+<td>CSS-selector</td>
+<td>✔</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+
+请注意，只有在文档 `document.getElementById(...)` 的上下文中才能调用 `getElementById` 和 `getElementsByName`。但元素中没有 `elem.getElementById(...)` 会报错。
+
+也可以在元素上调用其他方法，例如 `elem.querySelectorAll(...)` 将会在 `elem`（在 DOM 子树中）内部进行搜素。
+
+除此以外：
+
+- `elem.matches(css)` 用于检查 `elem` 与给定的 CSS 选择器是否匹配。
+- `elem.closest(css)` 用于查找与给定 CSS 选择器相匹配的最近的祖先。`elem` 本身也会被检查。
+
+最后我们在提一种检查父子关系的方法：
+
+- 如果 `elemB` 在 `elemA`（`elemA` 的后代）中或者当 `elemA==elemB` 时 `elemA.contains(elemB)` 将返回 true。
+
 ## week 5
 
 ### event.target 和 event.currentTarget
@@ -504,7 +570,7 @@ null === undefined //false
 #### 区别
 
 - package.json 是 install XX 的直接依赖,并随着 install 的改变,版本前有`^`号表示可以用之后的最新版本
-- package-lock.json 是 package.json 生成时候自动生成,包含 install 时的具体版本号,及其所有间接依赖,当之后 install 时,直接依赖会更新,但间接依赖不更新
+- package-lock.json 是 package.json 生成时候自动生成,包含 install 时的具体版本号,及其所有间接依赖,当之后 update 包时,直接依赖会更新,但间接依赖不更新
 
 #### 用法
 
@@ -1057,4 +1123,64 @@ token 需从服务端获得后再在前端设置存储(`localStorage.set`)
 
 同理心图 ,用户图谱
 
-####
+#### ·holding
+
+### dota2 webapi
+
+`myKey`=`5000557018&key=0D6563D96A865670FBA3171ADC40DDB0`
+
+#### api example
+
+`https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=5000557018&key=0D6563D96A865670FBA3171ADC40DDB0`
+
+### encodeURIComponent 和 encodeURI
+
+由于 URI 对一些字符不能正确传递，需要将其编码为可传递的数字字母及%
+
+#### 区别
+
+encodeURI：只会处理空格 /s
+encodeURIComponent: 处理所有非数字字母 {^a-z0-9}
+
+### 订阅发布 和 观察者
+
+#### 最主要区别
+
+观察者的 `notify` 一般被设置为条件触发到所有监听者
+订阅发布的 `dispatch` 为主动触发到特定监听者,中间存在`filter`
+
+### rust
+
+新的系统编程语言,属于偏底层的编译语言
+
+#### attribute
+
+no garbage and runtime,通过内置丰富的类型和严格的编译检查实现内存的安全和高性能的表现
+
+### \_\_proto\_\_ 和 prototype
+
+#### _proto_
+
+`_proto_`是任何引用类型的*访问*属性
+
+该属性有一个属性`constructor`,和其他属性 -`constructor`为其构造函数, sonObj instanceof fatherObj 就是通过判断 sonObj 中`_proto_`链中的`constructor`中是否存在 fatherObj
+-`
+
+#### prototype
+
+`prototype`是构造函数的属性,为创建实例的`_proto_`,默认构造函数的`prototype`存在`construtor`为自身,
+
+#### 联系
+
+- 所有的引用类型都有`_proto_`,全部是从最顶点的一个`Function`创建
+
+```js
+;(Function.__proto__.constructor === Object.__proto__.constructor) === Function
+```
+
+- 所有的`_proto_`的顶点都是 Object.prototype.\_\_proto\_\_
+
+```js
+;(Function.__proto__.__proto__.__proto__ === Object.prototype.__proto__) ===
+  null
+```
