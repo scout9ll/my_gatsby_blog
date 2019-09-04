@@ -152,6 +152,7 @@ class Dep {
 }
 const dep = new Dep()
 
+// 注册监听的函数
 let activeUpdate
 
 function autorun(update) {
@@ -178,4 +179,4 @@ state.test++
 document.body.addEventListener("click", () => state.test++)
 ```
 
-这里只是简单的绑定了原生 DOM 渲染,真正的 VUE 上是绑定组件的`virtual Dom`渲染函数,之后将结合响应系统，Vue 能够智能地计算出最少需要重新渲染多少组件(`更新列队`,`diff比对`)，并把 DOM 操作次数减到最少。
+这里只是简单的绑定了原生 DOM 渲染,真正的 VUE 上是绑定被编译后的渲染函数,该函数创建`virtual dom`，然后智能地计算出最少需要重新渲染多少组件(`更新列队`,`diff比对`)，最后生成 DOM,这样能够把 DOM 操作次数减到最少,从而实现性能优化.
