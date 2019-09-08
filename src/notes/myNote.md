@@ -22,6 +22,26 @@ title: "note"
 
 ## week 2
 
+### clientX、clientY
+
+点击位置距离当前 body 可视区域的 x，y 坐标
+
+### pageX、pageY
+
+对于整个页面来说，包括了被卷去的 body 部分的长度
+
+### screenX、screenY
+
+点击位置距离当前电脑屏幕的 x，y 坐标
+
+### offsetX、offsetY
+
+相对于带有定位的父盒子的 x，y 坐标
+
+### x、y
+
+和 screenX、screenY 一样
+
 ### height-top
 
 - offsetTop 为元素 top 距离祖先元素的距离，若计算绝对到顶端的距离可以使用 scollY+obj.getBoundingClientRect.Y(元素到窗口的高度)
@@ -53,6 +73,19 @@ style>layout>paint>composite
   Reflow 要比 Repaint 更花费时间，也就更影响性能。所以在写代码的时候，要尽量避免过多的 Reflow。
 
 > 故应该尽量用 transform 这样的不改变布局的属性,既不会 repaint 也不会 reflow；
+
+#### 渲染在什么时候执行
+
+当宏任务执行之前,或者说一个 eventloop 的最后(marco 和 mircao 之后)
+例如:
+
+```js
+function heavy() {
+  document.body.style.background = "red"
+  //do some such heavy things,it cost 2s to deal
+}
+heavy() // the body can't render until 2s later
+```
 
 ### =100%?/
 
@@ -343,7 +376,7 @@ for (const value of normalObj) {
 
 - 主要区别:get 是获取 node 的指针(node 变,则随其改变),query 深克隆获取具体 node.
 
-## 总结
+#### 总结
 
 有 6 种主要的方法，可以在 DOM 中进行搜素：
 
@@ -533,7 +566,8 @@ console.log("4")
 > name 是属性。  
 > 当 use strict 生效，strict 为真。
 
-请注意箭头函数有些特别：它们没有 `this`。在箭头函数内部访问的都是来自外部的 `this` 值。
+请注意箭头函数有些特别：它们没有 `this`。  
+箭头函数的`this`在创建时确定,由于创建时的环境属于其函数本身外部,也可说=>在箭头函数内部访问`this`的都是来自外部的 `this` 值,_?_
 
 ## week 8
 
@@ -1163,7 +1197,7 @@ no garbage and runtime,通过内置丰富的类型和严格的编译检查实现
 
 `_proto_`是任何引用类型的*访问*属性
 
-该属性有一个属性`constructor`,和其他属性 -`constructor`为其构造函数, sonObj instanceof fatherObj 就是通过判断 sonObj 中`_proto_`链中的`constructor`中是否存在 fatherObj
+该属性有一个属性`constructor`,和其他属性 -`constructor`为其构造函数, sonObj instanceof fatherFunction 就是通过判断 sonObj 中`_proto_`链中的`construtor`是否存在 fatherFunction.
 -`
 
 #### prototype
@@ -1172,7 +1206,14 @@ no garbage and runtime,通过内置丰富的类型和严格的编译检查实现
 
 #### 联系
 
-- 所有的引用类型都有`_proto_`,全部是从最顶点的一个`Function`创建
+- 函数是 JS 中一等公民,函数衍生对象(Object 类型),函数是最高级的对象(拥有对象的所有属性)
+
+- Object 类型指引用类型中的对象类型,其属性是引用类型中最基础的,都存在的
+- 所有的引用类型都有`_proto_`,故他们都有对象的所有属性,全部是从最顶点的一个`Function`创建
+
+```js
+fooObj.__proto__ = Foo.prototype
+```
 
 ```js
 ;(Function.__proto__.constructor === Object.__proto__.constructor) === Function
@@ -1181,6 +1222,61 @@ no garbage and runtime,通过内置丰富的类型和严格的编译检查实现
 - 所有的`_proto_`的顶点都是 Object.prototype.\_\_proto\_\_
 
 ```js
+Object.prototype.constructor === Object
 ;(Function.__proto__.__proto__.__proto__ === Object.prototype.__proto__) ===
   null
 ```
+
+#### 模拟 class 的继承
+
+```js
+function Person() {}
+Person.prototype.dance = function() {}
+function Ninja() {}
+Ninja.prototype = new Person()
+Object.defineProperty(Ninja.prototype, "constructor", {
+  enumerable: false,
+  value: Ninja,
+  writable: true,
+})
+
+Ninja {}
+__proto__: Person
+  constructor: ƒ Ninja()
+  __proto__: Object
+```
+
+### 执行上下文和函数上下文
+
+#### 执行上下文
+
+js 在执行时创建在调用栈的环境,决定可访问的变量和函数
+
+> _Js 执行流程_
+
+1. 扫描=>注册当前词法环境的函数声明=>注册变量声明
+
+![register-step](../images/register-step.png)
+
+```js
+let b = 2
+function foo() {
+  var a = b
+}
+// create window environment
+// bind foo = function in window
+//foo[[envrionment]]==window
+// register b in window
+// begin execute
+// b= 2
+// foo()
+foo()
+//create foo function enviroment
+// register args
+// regist a  in window
+// begin execute
+// find b in foo environment,can't find
+// to find b in foo[[environment]]
+```
+
+2. 顺序调用
