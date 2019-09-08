@@ -70,6 +70,7 @@ const Blog = () => {
                       className="tag"
                       name={tag}
                       onClick={() => setQuery(tag)}
+                      key={tag}
                     >
                       {tag}
                     </span>

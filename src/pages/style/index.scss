@@ -128,3 +128,10 @@ section {
   height: 150px;
   background-color: $primary;
 }
+
+blockquote {
+  background: radial-gradient(#fec70a, transparent);
+  border-left: 10px solid #52afffa3;
+  margin: 0.5rem;
+  padding: 5px;
+}

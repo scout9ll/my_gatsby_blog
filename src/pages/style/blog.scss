@@ -18,18 +18,17 @@ $pink: #ff69b4;
   grid-template-columns: 1fr 80% 1fr;
 }
 .note-list {
-  display: grid;
+  display: flex;
   grid-column: 2/3;
-  grid-template-columns: repeat(3, 1fr);
-  grid-row-gap: 6%;
-  grid-column-gap: 4%;
-  margin-top: 50px;
+  flex-wrap: wrap;
 }
 .note-block {
-  // perspective: 800px; //会产生定位效果,relationtive
+  // perspective: 800px; //会产生定位效果,relative
 }
 .note-view-container {
   perspective: 800px;
+  width: 300px;
+  margin: 50px;
 }
 .note-card {
   border: 2px solid rgba(129, 95, 95, 0.74);
@@ -92,17 +91,24 @@ $pink: #ff69b4;
   background-color: wheat;
   padding: 30px 40px;
   border-bottom: 0;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 8px;
+
   z-index: 1011;
   width: 80%;
   min-height: 800px;
 }
 .note-modal-delete {
   position: absolute;
+  text-align: center;
   top: 20px;
   right: 40px;
   z-index: 1013;
+  background: aqua;
+  width: 25px;
+  border-bottom-left-radius: 38%;
+  border-bottom-right-radius: 60%;
+  box-shadow: aliceblue 1px -2px 6px 0px;
+  cursor: pointer;
 }
 .note-content-mask {
   background-color: rgba(0, 0, 0, 0.5);
@@ -119,6 +125,10 @@ $pink: #ff69b4;
   height: 100vh;
   transition: all 1s ease;
   transform: scale(1);
+  & .note-content {
+    height: 92vh;
+    overflow: auto;
+  }
 }
 @media screen and (max-width: 960px) {
   .note-list {
@@ -128,6 +138,9 @@ $pink: #ff69b4;
 @media screen and (max-width: 750px) {
   .note-list {
     grid-template-columns: repeat(1, 1fr);
+  }
+  .note-content {
+    width: 90%;
   }
 }
 .blogs {

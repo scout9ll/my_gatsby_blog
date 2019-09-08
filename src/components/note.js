@@ -5,7 +5,6 @@ const Note = ({ noteContent, title, subTitle }) => {
   //   const [open, setOpen] = useState(false)
   const [scale, setScale] = useState(0)
   //   let ss = () => (open ? setScale(1) : "")
-
   return (
     <div
       className="note-block"

@@ -40,6 +40,12 @@ main {
   display: grid;
   justify-content: center;
   grid-template-columns: [full-start] 1fr [half-start]1fr 1fr 1fr[half-end] 1fr [full-end];
+  padding-bottom: 200px;
+}
+footer {
+  display: grid;
+  justify-content: center;
+  background-color: $link;
 }
 header {
   transition: all 1s ease;
