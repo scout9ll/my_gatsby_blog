@@ -658,11 +658,13 @@ vue 合并 watcher,react 合并 state
 
 #### 用途
 
-- 将二进制图片转换为 base64 文件传输
+- 将二进制图片转换为 文件传输
+  base64
 
 #### 方法
 
-在浏览器中用`window.btoa`encode,`window.atob`decode
+- 在浏览器中用`window.btoa`encode,`window.atob`decode
+- 在 canvas 中`ctx.toDataURL(mimeType,quality:0~1,'compressRatio'):base64`
 
 ### axios 中的坑
 
@@ -1280,3 +1282,91 @@ foo()
 ```
 
 2. 顺序调用
+   _holding_
+
+## week12
+
+### WAN/LAN
+
+#### WAN
+
+- 即 Wide Area Network,广域网,是网络运行商分配的网络.
+  针对分配的 IP 是否固定又分为:  
+  `固定IP`:一般是办理商业宽带时运营商才会分配,一个不变的公共网络上的 IP 地址  
+  `动态IP`:一般普通的家庭宽带都是分配的动态 IP,由于公网 IP 数量有限,IP 每次接通后都是动态随机分配的
+
+- 连接方式
+  通过路由器 wan 口连接
+
+#### LAN
+
+- 即 Local Area Network,局域网,是本地分配的网络.
+  LAN IP 由于不接入公共网络,故也称`虚拟IP`, 为防止与 WAN IP 冲突,一般规定使用
+
+```NGINX
+    A级：10.0.0.0 - 10.255.255.255 　
+
+    B级：172.16.0.0 - 172.31.255.255 　
+
+    C级：192.168.0.0 - 192.168.255.255 　
+```
+
+- 连接方式  
+  通过路由器和交换机的 LAN 接口,
+
+### git
+
+#### 配置用户名
+
+- git config --global user.name "zs" 注意: 最好和远程 github 的用户名相同
+- git config --global user.email "自已的邮箱地址" 也应该相同
+- 注意: 控制面板\用户帐户和家庭安全\凭据管理器
+
+#### 初始化仓库
+
+- git init
+
+### 命令
+
+#### 常用命令
+
+- git status 查看工作区状态
+- git add . 把工作区所有内容存入暂存区
+- git checkout xx 把暂存区内容还原到工作区
+  - 慎用 暂存区的内容会覆盖工作区内容
+- git commit -m'xxx' 添加文件到存储区
+  - 为了方便以后查看代码或者回滚代码,-m 的描述信息不能随便填
+  - 注意: -m'xxx'不能忘掉,否则会进入 git 的 vim 编辑器
+  - 退出：esc => :wq
+- git log 查看历史版本
+- git reset --hard '哈希' 时光机,回到某一次记录
+
+#### 分支系统
+
+- git branch dev(分支名字自己定义)
+- git branch 查看分支
+  - 默认主分支为 master 分支
+  - 在哪个分支上,显示当前分支的代码
+- git checkout dev(需要切换到的分支名称) 切换分支
+- git merge xx(把分支 xx 合并到当前分支) 合并分支(子分支还存在)
+- git branch -d dev 删除分支
+
+#### github
+
+- git remote add origin git@github.com:nevermo2013/1905-git-demo.git 建立仓库的关联
+  - https 形式地址,一般需要用户名密码 `https://github.com/nevermo2013/1905-git-demo.git`
+  - ssh 形式地址
+  - git remote remove origin 删除远程的源
+- git remote -v 查看仓库
+- git push -u origin master 把本地存储代码 push 到远程仓库(的 master 主分支)
+- git push(之后的推送直接 push)
+- git clone xx clone 某个仓库到本地,保持仓库的远程连接
+- git pull 拉取远程代码,一般在冲突的时候使用
+
+#### 配置 ssh
+
+> github 可以通过 https/ssh 的两种形式和本地仓库建立连接. https 的形式需要每次输入用户名和密码. 推荐使用 ssh 形式,而且要会配置.
+
+- ssh-keygen -t rsa -C "nevermoxxxx@xxx.com" 下一步即可
+- 在本地 C:\Users\Administrator\.ssh 生成的 3 个文件
+- 在远程 github=> setting=> ssh 配置 添加 本地 id_rsa.pub 的内容 即可
