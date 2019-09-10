@@ -1370,3 +1370,80 @@ foo()
 - ssh-keygen -t rsa -C "nevermoxxxx@xxx.com" 下一步即可
 - 在本地 C:\Users\Administrator\.ssh 生成的 3 个文件
 - 在远程 github=> setting=> ssh 配置 添加 本地 id_rsa.pub 的内容 即可
+
+### ssh
+
+Secure Shell ,和 HTTP 的 SSL 一样都是在应用层基础上的安全协议.
+
+#### 两种级别的安全验证
+
+- 基于口令的安全验证
+
+- 基于密匙的安全验证
+  - 对称加密 :  
+    使用同一个密钥 继续加密和解密
+  - 非对称加密 :  
+    利用 [RSA 加密](https://blog.csdn.net/tabactivity/article/details/49685319)算法分为 2 个钥匙,公钥和私钥
+    公钥和私钥是成对的，它们互相解密。公钥加密，私钥解密。私钥数字签名，公钥验证。
+
+### ssr
+
+### sass 进阶
+
+#### mixin
+
+利用 mixin(混合),可以提取公共部分,example :
+
+> 表示值(sass 用 6 种值类型)的变量用\$,属性的比那里用#{}
+
+```scss
+@mixin footer-icon($icon) {
+  .footer-icon.icon-#{$icon} {
+    background-image: url("../assets/imgs/icons/icon-#{$icon}.png");
+    &.router-link-active {
+      background-image: url("../assets/imgs/icons/icon-#{$icon}-active.png");
+    }
+  }
+}
+
+@include footer-icon("home");
+@include footer-icon("movie");
+```
+
+#### @for
+
+利用@for 遍历,批量生成 style,example:
+
+```scss
+$icons: ("home", "movie", "ticket", "cinema");
+@for $i from 1 through length($icons) {
+  $icon: nth($icons, $i); // nth($icons,$i) == icons[i] in python
+  .footer-icon.icon-#{$icon} {
+    background-image: url("../assets/imgs/icons/icon-#{$icon}.png");
+    &.router-link-active {
+      background-image: url("../assets/imgs/icons/icon-#{$icon}-active.png");
+    }
+  }
+}
+```
+
+### 简单的 3D-nav 切换
+
+#### 3 个层级,从上至下
+
+- nav
+- content
+- content-mask,用来制作景深
+
+#### 设置 perspective
+
+需要 3d 变化的父盒子要设置 perspective,该盒子要设置`transform-style:3d`
+
+#### 延迟 transition
+
+通过在 transition 上设置不同的时间制造效果
+`transition:opacity 0.6s ,transfrom .2s(delay) .6s`
+
+#### 动态切换
+
+切换时,同时出现 content-mask,和 transform3d content 的大小
