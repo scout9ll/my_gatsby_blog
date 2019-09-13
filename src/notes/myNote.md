@@ -518,11 +518,20 @@ for (const value of normalObj) {
   - 情况下即便很久以后再去看这个函数依旧可以很容易知道这个函数需要哪些参数
   - 因为不用担心有副作用(side-effects),因此可以更好地工作
 
-### react 子向父跨组件通信的几种方法
+### react 和 vue 子向父跨组件通信的几种方法
+
+#### react
 
 - 通过在父子间中创建函数(绑定对象后)传递给子组件,则子组件变化运行函数后则父子间变化.
 - 通过 context (redux)等全局变量
 - 利用 pub/sub 模式,例如创建使用 Node.js EventEmitter 进行发射,接受,子组件发射(emit),父子间接受(onEmit)
+
+#### vue
+
+- this.\$emit
+- Vue.bus
+- this.\$parent
+- context(redux)
 
 ### react CSS 的几种写法
 
@@ -1410,7 +1419,7 @@ Secure Shell ,和 HTTP 的 SSL 一样都是在应用层基础上的安全协议.
 @include footer-icon("movie");
 ```
 
-#### @for
+#### @for 和@each
 
 利用@for 遍历,批量生成 style,example:
 
@@ -1418,6 +1427,17 @@ Secure Shell ,和 HTTP 的 SSL 一样都是在应用层基础上的安全协议.
 $icons: ("home", "movie", "ticket", "cinema");
 @for $i from 1 through length($icons) {
   $icon: nth($icons, $i); // nth($icons,$i) == icons[i] in python
+  .footer-icon.icon-#{$icon} {
+    background-image: url("../assets/imgs/icons/icon-#{$icon}.png");
+    &.router-link-active {
+      background-image: url("../assets/imgs/icons/icon-#{$icon}-active.png");
+    }
+  }
+}
+
+//or @each
+
+@each $icon in $icons {
   .footer-icon.icon-#{$icon} {
     background-image: url("../assets/imgs/icons/icon-#{$icon}.png");
     &.router-link-active {
@@ -1447,3 +1467,43 @@ $icons: ("home", "movie", "ticket", "cinema");
 #### 动态切换
 
 切换时,同时出现 content-mask,和 transform3d content 的大小
+
+## week13
+
+### typescript 特殊类型
+
+#### Emun
+
+Emun 是枚举类型,被 TS 编译成对象,起属性包括枚举的所有 KEY 和 VALUE,从而可以互相映射
+
+#### any
+
+规定为任何类型,让其跳过类型检查
+
+#### never
+
+规定为不属于任何类型,通常表现为抛出异常或无法执行到终止点（例如无线循环）;
+
+```ts
+function error(message: string): never {
+  throw new Error(message)
+}
+```
+
+#### readonly
+
+规定属性只读
+
+#### turple
+
+规定 item 类型的数组
+
+```ts
+```
+
+#### class 中的 private 和 protect
+
+private:声明为私有属性,外面都不可用;
+protect:外面都不可用,但可在子元素中 super;
+
+### typescript 特殊语法
