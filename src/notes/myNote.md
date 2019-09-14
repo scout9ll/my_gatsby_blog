@@ -1507,3 +1507,41 @@ private:声明为私有属性,外面都不可用;
 protect:外面都不可用,但可在子元素中 super;
 
 ### typescript 特殊语法
+
+## Vue 函数组件
+
+### 原理
+
+当使用无状态的组件时,可以不需要生成实例,直接调用渲染函数,
+
+### 两种写法
+
+```js
+//Vue的函数组件(无状态),本质和react毫无区别
+
+const exampleCp = new Vue({
+  functional: true,
+  props: ["tags"],
+  render(h) {
+    return h("div", this.tags.map((e, i) => h(e, i)))
+  },
+})
+
+const exampleFn = (h, data) => h("div", data.props.tags.map((e, i) => h(e, i)))
+```
+
+### 在 jsx 中
+
+`<>`会被转换成`h`函数,即 createVirtulElement,返回虚拟 DOM.  
+之后的流程是:  
+`createElement(diff(render()))`
+
+```jsx
+const exampleFn = (h, data) => (
+  <div>
+    {data.props.tags.map((e, i) => (
+      <e>i</e>
+    ))}
+  </div>
+)
+```
