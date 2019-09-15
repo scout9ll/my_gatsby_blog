@@ -1501,6 +1501,57 @@ function error(message: string): never {
 ```ts
 ```
 
+#### 泛型
+
+表示多个类型
+
+- `<T>`,类型变量 T
+
+```ts
+// <T>表示一个类型变量,参数和输出类型都是T,所以应输出相同的变量
+funciton identity<T>(arg:T):T{
+  return  arg
+}
+
+//
+funciton identityArr<T>(arg:T[]):T[]{
+  return  arg
+}
+```
+
+- 泛型约束
+
+```ts
+interface Lengthwise {
+  length: number
+}
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+  console.log(arg.length)
+  return arg
+}
+
+function getObjectProprety<T, K extends keyof T>(obj: T, key: K) {
+  return obj[key]
+}
+```
+
+```ts
+class Animal
+```
+#### 高级类型
+
+- 交叉类型
+
+- 联合类型
+
+- 类型保护
+
+#### 类型推断
+
+TS 内部会由一系列推断方式自动对类型有可能的推断,生成候选类型
+
+-  上下文推断
+
 #### class 中的 private 和 protect
 
 private:声明为私有属性,外面都不可用;
@@ -1508,13 +1559,27 @@ protect:外面都不可用,但可在子元素中 super;
 
 ### typescript 特殊语法
 
-## Vue 函数组件
+#### 接口
 
-### 原理
+是一个类型的对象,将类型进行封装复用
+
+```ts
+interface GenericIdentityFn<T> {
+  (arg: T): T
+}
+```
+
+#### class 中
+
+在 class 中,类型的声明为实例中的属性(构造器中)
+
+### Vue 函数组件
+
+#### 原理
 
 当使用无状态的组件时,可以不需要生成实例,直接调用渲染函数,
 
-### 两种写法
+#### 两种写法
 
 ```js
 //Vue的函数组件(无状态),本质和react毫无区别
@@ -1530,7 +1595,7 @@ const exampleCp = new Vue({
 const exampleFn = (h, data) => h("div", data.props.tags.map((e, i) => h(e, i)))
 ```
 
-### 在 jsx 中
+#### 在 jsx 中
 
 `<>`会被转换成`h`函数,即 createVirtulElement,返回虚拟 DOM.  
 之后的流程是:  
