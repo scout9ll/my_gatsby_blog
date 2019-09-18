@@ -21,6 +21,7 @@ $pink: #ff69b4;
   display: flex;
   grid-column: 2/3;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .note-block {
   // perspective: 800px; //会产生定位效果,relative
