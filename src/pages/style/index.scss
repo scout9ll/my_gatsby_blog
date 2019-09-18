@@ -130,8 +130,8 @@ section {
 }
 
 blockquote {
-  background: radial-gradient(#fec70a, transparent);
-  border-left: 10px solid #52afffa3;
+  background: radial-gradient(transparent, #fec70a);
+  border-left: 10px solid $primary;
   margin: 0.5rem;
   padding: 5px;
 }

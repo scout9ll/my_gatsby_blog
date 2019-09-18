@@ -101,14 +101,14 @@ $pink: #ff69b4;
 .note-modal-delete {
   position: absolute;
   text-align: center;
-  top: 20px;
+  top: 27px;
   right: 40px;
   z-index: 1013;
-  background: aqua;
+  background: #ffde32;
   width: 25px;
-  border-bottom-left-radius: 38%;
-  border-bottom-right-radius: 60%;
-  box-shadow: aliceblue 1px -2px 6px 0px;
+  border-top-left-radius: 38%;
+  border-top-right-radius: 60%;
+  box-shadow: 1px -2px 6px 0 #f0f8ff;
   cursor: pointer;
 }
 .note-content-mask {
