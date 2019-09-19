@@ -264,7 +264,8 @@ for (const value of normalObj) {
     `ninjas.find(ninja => ninja.weapon === "wakizashi"）`使用 find 方法查找满足回调函数中指定条件的第 1 个元素，否则为 undefined  
     `.indexOf(value)`和`.findIndex(ninja =>ninja =="yoshi")`都返回满足的元素的索引;  
     `.sort(num1,num2 => num1>num2?return 1;return -1)`,通过回调比较相邻两个数对其排序,若为 1 则交换位置.  
-    `filter(ninja => callback)`,返回 callback 为真的数组
+    `filter(ninja => callback)`,返回 callback 为真的数组,  
+    `reduce(function(total, currentValue, currentIndex, arr), initialValue)`,累加器,回调的返回值最为 total 依次累加.
 
 - map
 
@@ -1538,19 +1539,23 @@ function getObjectProprety<T, K extends keyof T>(obj: T, key: K) {
 ```ts
 class Animal
 ```
+
 #### 高级类型
 
 - 交叉类型
-
+  `T&U`,两种类型之和
 - 联合类型
-
+  `string|number`,两种类型之一
 - 类型保护
+  通过一些语法,让 TS 获取其类型:  
+  类型谓词:`isFish(pet:Fish|Bird):pet is Fish`
+  类型语法:`typeof x`,`x instanceof X`
 
 #### 类型推断
 
 TS 内部会由一系列推断方式自动对类型有可能的推断,生成候选类型
 
--  上下文推断
+- 上下文推断
 
 #### class 中的 private 和 protect
 
@@ -1561,7 +1566,7 @@ protect:外面都不可用,但可在子元素中 super;
 
 #### 接口
 
-是一个类型的对象,将类型进行封装复用
+是一个类型的对象,将类型进行封装复用,和`class`一样
 
 ```ts
 interface GenericIdentityFn<T> {
@@ -1610,3 +1615,40 @@ const exampleFn = (h, data) => (
   </div>
 )
 ```
+
+## week14
+
+### HTTP 报文
+
+HTTP 报文是 HTTP 协议的内容展示
+
+#### 组成
+
+HTTP 请求报文由 3 部分组成（请求行+请求头+请求体）：
+
+### git fetch 和 git pull
+
+两者都是从远程仓库拉取,那么有什么区别呢
+
+#### fetch
+
+从远程拉至本地`remote`分支,但不执行混合`merge`,即本地 origin 仓库中依旧是 fetch 前的内容
+
+#### pull
+
+从远程拉至本地`remote`分支,并执行混合`merge`,本地 origin 仓库为混合后的内容
+
+#### 关系
+
+可以认为 fetch&&merge == pull
+
+### for in 和 Object.keys
+
+#### 相同点
+
+都是遍历对象的可枚举属性
+
+#### 不同点
+
+`for in` 可以遍历到对象原型的属性(可用`hasOwnProperty(key)`判断);
+`Object.keys`只能遍历对象自身的属性
