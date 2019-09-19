@@ -171,7 +171,7 @@ Promise.prototype.then = function(onFulfilled, onRejected) {
 }
 ```
 
-### step4-判断回调本身是或为 Promise
+### step4-判断回调本身返回的是否为 Promise
 
 若回调本身返回 promise 则等待其 resolve,否则另起返回一个 resolve(result)的 promise2
 
