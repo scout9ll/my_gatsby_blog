@@ -28,7 +28,10 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/blog"
           className={
-            href.split("steve911")[1].includes("blog") ? "nav-active" : ""
+            href.split("steve911")[1] &&
+            href.split("steve911")[1].includes("blog")
+              ? "nav-active"
+              : ""
           }
         >
           tech
@@ -36,7 +39,10 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/notes"
           className={
-            href.split("steve911")[1].includes("notes") ? "nav-active" : ""
+            href.split("steve911")[1] &&
+            href.split("steve911")[1].includes("notes")
+              ? "nav-active"
+              : ""
           }
         >
           note
