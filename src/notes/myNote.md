@@ -59,7 +59,7 @@ js------------ |
 
 > - renderTree 是渲染树,不包括 DOM 中的 display 为 none 的对象
 > - cssom,css 对象模型
-> - js 的加载会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,transition 在进入页面时将看不见
+> - js 的 load 会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,transition 在进入页面时将看不见
 
 #### 渲染(render)路径
 
@@ -682,6 +682,10 @@ vue 合并 watcher,react 合并 state
 
 axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", url:"", data:"", headers:"" , })`
 
+#### interceptor,在 transformData,transformHeader 之前
+
+所以如果在 headers 中设置`content-type`,在 interceptor 中还是`content-type`,之后才会`transformHeaders`成`Content-Type`
+
 ### dom 有很多节点
 
 #### 常用节点
@@ -733,7 +737,10 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 #### 扩展
 
-给 script 标签设置`defer`也能延迟加载,页面加载完后才加载执行该 js 文件
+给 script 标签设置`defer`和`async`也能延迟 load,两者都能异步 load
+
+- `async`*该 JS 文件*load 完后才执行该文件
+- `defer`*页面*加载完后才执行该文件
 
 ### lazy-load
 
@@ -1349,6 +1356,7 @@ foo()
   - 注意: -m'xxx'不能忘掉,否则会进入 git 的 vim 编辑器
   - 退出：esc => :wq
 - git log 查看历史版本
+- git reflog 查看所有历史版本
 - git reset --hard '哈希' 时光机,回到某一次记录
 
 #### 分支系统
@@ -1652,3 +1660,23 @@ HTTP 请求报文由 3 部分组成（请求行+请求头+请求体）：
 
 `for in` 可以遍历到对象原型的属性(可用`hasOwnProperty(key)`判断);
 `Object.keys`只能遍历对象自身的属性
+
+### tec-interview-tips
+
+#### first job is import ,keeping angel in the way
+
+#### be humor
+
+#### take more time in talk about detail of my project
+
+#### dont't take large time in one problem
+
+#### writing project more uniqio in resume
+
+#### focus more on analysis problem then write code
+
+### vue 的大坑
+
+#### 组件属性不能用大写,需要在前面加`-`
+
+#### 响应数据的 set 属性存在缓存,来判断是否变化,不是只要赋值就 notify
