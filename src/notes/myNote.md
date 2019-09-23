@@ -315,9 +315,9 @@ for (const value of normalObj) {
   - [][0-9a-z]
 - 量词:
   - 数量 {n}:确切的位数：{5};某个范围的位数：{3,5}
-  - 缩写+代表“一个或多个”，相当于 {1,}。  
-    ? 代表“零个或一个”，相当于 {0,1}。  
-    \* ：代表着“零个或多个”，相当于 {0,}
+  - `+`代表“一个或多个”，相当于 {1,}。
+  - `?` 代表“零个或一个”，相当于 {0,1}。
+  - `*` ：代表着“零个或多个”，相当于 {0,}
 - 捕获组:
 
   - 正则模式的一部分可以用括号括起来 (...)，由此构成一个『捕获组』。正则引擎可以记录捕获组
@@ -1685,4 +1685,86 @@ HTTP 请求报文由 3 部分组成（请求行+请求头+请求体）：
 
 这是由于 VUE 会把 Object 中的属性也设为响应式数据,但是它是独立于其 Object 的,故他的改变只会触发他的 dep,当不会触发它的 Object 的 dep
 
-> 那么,Vue 是如何判断 PUSH 等操作的呢
+_那么,Vue 是如何判断 PUSH 等操作的呢?_ 看看源码
+
+```js
+/*
+ * not type checking this file because flow doesn't play well with
+ * dynamically accessing methods on Array prototype
+ */
+
+var arrayProto = Array.prototype
+var arrayMethods = Object.create(arrayProto)
+
+var methodsToPatch = [
+  "push",
+  "pop",
+  "shift",
+  "unshift",
+  "splice",
+  "sort",
+  "reverse",
+]
+
+/**
+ * Intercept mutating methods and emit events
+ */
+methodsToPatch.forEach(function(method) {
+  // cache original method
+  var original = arrayProto[method]
+  def(arrayMethods, method, function mutator() {
+    var args = [],
+      len = arguments.length
+    while (len--) args[len] = arguments[len]
+
+    var result = original.apply(this, args)
+    var ob = this.__ob__
+    var inserted
+    switch (method) {
+      case "push":
+      case "unshift":
+        inserted = args
+        break
+      case "splice":
+        inserted = args.slice(2)
+        break
+    }
+    if (inserted) {
+      ob.observeArray(inserted)
+    }
+    // notify change
+    ob.dep.notify()
+    return result
+  })
+})
+
+/*  */
+```
+
+原来,vue 对数组的一些方法进行了拦截,当遇到`pop`,`push`等时,执行 dep.notify
+
+### linux 命令
+
+#### 命令格式
+
+`command` `-options` `parameter`
+
+- `command`:命令名,`ls`
+- `options`:可选,命令的一些选项设置,`rm -r aaa` 删除文件夹,多个 option 可以一起使用 `ls -lha`
+- `parameter`:命令的参数
+
+#### 常用命令
+
+> 显示`command`的使用说明
+
+- `command --help`
+- `man command`
+- `b`回退,`f`,`space`前进,`q`退出
+- `tab`自动补全,双击显示可选项
+
+#### 通配符
+
+> example, 123.txt 321.txt 1223.txt,
+
+- `*`,匹配任意数量的字符 ,`rm 1*3`=>123.txt,12223,txt
+- `?`,匹配 0,1 个字符,`rm 1?3`=>123.txt
