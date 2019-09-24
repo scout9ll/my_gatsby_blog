@@ -12,8 +12,8 @@ tags: ["VUE", "Observer"]
 vue 是一个 MVVM 的框架,简单的说是一个数据绑定视图的模式,Vue 的该单项绑定是通过观察者模式实现的,即函数订阅数据,当其数据改变,则所有函数触发.
 
 >     看一看官方的原理图
->
-> ![VUE](https://cn.vuejs.org/images/data.png)
+
+![VUE](https://cn.vuejs.org/images/data.png)
 
 ### convert object
 
