@@ -35,22 +35,22 @@ tags: ["部署", "NGINX", "阿里云"]
 `mkdir apps` ,创建一个文件夹,由于默认进入阿里云是 root 账户,所以该文件在 root 下
 
 `cd apps`,  
-`git clone myproject`,导入项目
+`git clone myproject` 导入项目
 
 `cd myproject`,  
-`cnpm install`安装依赖
+`cnpm install` 安装依赖
 
-`npm run build`构建静态文件,我这是 GATSBY,构建完的文件为根目录下的 public
+`npm run build` 构建静态文件,我这是 GATSBY,构建完的文件为根目录下的 public
 
 ### 配置 NGINX
 
-`apt install nginx`,安装 NGINX
+`apt install nginx` 安装 NGINX
 
-> 这里遇到第二个坑,安装完后应该就可以直接在服务器 ip,但是就算后来怎么配置文件都访问不了,最后发现是阿里云默认是关闭端口的,需要在控制台添加 NGINX 输出的 80 端口
+> 这里遇到第二个坑,安装完后应该就可以直接在服务器 ip 访问,但是就算后来怎么配置文件都访问不了,最后发现是阿里云默认是关闭端口的,需要在控制台添加 NGINX 输出的 80 端口
 
 ![dd](../images/aliyun-port.png)
 
-`nano /etc/nginx/sites-available/default`用 nano 编辑器打开 NGINX 配置文件,修改资源目录为 public 目录
+`nano /etc/nginx/sites-available/default` 用 nano 编辑器打开 NGINX 配置文件,修改资源目录为 public 目录
 
 ```nginx
 server {
@@ -71,9 +71,9 @@ server {
     }
 ```
 
-`nginx -t`,配置完后检测一下是否配置规范
+`nginx -t` 配置完后检测一下是否配置规范
 
-`server nginx restart`,重启下服务器
+`server nginx restart` 重启下服务器
 
 > 这里遇到第三个大坑,配置完启动后访问页面返回 403,这个非常熟悉的数字,表示没有权限...又是莫名其妙的问题,只有百度谷歌了.  
 > 原来,root 下的文件夹普通用户是没有权限访问的,而 NGINX 默认用户为 anybody,所以有两个解决办法.
