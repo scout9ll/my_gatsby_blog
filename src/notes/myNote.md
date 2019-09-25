@@ -1125,12 +1125,12 @@ svg 是属于 XML 的可扩展的矢量图形(scalable vector graphic),本质上
 
 #### cookie
 
-http 协议中浏览器中的一种缓存类型,是服务器或脚本可以维护客户工作站上信息的一种方式
+http 协议中`浏览器中的一种缓存类型,是服务器或脚本可以维护客户工作站上信息的一种方式
 
 - 大小  
   一个浏览器能创建的 Cookie 数量最多为 300 个，并且每个不能超过 4KB，每个 Web 站点能设置的 Cookie 总数不能超过 20 个
 - 存储位置  
-  Cookie 是个存储在浏览器目录的文本文件，当浏览器运行时，存储在 RAM 中。一旦你从该网站或网络服务器退出，Cookie 也可存储在计算机的硬驱上。当访客结束其浏览器对话时，即终止的所有 Cookie。
+  Cookie 是个存储在浏览器目录的*文本文件*，当浏览器运行时，存储在 RAM 中。一旦你从该网站或网络服务器退出，Cookie 也可存储在计算机的硬驱上。当访客结束其浏览器对话时，即终止的所有 Cookie。
 - 存储时间  
   由服务器设置的时间决定(`max-age`||`Expire`),也可自行删除
 - 使用注意
@@ -1148,11 +1148,11 @@ token 一般指 http 协议中请求头中`authorization`中设置的一个`key-
 #### 区别
 
 - 发送方式
-  cookie 自动对相同域名发送  
+  cookie 自动对相同域名发送 (ajax 请求中)
   token 需要手动发送(在前端页面设置)
 
   > 因此类似表达对安全要求高的提交用 token  
-  > 例如一个购买请求`www.buybuybuy.com/buy?game1=1`,若用 cookie 验证,极易遭遇`CSRF`（Cross-site request forgery,跨站请求伪造）,他人发来一个这样的地址,若不小心点击则会中招
+  > 例如一个购买请求`www.buybuybuy.com/buy?game1=1`,若用 cookie 验证,极易遭遇`CSRF`（Cross-site request forgery,跨站请求伪造）,他人发来一个这样的地址(一个伪装极好的 url 链接),若不小心点击则会中招
 
 - 设置方式
   cookie 由服务端 `Set-Cookie header`后自动存储
@@ -1165,6 +1165,10 @@ domain = DOMAIN_NAME; #设置发送域名,在请求时会首先搜索
 ```
 
 token 需从服务端获得后再在前端设置存储(`localStorage.set`)
+
+- 清除方式
+  cookie 时间到期后自动清除,也可手动在浏览器上清除
+  token 在 localStorage 中需要手动清除
 
 ### Design Psychology
 
@@ -1768,3 +1772,34 @@ methodsToPatch.forEach(function(method) {
 
 - `*`,匹配任意数量的字符 ,`rm 1*3`=>123.txt,12223,txt
 - `?`,匹配 0,1 个字符,`rm 1?3`=>123.txt
+
+### element-ui
+
+#### dialog
+
+el-dialog 初始化时,其 body 并没有挂载,在第一次 Display true 的时候才会挂载
+
+### prettier 和 eslint
+
+#### prettier
+
+强大的代码格式化插件,可以识别几乎所有语言,进行格式化,通过配置,用于保证代码*风格*的一致性
+
+#### eslint
+
+js 语言的代码检测插件,可以检测出代码中出现的语法问题,同时也存在格式化功能
+
+#### 如何共用
+
+由于两者都存在格式化的功能,所以同时使用时候可能出现冲突,可以用`eslint-plugin-prettier`等插件配置在 eslint 上,先执行 Prettier 然后再自动使用 eslint --fix 将与 ESLint 规则冲突的代码修正成 ESLint 想要的结果。这样其实引入 Prettier 不会影响你原有的设置。
+
+### 为什么限制跨域
+
+#### 跨域的范畴
+
+前端(在浏览器)对非自己服务器的网站进行 AJAX 请求时,会被浏览器的`serverworker`判定为跨域,阻拦这次请求
+
+#### 限制的意义
+
+- 保证其他网站的资源不被轻易获取,若无跨域,可以拿到其他网站很多的数据()
+- 保证其他网站的用户安全,若无跨越,那么在拿到其他网站数据的同时,还会获得请求和响应的所有数据,其中就包括了可能带有个人信息的`cookie`
