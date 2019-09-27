@@ -1148,8 +1148,8 @@ token 一般指 http 协议中请求头中`authorization`中设置的一个`key-
 #### 区别
 
 - 发送方式
-  cookie 自动对相同域名发送 (ajax 请求中)
-  token 需要手动发送(在前端页面设置)
+  cookie 自动对相同域名发送 (异步请求和浏览器地址栏求中)
+  token 需要手动发送(只有在异步请求中)
 
   > 因此类似表达对安全要求高的提交用 token  
   > 例如一个购买请求`www.buybuybuy.com/buy?game1=1`,若用 cookie 验证,极易遭遇`CSRF`（Cross-site request forgery,跨站请求伪造）,他人发来一个这样的地址(一个伪装极好的 url 链接),若不小心点击则会中招
@@ -1170,6 +1170,9 @@ token 需从服务端获得后再在前端设置存储(`localStorage.set`)
   cookie 时间到期后自动清除,也可手动在浏览器上清除
   token 在 localStorage 中需要手动清除
 
+- 性能消耗
+  cookie每次自动发送,并且可能携带大量数据在对网络请求上是不小的消耗,
+  
 ### Design Psychology
 
 #### affordance
