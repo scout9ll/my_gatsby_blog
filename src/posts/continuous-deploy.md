@@ -14,4 +14,56 @@ tags: ["持续集成", "GitHub", "webhook", "shell"]
 
 ### 首先我们需要捋一下流程,
 
-> 本地修改代码==>push 代码到仓库==>收到 Push,启动部署程序==>生成环境 pull 代码==>重新 build 文件(npm build)
+> 本地修改代码==>push 代码到仓库==>收到 Push,启动部署程序==>生产环境 pull 代码==>重新 build 文件(npm build)
+
+<img src='https://g.gravizo.com/svg?
+ digraph G {
+user2 -> git仓库[style=bold,label="push"];
+user1 -> git仓库[style=bold,label="push"];
+user3 -> git仓库[style=bold,label="push"];
+git仓库 -> 生产环境[label="hook 钩子通知服务器"];
+生产环境 -> 启动部署[label="开启构建程序"];
+启动部署-> 成功构建[label="执行构建命令"];
+}
+'/>
+
+- [x] 测试
+
+### 两种方案
+
+可以看出要实现持续部署最关键的就是在`push`到仓库后能够顺利触发钩子到生产环境。通过查阅，发现有大概有两种方法实现：
+
+- jenkins，这个是非常成熟且完备的持续集成的工具，只需要下载后进行一系列配置，就能够实现比较复杂的持续部署
+- DIY 搭建一个钩子接口，利用 github 上的 webhook，接受其 hook 发送的数据，执行部署命令
+
+经过考虑，这里使用第二种方案，自己搭建一个接口，因为博客项目部署太过简单，用 jenkins 简直就是大材小用
+
+## 实现部署
+
+### 配置 GitHub 的 webhook
+
+webhook 可以让代码 push 到仓库的时候发送一个`POST`请求,请求体为这次`push`的各种信息
+
+### 搭建接受 webhook 请求的接口
+
+首先进入服务器中创一个文件夹,这里为`/mybolg_CI`
+
+然后开始编写接口文件  
+这里为了方便就直接使用官方给的一个包,[github-webhook-handler]('www),里面已经完成了对 webhook 请求处理的封装.  
+`npm init`,`npm install github-webhook-handler`
+
+```js
+```
+
+### 编写部署的命令文件
+
+成功接收到 webhook 通知后,就需要开始真正执行部署的操作,这里的操作就是自己手动部署的流程,如`git pull` ,`npm build`  
+那么像这样的命令,如何让服务器自己执行呢? 用`sh`文件,`sh`是`shell`文件,是 linux 的一个常用的命令行程序,将一系列命令写入此类文件中,然后开启就会执行文件中的命令
+这里在`/myblog_ci`文件下`touch ci.sh`,这里简单编写
+
+```sh
+
+
+```
+
+##
