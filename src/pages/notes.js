@@ -21,6 +21,9 @@ const Notes = () => {
   return (
     <Layout>
       <div className="note">
+        <div className="note-header">
+          <div>take note&review it</div>
+        </div>
         <div className="note-list">
           {data.markdownRemark.html
             .split("<h2>")

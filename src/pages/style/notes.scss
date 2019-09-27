@@ -1,3 +1,4 @@
+$primary: #704427;
 .note-block:nth-child(6n + 1) .note-card,
 .note-block:nth-child(6n + 3) .note-card-back,
 .tag:nth-child(6n + 1) {
@@ -75,4 +76,23 @@
     color-stop(0.5, transparent),
     to(transparent)
   );
+}
+.note-header {
+  height: 200px;
+  font-style: italic;
+  font-size: 2rem;
+  grid-column: 2/3;
+  display: grid;
+  color: whitesmoke;
+  place-items: center;
+  > div {
+    text-shadow: -5px -3px 20px $primary;
+    min-width: 300px;
+    max-width: 700px;
+    height: 200px;
+    border-radius: 50px;
+    display: grid;
+
+    place-items: center;
+  }
 }
