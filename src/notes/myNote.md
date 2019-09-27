@@ -1171,8 +1171,8 @@ token 需从服务端获得后再在前端设置存储(`localStorage.set`)
   token 在 localStorage 中需要手动清除
 
 - 性能消耗
-  cookie每次自动发送,并且可能携带大量数据在对网络请求上是不小的消耗,
-  
+  cookie 每次自动发送,并且可能携带大量数据在对网络请求上是不小的消耗,
+
 ### Design Psychology
 
 #### affordance
