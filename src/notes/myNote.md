@@ -1282,7 +1282,7 @@ js 在执行时创建在调用栈的环境,决定可访问的变量和函数
 
 1. 扫描=>注册当前词法环境的函数声明=>注册变量声明
 
-![register-step](../images/register-step.png)
+![register-step](../images/register-step-1.png)
 
 ```js
 let b = 2
