@@ -1,6 +1,6 @@
 ---
 path: "/blog/continuous-deploy"
-date: "2019-09-12"
+date: "2019-09-18"
 title: "简易实现自己服务器上的持续集成"
 tags: ["持续集成", "GitHub", "webhook", "shell"]
 ---
