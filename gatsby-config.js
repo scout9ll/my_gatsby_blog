@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `steve_911`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    description: `record everything`,
     author: `@gatsbyjs`,
   },
   plugins: [
@@ -24,7 +24,7 @@ module.exports = {
               // It's important to specify the maxWidth (in pixels) of
               // the content container as this plugin uses this as the
               // base for generating different widths of each image.
-              maxWidth: 590,
+              maxWidth: 900,
             },
           },
           "gatsby-remark-copy-linked-files",
