@@ -776,7 +776,7 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 var options = {
   root: document.querySelector("#scrollArea"), //设置需监听的相对元素，默认为视窗
   rootMargin: "0px", //距离补偿
-  threshold: 1.0, //监听元素出现在ROOT中的比例，1.0则是全出
+  threshold: 1.0, //监听元素出现在ROOT中的比例，1.0则是全出,可以为数组`[0,0.5,1]`,每到一个阈值都会执行一次回调
 }
 //callback 当出现时候的回调函数
 var observer = new IntersectionObserver(callback, options)
@@ -795,6 +795,29 @@ observer.observe(target) //开始监听#listItem元素
   停止监听 element
 - `.disconnect()`
   停止对象监听工作
+
+#### 实现图片懒加载
+
+```html
+<img data-lazy="1.png" />
+<img data-lazy="2.png" />
+<img data-lazy="3.png" />
+```
+
+```js
+const imgs = document.qureySelectorAll("[data-lazy]")
+const obImg = target => {
+  const ob = new IntersectionObserver(([entry, ...entrys]) => {
+    if (entry.isIntersecting) {
+      entry.target.src = entry.target.dataset.lazy
+      ob.disconnect()
+    }
+  })
+  ob.observe(target)
+}
+
+imgs.forEach(obImg)
+```
 
 ### Immutable.js
 
