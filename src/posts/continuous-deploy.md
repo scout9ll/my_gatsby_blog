@@ -30,8 +30,6 @@ git仓库 -> 生产环境[label="hook 钩子通知服务器"];
 }
 '/>
 
-- [x] 测试
-
 ### 两种方案
 
 可以看出要实现持续部署最关键的就是在`push`到仓库后能够顺利触发钩子到生产环境。通过查阅，发现有大概有两种方法实现：
@@ -95,7 +93,7 @@ handler.on("push", function(event) {
 #!/bin/bash
 # 纪录响应日志到`githook_log.txt`
 exeDate1=$(date +"%Y-%m-%d %H:%M:%S")
-echo $exeDate" 收到push命令,开始执行shell" >> /home/ci/myblog-ci/githook_log.txt
+echo $exeDate1" 收到push命令,开始执行shell" >> /home/ci/myblog-ci/githook_log.txt
 git pull
 cnpm install
 npm run build
@@ -137,7 +135,8 @@ handler.on("push", function(event) {
 为了不多开放一个端口并让其 6666 访问,直接在开放的 80 端口上用 NGINX 上设置一个代理
 
 ```NGINX
-        location ~ /build_blog {                                                                                                       proxy_pass http://127.0.0.1:6666;
+        location ~ /build_blog {
+        proxy_pass http://127.0.0.1:6666;
          # try_files $uri $uri/ =404;
         }
 
@@ -160,4 +159,4 @@ handler.on("push", function(event) {
 2019-09-27 20:29:55 成功构建
 ```
 
-OK!看到这些信息说明成功收到 webhook 并且成功构建
+OK!看到这些信息说明成功收到 webhook 并且成功构建,自动部署成功实现!!
