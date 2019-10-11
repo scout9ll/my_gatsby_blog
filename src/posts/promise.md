@@ -3,6 +3,7 @@ path: "/blog/Promise"
 date: "2019-05-12"
 title: "深入Promise"
 tags: ["Promise", "ES6", "原生JS"]
+weather: ☔
 ---
 
 ## 基本语法

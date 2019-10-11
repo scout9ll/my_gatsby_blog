@@ -3,6 +3,7 @@ path: "/blog/soundVisualizer"
 date: "2019-07-12"
 title: "做一个炫酷的音频可视化"
 tags: ["canvas", "audio", "axios"]
+weather: ⛅
 ---
 
 这几天想给这个博客做个音乐播放器,收藏和分享喜欢的音乐,用来在 coding 的时候后台播放,但是想了想除了做个后台之外,前端的东西能做的太少了,于是想到为什么不能做个炫酷歌曲音频可视化呢?

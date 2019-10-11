@@ -3,6 +3,7 @@ path: "/blog/deploy"
 date: "2019-09-12"
 title: "记第一次艰难的部署"
 tags: ["部署", "NGINX", "阿里云"]
+weather: ☔
 ---
 
 ## 从未预料过的艰难

@@ -3,6 +3,7 @@ path: "/blog/setState"
 title: "setState那些事"
 date: "2019-07-15"
 tags: ["react", "state"]
+weather: 🌧️
 ---
 
 关于 setState

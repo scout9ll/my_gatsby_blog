@@ -20,6 +20,7 @@ const Blog = () => {
               date
               path
               tags
+              weather
             }
           }
         }
@@ -60,7 +61,10 @@ const Blog = () => {
           {blogs.map(({ node }) => {
             return (
               <div key={node.frontmatter.path} className="blog-block">
-                <div className="blog-date">{node.frontmatter.date}</div>
+                <div className="blog-condition">
+                  {node.frontmatter.weather}
+                  {node.frontmatter.date}
+                </div>
                 <Link to={node.frontmatter.path} className="blog-title">
                   {node.frontmatter.title}
                 </Link>
