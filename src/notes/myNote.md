@@ -1833,3 +1833,30 @@ js 语言的代码检测插件,可以检测出代码中出现的语法问题,同
 
 - 保证其他网站的资源不被轻易获取,若无跨域,可以拿到其他网站很多的数据(当然这可以在服务端用反向代理轻易拿到)
 - 保证其他网站的用户安全,若无跨越,那么在拿到其他网站数据的同时,还会获得请求和响应的所有数据,其中就包括了可能带有个人信息的`cookie`(这些在服务端反向代理也也拿不到,因为`cookie`在浏览器内发送)
+
+## week 15
+
+### BEM
+
+#### BEM 是什么
+
+BEM ==`block` `element` `modified` ,
+是 css 的一种以`block_element--modified`的方式命名的命名规范
+
+#### BEM 的主要原则
+
+- 一个单独的组件为一个块
+- 每个快内的元素都是同一个块前缀
+- 只能存在一个 element
+- 多词名称用`-`连接
+
+#### BEM 样例
+
+```html
+<figure class="banner-photo">
+  <img class="banner-photo__img photo__img--framed" src="me.jpg" />
+  <figcaption class="photo__caption photo__caption--large-black">
+    Look at me!
+  </figcaption>
+</figure>
+```

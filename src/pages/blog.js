@@ -60,10 +60,10 @@ const Blog = () => {
           {blogs.map(({ node }) => {
             return (
               <div key={node.frontmatter.path} className="blog-block">
+                <div className="blog-date">{node.frontmatter.date}</div>
                 <Link to={node.frontmatter.path} className="blog-title">
                   {node.frontmatter.title}
                 </Link>
-                <div className="blog-date">{node.frontmatter.date}</div>
                 <div className="tags">
                   {node.frontmatter.tags.map(tag => (
                     <span
