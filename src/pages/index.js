@@ -5,6 +5,7 @@ import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 import "./style/index.scss"
+import observer from "../utils/intersectOb"
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     {
@@ -40,19 +41,7 @@ const IndexPage = () => {
     }
   `)
   useEffect(() => {
-    const cateCards = document.querySelectorAll("section>div")
-    const obCC = target => {
-      const ob = new IntersectionObserver(([entry, ...entrys]) => {
-        console.log(entry)
-        if (entry.isIntersecting) {
-          entry.target.classList.add("category--hinge")
-          ob.disconnect()
-        }
-      })
-      ob.observe(target)
-    }
-
-    cateCards.forEach(obCC)
+    observer("section>div", target => target.classList.add("category--hinge"))
   }, [])
   return (
     <Layout>
