@@ -2,6 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
+lastTime: "2019-10-11"
+words: "39076"
 ---
 
 ## week 1
@@ -210,7 +212,7 @@ reg.test(undefined) //返回true
 
 #### Iterables
 
-Iterables 意为可迭代的对象,当用`forEach`,`for of`时,会调用其[Symbol.iterator]方法,生成 iterator,然后依次调用`iterator.next()`完成迭代
+Iterables 意为可迭代的对象,当用`forEach`,`for of`时,会调用其[Symbol.iterator]方法(也可直接称作生成器`generator`),生成 iterator,然后依次调用`iterator.next()`完成迭代
 
 > `for of`内部实现
 
@@ -592,12 +594,14 @@ null instanceof Object //false
 null instanceof null //true
 null == undefined // true
 null === undefined //false
+Object.prototype.toString.call(undefined) //"[object Undefined]"
+Object.prototype.toString.call(null) //"[object null]"
 ```
 
 > typeof(null)中表示是对象,但在 instance 中却又是 null,而在 ES6 标准中明确表示 null 是一个基本类型,那么 null 到底是什么呢
 
 - null 属于历史遗留问题
-  现在比较普遍的认知是，typeof null 返回“object”是一个历史错误（JS 的发明者 Brendan Eich 自己也是这样说的），只是因为要保持语言的兼容性而维持至今。从 ES5 制定开始就有动议将 typeof null 改为返回“null”（如启动 node 加上“--harmony_typeof”参数，即是如此），但是当前 ES6 标准草案仍然维持了原样。
+  现在比较普遍的认知是，typeof null 返回“object”是一个历史错误（JS 的发明者 Brendan Eich 自己也是这样说的,null 的类型机器码全为 0,而对象的前三位也为 0,typeof 则是判断类型机器码的前三位），只是因为要保持语言的兼容性而维持至今。从 ES5 制定开始就有动议将 typeof null 改为返回“null”（如启动 node 加上“--harmony_typeof”参数，即是如此），但是当前 ES6 标准草案仍然维持了原样。
 
 - null 和 undefined 的使用
   - null 是一个存在的`空`,当需要指定变量为`空`时,可以使用 null 表明此变量是有一个指向的,但指向一个`空`;
@@ -737,7 +741,7 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 #### 扩展
 
-给 script 标签设置`defer`和`async`也能延迟 load,两者都能异步 load
+给 script 标签设置`defer`和`async`也能延迟 load,两者都能异步 load(在执行 css,html 文件时下载)
 
 - `async`*该 JS 文件*load 完后才执行该文件
 - `defer`*页面*加载完后才执行该文件

@@ -10,17 +10,17 @@ const IndexPage = () => {
     {
       allBlog: allMarkdownRemark(
         filter: { frontmatter: { path: { regex: "//blog/" } } }
+        sort: { fields: frontmatter___date, order: DESC }
       ) {
-        totalCount
         edges {
           node {
             id
-            html
             frontmatter {
               title
             }
           }
         }
+        totalCount
       }
       allNote: allMarkdownRemark(
         filter: { frontmatter: { path: { regex: "//note/" } } }
@@ -28,12 +28,14 @@ const IndexPage = () => {
         edges {
           node {
             id
-            html
             frontmatter {
               title
+              lastTime
+              words
             }
           }
         }
+        totalCount
       }
     }
   `)
@@ -67,7 +69,15 @@ const IndexPage = () => {
           </svg>
           {/* </div> */}
           <div className="category-head" style={{ backgroundColor: "#fdeb01" }}>
-            technical post
+            <div className="category-head-title"> technical post</div>
+            <div className="category-info-content">
+              <div className="category-info-content-1">
+                最新文章 :{data.allBlog.edges[0].node.frontmatter.title}
+              </div>
+              <div className="category-info-content-2">
+                文章数量 :{data.allBlog.totalCount}
+              </div>
+            </div>
           </div>
           <Link
             to="/blog"
@@ -80,7 +90,17 @@ const IndexPage = () => {
         <div className="category-note">
           {" "}
           <div className="category-head" style={{ backgroundColor: "#ff69b4" }}>
-            notebook
+            <div className="category-head-title">notebook</div>
+            <div className="category-info-content">
+              <div className="category-info-content-1">
+                <span> 最近更新 : </span>{" "}
+                <span>{data.allNote.edges[0].node.frontmatter.lastTime}</span>
+              </div>
+              <div className="category-info-content-2">
+                <span>笔记字数 :</span>
+                <span>{data.allNote.edges[0].node.frontmatter.words}</span>
+              </div>
+            </div>
           </div>
           <Link
             to="/notes"
