@@ -1,3 +1,4 @@
+@import "./animation.scss";
 $info: #e3d432;
 $warning: #fff700;
 $danger: #c62f24;
@@ -36,12 +37,12 @@ $pink: #ff69b4;
 section {
   grid-column: full-start/full-end;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-row-gap: 40px;
   perspective: 800px;
 
   > div {
-    justify-self: end;
+    justify-self: center;
     min-height: 450px;
     width: 300px;
     background-color: $blue;
@@ -50,7 +51,9 @@ section {
     box-shadow: 4px 6px 8px 1px #a7a494;
     transform-origin: 0 0px;
     perspective: 800px;
-    transform: rotateZ(20deg);
+    &.category--hinge {
+      animation: hinge 2s forwards;
+    }
     > svg {
       position: absolute;
       top: 0;
@@ -69,19 +72,31 @@ section {
     border-bottom-left-radius: 15px 255px;
     border-bottom-right-radius: 225px;
   }
+  overflow: hidden;
   flex: 3;
   position: relative;
   transform-origin: 0 0px;
   // transform: rotateZ(20deg);
   transition: all 1s ease-in-out;
-  display: grid;
-  place-content: center;
+
   text-decoration: none;
+  .category-head-title {
+    margin: 50px 0;
+    text-align: center;
+    font-size: 25px;
+    text-shadow: 0px 0px 11px black;
+  }
+  .category-info-content {
+    position: relative;
+    bottom: -150px;
+    text-align: end;
+    padding-right: 30px;
+  }
 }
 
 .category-info {
   flex: 1;
-  color: WHITE;
+  color: $white;
   display: grid;
   place-content: center;
   text-decoration: none;
