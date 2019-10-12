@@ -28,8 +28,7 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/blog"
           className={
-            href.split("steve911")[1] &&
-            href.split("steve911")[1].includes("blog")
+            href.split("/") && href.split("/").includes("blog")
               ? "nav-active"
               : ""
           }
@@ -39,8 +38,7 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/notes"
           className={
-            href.split("steve911")[1] &&
-            href.split("steve911")[1].includes("notes")
+            href.split("/") && href.split("/").includes("notes")
               ? "nav-active"
               : ""
           }
@@ -51,7 +49,16 @@ const Header = ({ siteTitle }) => {
           <div className="logo">{siteTitle}</div>
         </Link>
         <a>essay</a>
-        <a>about</a>
+        <Link
+          to="/about"
+          className={
+            href.split("/") && href.split("/").includes("about")
+              ? "nav-active"
+              : ""
+          }
+        >
+          about
+        </Link>
       </nav>
     </header>
   )

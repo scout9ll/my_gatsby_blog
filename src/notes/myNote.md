@@ -1852,11 +1852,51 @@ BEM ==`block` `element` `modified` ,
 
 #### BEM 样例
 
-```html
+```HTML
 <figure class="banner-photo">
   <img class="banner-photo__img photo__img--framed" src="me.jpg" />
   <figcaption class="photo__caption photo__caption--large-black">
     Look at me!
   </figcaption>
 </figure>
+```
+
+### iPhoneX 的适配
+
+#### 为什么需要适配
+
+iphonex 存在刘海和底部胡须,若不处理则会影响页面展示
+
+#### 如何适配
+
+通过 Apple 提供的`safe-area-inset-*`属性,使用 constant( ) 和 env( ) 获取
+例如:
+
+- 整体处理
+
+```css
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: 50px; /* 兼容不支持 env( ) 的设备  */
+  padding-bottom: calc(
+    env(safe-area-inset-bottom) + 50px
+  ); /* 在 iphone x + 中本句才会生效 */
+  padding-left: env(safe-area-inset-left);
+}
+```
+
+- 顶部按钮处理
+
+```css
+.btn-container {
+  box-sizing: content-size;
+  height: 50px;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: #fff;
+}
+.btn {
+  height: 50px;
+  background: #111111;
+}
 ```
