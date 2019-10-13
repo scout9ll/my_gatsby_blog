@@ -14,7 +14,7 @@ const About = () => {
           <a href="https://github.com/steve9II/my_gatsby_blog">GitHub</a>{" "}
           上,并利用webhook持续集成在自己的阿里云上
           <p>
-            CSS样式借鉴了一个小众纯CSS框架PaperCssSass 模块的设计借鉴了 BEM
+            CSS样式借鉴了一个小众纯CSS框架PaperCss,Sass 模块的设计借鉴了 BEM
             思想。
           </p>
         </p>
