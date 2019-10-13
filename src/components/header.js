@@ -15,7 +15,7 @@ const Header = ({ siteTitle }) => {
   return (
     <header
       style={
-        acNav
+        acNav || (href.split("/") && href.split("/").includes("about"))
           ? {
               background: "#fecd0ee3",
 
