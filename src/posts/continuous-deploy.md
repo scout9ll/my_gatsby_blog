@@ -136,9 +136,8 @@ handler.on("push", function(event) {
 为了不多开放一个端口并让其 6666 访问,直接在开放的 80 端口上用 NGINX 上设置一个代理
 
 ```NGINX
-        location ~ /build_blog {
+        location /build_blog {
         proxy_pass http://127.0.0.1:6666;
-         # try_files $uri $uri/ =404;
         }
 
 

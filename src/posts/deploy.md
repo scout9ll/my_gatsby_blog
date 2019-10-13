@@ -59,14 +59,15 @@ server {
         listen [::]:80 default_server;
         # 你的服务器域名(ip),设置为_则表示通配
         server_name _;
-        # 静态文件夹地址
-        root /root/apps/myproject/public/;
-        # 默认查找文件夹下的index文件作为返回页面
-        index index.html index.htm ;
+
 
         location \ {
-            #由于只是配置个静态页面,所以先不用设置代理
-             try_files $uri $uri/ =404;
+
+                # 静态文件夹地址
+                root /root/apps/myproject/public/;
+                # 默认查找文件夹下的index文件作为返回页面
+                index index.html index.htm ;
+                try_files $uri $uri/ =404;
         }
 
     }
