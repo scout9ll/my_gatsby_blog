@@ -41,20 +41,33 @@ const IndexPage = () => {
     }
   `)
   useEffect(() => {
-    observer("section>div", target => target.classList.add("category--hinge"))
+    observer(".program-category", target =>
+      target.classList.add("category--hinge")
+    )
+    observer(".banner", target => target.classList.add("animate--active"))
   }, [])
   return (
     <Layout>
       <SEO title="Home" />
       <div className="banner">
         <Image path="Mbatdy 1920.jpg" />
+        <div className="animate-text-wrapper">
+          <div className="at__inner">
+            <div className="at__content">hi! i am steve</div>
+            <div className="at__block"></div>
+          </div>
+          <div className="at__inner at__inner-2">
+            <div className="at__content">welcome to my blog</div>
+            <div className="at__block "></div>
+          </div>
+        </div>
       </div>
       <div className="poster">
         {" "}
-        <div className="div"> share life&record life</div>
+        <div className="div"> record life</div>
       </div>
       <section>
-        <div className="category-tec">
+        <div className="category-tec program-category">
           {/* <div className="icon-pin"> */}
           <svg
             t="1563061400245"
@@ -76,8 +89,8 @@ const IndexPage = () => {
             <div className="category-head-title"> technical post</div>
             <div className="category-info-content">
               <div className="category-info-content-item">
-                <span>最新文章 :</span>
-                <span>{data.allBlog.edges[0].node.frontmatter.title}</span>
+                <span>最近更新 :</span>
+                <span>{data.allBlog.edges[0].node.frontmatter.date}</span>
               </div>
               <div className="category-info-content-item">
                 <span>文章数量 :</span>
@@ -93,7 +106,7 @@ const IndexPage = () => {
             技术难点的一些总结
           </Link>
         </div>
-        <div className="category-note">
+        <div className="category-note program-category">
           <svg
             t="1563061400245"
             className="icon"
@@ -130,28 +143,127 @@ const IndexPage = () => {
             纪录每周遇到的问题
           </Link>
         </div>
-        {/* <div className="category-essay">
+      </section>
+      <div className="poster">
+        {" "}
+        <div className="div"> share life</div>
+      </div>
+      <section>
+        <div className="category-read life-category">
           {" "}
           <div
             className="category-head"
             style={{ backgroundColor: " #a9eedc" }}
-          ></div>
+          >
+            <a
+              title="美的进化"
+              href="https://book.douban.com/subject/30320889/"
+            >
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
+            <a title="产品体验要素">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s6519128.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>{" "}
+            <a title="js忍者秘籍">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>{" "}
+            <a title="图解Http">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>{" "}
+            <a title="自卑与超越">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>{" "}
+            <a title="Web高效编程与优化实践">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
+          </div>
           <div
             className="category-info"
             style={{ backgroundColor: " #4a2165" }}
-          ></div>
+          >
+            最近在读
+          </div>
         </div>
-        <div className="category-new">
+        <div className="category-watch life-category">
           {" "}
           <div
             className="category-head"
             style={{ backgroundColor: " #84694e" }}
-          ></div>
+          >
+            <a title="风骚律师">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
+            <a title="绝命毒师">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>{" "}
+            <a title="美丽人生">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>{" "}
+            <a title="搏击俱乐部">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>{" "}
+            <a title="我的大叔">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>{" "}
+            <a title="寄生虫">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
+          </div>
           <div
             className="category-info"
             style={{ backgroundColor: " #cde2cf" }}
-          ></div>
-        </div> */}
+          >
+            最近在看
+          </div>
+        </div>
       </section>
     </Layout>
   )

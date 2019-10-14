@@ -2,11 +2,53 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2019-10-11"
-words: "39076"
+lastTime: "2019-10-13"
+words: "42099"
 ---
 
 ## week 1
+
+### js&python
+
+#### 类型区别
+
+- js: number,Boolean,null,undefined,NaN,Object,Symbol
+- pythob:
+  - 不可变:Number（int、float、bool、complex（复数）String（字符串）Tuple（元组,有序）
+  - 可变: List（列表,有序）Set（集合,无序）Dictionary（字典,无序）
+
+#### 可变参数
+
+类似于 JS 函数中自动识别传入参数的个数，Python 也提供了定义可变参数，即在可变参数的名字前面带上个 \* 号。
+
+```python
+def fn(*args):
+
+    print args
+
+fn()  # ()
+
+fn('a') # ('a',)
+
+fn('a', 'b') # ('a', 'b')
+```
+
+#### 匿名函数
+
+- python 中只能有一行表达式,直接 return
+
+```python
+sum = lambda arg1, arg2: arg1 + arg2
+# 调用sum函数
+print ("相加后的值为 : ", sum( 10, 20 ))
+# 相加后的值为 :  30
+```
+
+#### 装饰器
+
+decorator 装饰器
+
+ES6 的语法中的 decorator 正是借鉴了 Python 的 decorator。decorator 本质上就是 一个高阶函数，它接收一个函数作为参数，然后返回一个新函数
 
 ### 行内元素
 
@@ -1933,7 +1975,7 @@ try_files
 - 最后匹配理带有"~"和"~\_"的指令，如果找到相应的匹配，则 nginx 停止搜索其他匹配；当没有正则表达式或者没有正则表达式被匹配的情况下，那么匹配程度最高的逐字匹配指令会被使用。
   示例
 
-```NGINX
+```conf
 location = / {
 
 # 只匹配"/".
@@ -1965,3 +2007,15 @@ location ~\* \.(gif|jpg|jpeg)\$ {
 URL 重写
 仅是 URL 重写，不需要用 location 匹配，直接在 server 里写 rewrite 即可。
 ```
+
+### h5 打包成 App
+
+将 web 端可运行的文件打包成 app 端,一般是两种模式
+
+#### webView
+
+用 html + css 绘制页面，运行原理是打包工具创建一个只有一个或多个 Activity 的安卓应用，这个 Activity 上就只有一个 WebView 来显示页面。就相当于那个 app 实质上只是个浏览器，只能看你写的页面的浏览器；
+
+#### 编译为原生控件
+
+类似 RN 这种用 jsx + 类 css 描述界面，运行原理是打包工具创建一个安卓应用，界面上的控件元素是通过你前面的 描述 来要求原生层创建对应样式的原生控件。
