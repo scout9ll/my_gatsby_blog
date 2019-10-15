@@ -15,7 +15,10 @@ const Header = ({ siteTitle }) => {
   return (
     <header
       style={
-        acNav || (href.split("/") && href.split("/").includes("about"))
+        acNav ||
+        (href.split("/") &&
+          (href.split("/").includes("about") ||
+            href.split("/").includes("essay")))
           ? {
               background: "#fecd0ee3",
 
@@ -48,7 +51,16 @@ const Header = ({ siteTitle }) => {
         <Link to="/">
           <div className="logo">{siteTitle}</div>
         </Link>
-        <a>essay</a>
+        <Link
+          to="/essay"
+          className={
+            href.split("/") && href.split("/").includes("essay")
+              ? "nav-active"
+              : ""
+          }
+        >
+          essay
+        </Link>
         <Link
           to="/about"
           className={

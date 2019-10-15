@@ -213,6 +213,23 @@ const IndexPage = () => {
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>
+            <a title="时间简史" href="https://book.douban.com/subject/1000445/">
+              <img
+                src="https://img1.doubanio.com/view/subject/l/public/s3437737.jpg"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
+            <a
+              title="齐泽克的笑话"
+              href="https://book.douban.com/subject/26838875/"
+            >
+              <img
+                src="https://img3.doubanio.com/view/subject/m/public/s29343332.jpg"
+                alt="齐泽克的笑话"
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
           </div>
           <div
             className="category-info"
