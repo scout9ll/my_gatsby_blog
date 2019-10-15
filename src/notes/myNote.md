@@ -2008,14 +2008,14 @@ URL 重写
 仅是 URL 重写，不需要用 location 匹配，直接在 server 里写 rewrite 即可。
 ```
 
-### h5 打包成 App
+### hybrid 和 native
 
-将 web 端可运行的文件打包成 app 端,一般是两种模式
+用 js 写 APP 是两种模式
 
-#### webView
+#### hybrid
 
 用 html + css 绘制页面，运行原理是打包工具创建一个只有一个或多个 Activity 的安卓应用，这个 Activity 上就只有一个 WebView 来显示页面。就相当于那个 app 实质上只是个浏览器，只能看你写的页面的浏览器；
 
-#### 编译为原生控件
+#### native
 
-类似 RN 这种用 jsx + 类 css 描述界面，运行原理是打包工具创建一个安卓应用，界面上的控件元素是通过你前面的 描述 来要求原生层创建对应样式的原生控件。
+类似 RN.WEEX 是一个 js 运行时环境,是一个 ios(jscore)或者 Android(v8)的原生应用, 这种用 jsx + 类 css 描述界面，界面上的控件元素是通过你前面的 描述 来要求原生层创建对应样式的原生控件。
