@@ -1,4 +1,4 @@
-# Hi! here is steve's blog
+# Hi! Here is steve's blog
 
 ## 关于博客
 
