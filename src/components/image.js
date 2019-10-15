@@ -22,7 +22,7 @@ const Image = ({ path }) => {
             relativePath
             childImageSharp {
               fluid(maxWidth: 1920) {
-                ...GatsbyImageSharpFluid_tracedSVG
+                ...GatsbyImageSharpFluid
               }
             }
           }

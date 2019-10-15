@@ -18,6 +18,7 @@ const IndexPage = () => {
             id
             frontmatter {
               title
+              date
             }
           }
         }
@@ -160,42 +161,54 @@ const IndexPage = () => {
               href="https://book.douban.com/subject/30320889/"
             >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img1.doubanio.com/view/subject/m/public/s32285289.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>
-            <a title="产品体验要素">
+            <a
+              title="产品体验要素"
+              href="https://book.douban.com/subject/6523997/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s6519128.jpg"
+                src="https://img1.doubanio.com/view/subject/m/public/s6519128.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
-            <a title="js忍者秘籍">
+            <a
+              title="js忍者秘籍"
+              href="https://book.douban.com/subject/30143702/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img3.doubanio.com/view/subject/m/public/s29689025.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
-            <a title="图解Http">
+            <a
+              title="图解Http"
+              href="https://book.douban.com/subject/25863515/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img3.doubanio.com/view/subject/m/public/s27283822.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
             <a title="自卑与超越">
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img1.doubanio.com/view/subject/m/public/s32285289.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
-            <a title="Web高效编程与优化实践">
+            <a
+              title="Web高效编程与优化实践"
+              href="https://book.douban.com/subject/30170670/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img1.doubanio.com/view/subject/m/public/s29715097.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
@@ -214,44 +227,59 @@ const IndexPage = () => {
             className="category-head"
             style={{ backgroundColor: " #84694e" }}
           >
-            <a title="风骚律师">
+            <a
+              title="风骚律师"
+              href="https://movie.douban.com/subject/26748847/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2442801582.webp"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>
-            <a title="绝命毒师">
+            <a
+              title="绝命毒师"
+              href="https://movie.douban.com/subject/6952149/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1579021082.webp"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
-            <a title="美丽人生">
+            <a
+              title="美丽人生"
+              href="https://movie.douban.com/subject/1292063/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p510861873.webp"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
-            <a title="搏击俱乐部">
+            <a
+              title="搏击俱乐部"
+              href="https://movie.douban.com/subject/1292000/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p1910926158.webp"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
-            <a title="我的大叔">
+            <a
+              title="我的大叔"
+              href="https://movie.douban.com/subject/27602137/"
+            >
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2520568437.webp"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
-            <a title="寄生虫">
+            <a title="寄生虫" href="https://movie.douban.com/subject/27010768/">
               <img
-                src="https://img1.doubanio.com/view/subject/l/public/s32285289.jpg"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2561439800.webp"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />

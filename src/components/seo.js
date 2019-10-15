@@ -67,6 +67,10 @@ function SEO({ description, lang, meta, title }) {
           name: `twitter:description`,
           content: metaDescription,
         },
+        {
+          name:`referrer`,
+          content:`never`
+        }
       ].concat(meta)}
     />
   )
