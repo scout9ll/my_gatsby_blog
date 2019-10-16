@@ -41,12 +41,12 @@ const IndexPage = () => {
       }
     }
   `)
-  // useEffect(() => {
-  //   observer(".program-category", target =>
-  //     target.classList.add("category--hinge")
-  //   )
-  //   observer(".banner", target => target.classList.add("animate--active"))
-  // }, [])
+  useEffect(() => {
+    observer(".program-category", target =>
+      target.classList.add("category--hinge")
+    )
+    observer(".banner", target => target.classList.add("animate--active"))
+  }, [])
   return (
     <Layout>
       <SEO title="Home" />
