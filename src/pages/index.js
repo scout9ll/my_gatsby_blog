@@ -249,7 +249,7 @@ const IndexPage = () => {
               href="https://movie.douban.com/subject/26748847/"
             >
               <img
-                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2442801582.webp"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2442801582.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
@@ -259,7 +259,7 @@ const IndexPage = () => {
               href="https://movie.douban.com/subject/6952149/"
             >
               <img
-                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1579021082.webp"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1579021082.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
@@ -269,7 +269,7 @@ const IndexPage = () => {
               href="https://movie.douban.com/subject/1292063/"
             >
               <img
-                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p510861873.webp"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p510861873.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
@@ -279,7 +279,7 @@ const IndexPage = () => {
               href="https://movie.douban.com/subject/1292000/"
             >
               <img
-                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p1910926158.webp"
+                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p1910926158.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
@@ -289,7 +289,7 @@ const IndexPage = () => {
               href="https://movie.douban.com/subject/4023638/"
             >
               <img
-                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p768879237.webp"
+                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p768879237.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
@@ -299,7 +299,7 @@ const IndexPage = () => {
               href="https://movie.douban.com/subject/6786002/"
             >
               <img
-                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1454261925.webp"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1454261925.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
@@ -309,14 +309,14 @@ const IndexPage = () => {
               href="https://movie.douban.com/subject/27602137/"
             >
               <img
-                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2520568437.webp"
+                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2520568437.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>{" "}
             <a title="寄生虫" href="https://movie.douban.com/subject/27010768/">
               <img
-                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2561439800.webp"
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2561439800.jpg"
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
