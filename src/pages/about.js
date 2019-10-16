@@ -8,7 +8,7 @@ const About = () => {
     <Layout>
       <SEO title="关于" />
       <div className="about-container">
-        <h3>Hi! here is steve's blog </h3>
+        <h3>Hi! Here is steve's blog </h3>
         <p>
           这个博客基于 React 框架 ,使用GatsbyJS 搭配 GraphQL 开发，托管在{" "}
           <a href="https://github.com/steve9II/my_gatsby_blog">GitHub</a>{" "}
