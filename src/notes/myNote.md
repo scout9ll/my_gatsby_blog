@@ -2019,3 +2019,48 @@ URL 重写
 #### native
 
 类似 RN.WEEX 是一个 js 运行时环境,是一个 ios(jscore)或者 Android(v8)的原生应用, 这种用 jsx + 类 css 描述界面，界面上的控件元素是通过你前面的 描述 来要求原生层创建对应样式的原生控件。
+
+### Mysql 级联查询
+
+级联表如何一次查询所有关联数据,例如一个 user_id,必然关联很多表
+
+> 查询流程: 合并表所需表=>查询关键字(user_id),  
+> 根据合并方式的不通分为以下三种
+
+#### 交集查询
+
+重新生成满足`ON`条件的表,并 where 查询
+
+```sql
+SELECT column_name(s)
+FROM table_name1
+INNER JOIN table_name2
+ON table_name1.id=table_name2.user_id
+
+where table_name1.id=1
+```
+
+#### 左补集查询
+
+在 table_name1 的基础上添加符合条件的 table_name2 的表单数据,并 where 查询
+
+```sql
+SELECT column_name(s)
+FROM table_name1
+LEFT JOIN table_name2
+ON table_name1.id=table_name2.user_id
+
+where table_name1.id=1
+```
+
+#### 右补集查询
+
+在 table_name3 的基础上添加符合条件的 table_name2 的表单数据,再添加符合条件 table_name1 的数据,并 where 查询
+
+```sql
+SELECT *
+FROM table_name1 t1
+RIGHT JOIN table_name2 t2 ON t2.user_id = t1.id
+RIGHT JOIN table_name3 t3 ON t3.user_id= t2.user_id
+WHERE t1.user_id = 1
+```
