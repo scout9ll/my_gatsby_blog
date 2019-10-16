@@ -41,12 +41,12 @@ const IndexPage = () => {
       }
     }
   `)
-  useEffect(() => {
-    observer(".program-category", target =>
-      target.classList.add("category--hinge")
-    )
-    observer(".banner", target => target.classList.add("animate--active"))
-  }, [])
+  // useEffect(() => {
+  //   observer(".program-category", target =>
+  //     target.classList.add("category--hinge")
+  //   )
+  //   observer(".banner", target => target.classList.add("animate--active"))
+  // }, [])
   return (
     <Layout>
       <SEO title="Home" />
@@ -149,7 +149,7 @@ const IndexPage = () => {
         {" "}
         <div className="div"> share life</div>
       </div>
-      {/* <section>
+      <section>
         <div className="category-read life-category">
           {" "}
           <div
@@ -329,7 +329,7 @@ const IndexPage = () => {
             最近在看
           </div>
         </div>
-      </section> */}
+      </section>
     </Layout>
   )
 }
