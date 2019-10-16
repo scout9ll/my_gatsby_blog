@@ -2,7 +2,7 @@ function observer(eles, cb) {
   const targets = document.querySelectorAll(eles)
 
   const targetOb = ele => {
-    if (IntersectionObserver) {
+    if (window.IntersectionObserver) {
       const ob = new IntersectionObserver(([entry, ...entrys]) => {
         if (entry.isIntersecting) {
           const target = entry.target
