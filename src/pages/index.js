@@ -149,7 +149,7 @@ const IndexPage = () => {
         {" "}
         <div className="div"> share life</div>
       </div>
-      <section>
+      {/* <section>
         <div className="category-read life-category">
           {" "}
           <div
@@ -283,7 +283,27 @@ const IndexPage = () => {
                 alt=""
                 style={{ width: "135px", maxHeight: "200px" }}
               />
-            </a>{" "}
+            </a>
+            <a
+              title="国王的演讲"
+              href="https://movie.douban.com/subject/4023638/"
+            >
+              <img
+                src="https://img1.doubanio.com/view/photo/s_ratio_poster/public/p768879237.webp"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
+            <a
+              title="触不可及"
+              href="https://movie.douban.com/subject/6786002/"
+            >
+              <img
+                src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p1454261925.webp"
+                alt=""
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
             <a
               title="我的大叔"
               href="https://movie.douban.com/subject/27602137/"
@@ -309,7 +329,7 @@ const IndexPage = () => {
             最近在看
           </div>
         </div>
-      </section>
+      </section> */}
     </Layout>
   )
 }
