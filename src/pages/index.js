@@ -103,6 +103,7 @@ const IndexPage = () => {
             to="/blog"
             className="category-info"
             style={{ backgroundColor: "#7f2116" }}
+            
           >
             技术难点的一些总结
           </Link>
@@ -227,6 +228,17 @@ const IndexPage = () => {
               <img
                 src="https://img3.doubanio.com/view/subject/m/public/s29343332.jpg"
                 alt="齐泽克的笑话"
+                style={{ width: "135px", maxHeight: "200px" }}
+              />
+            </a>
+            
+            <a
+              title="行为科学统计"
+              href="https://book.douban.com/subject/3171735/"
+            >
+              <img
+                src="https://img9.doubanio.com/view/subject/m/public/s3226976.jpg"
+                alt="行为科学统计"
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>
