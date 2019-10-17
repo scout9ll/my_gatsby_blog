@@ -103,12 +103,11 @@ const IndexPage = () => {
             to="/blog"
             className="category-info"
             style={{ backgroundColor: "#7f2116" }}
-            
           >
-            技术难点的一些总结
+            <span>技术难点的一些总结</span>
           </Link>
         </div>
-        <div className="category-note program-category">
+        <Link to="/notes" className="category-note program-category">
           <svg
             t="1563061400245"
             className="icon"
@@ -137,14 +136,13 @@ const IndexPage = () => {
               </div>
             </div>
           </div>
-          <Link
-            to="/notes"
+          <div
             className="category-info"
             style={{ backgroundColor: " #dbde30" }}
           >
-            纪录每周遇到的问题
-          </Link>
-        </div>
+            <span>纪录每周遇到的问题</span>
+          </div>
+        </Link>
       </section>
       <div className="poster">
         {" "}
@@ -231,7 +229,6 @@ const IndexPage = () => {
                 style={{ width: "135px", maxHeight: "200px" }}
               />
             </a>
-            
             <a
               title="行为科学统计"
               href="https://book.douban.com/subject/3171735/"

@@ -2127,3 +2127,25 @@ function detectmob() {
 ```js
 var isMobile = window.orientation > -1
 ```
+
+### vue 的路由懒加载
+
+两个步骤：splitChunks + vue 工厂函数
+
+#### splitChunks
+
+splitChunks 有两个功能
+
+- 去重复组件
+- 通过`import()`标识符能够让其被 splitChunks 分割为组件,并编译为一个 promise 函数
+
+#### vue
+
+当 vue 触发到该组件后会执行其异步函数,类似于:
+
+```js
+new axios.get("/async-component").then(asyncComponet => {
+  this.routerCompone = asyncComponet //得到组件后缓存
+  this.render()
+})
+```
