@@ -92,6 +92,7 @@ section {
     perspective: 800px;
     text-decoration: none;
     cursor: pointer;
+    color: black;
     &.category--hinge {
       animation: hinge 2s forwards;
     }

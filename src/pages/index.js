@@ -68,7 +68,7 @@ const IndexPage = () => {
         <div className="div"> record life</div>
       </div>
       <section>
-        <div className="category-tec program-category">
+        <Link to="/blog" className="category-tec program-category">
           {/* <div className="icon-pin"> */}
           <svg
             t="1563061400245"
@@ -99,14 +99,10 @@ const IndexPage = () => {
               </div>
             </div>
           </div>
-          <Link
-            to="/blog"
-            className="category-info"
-            style={{ backgroundColor: "#7f2116" }}
-          >
+          <div className="category-info" style={{ backgroundColor: "#7f2116" }}>
             <span>技术难点的一些总结</span>
-          </Link>
-        </div>
+          </div>
+        </Link>
         <Link to="/notes" className="category-note program-category">
           <svg
             t="1563061400245"
