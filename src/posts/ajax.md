@@ -1,6 +1,6 @@
 ---
 path: "/blog/AscynRequset"
-date: "2019-07-12"
+date: "2018-07-12"
 title: "聊聊几种异步请求"
 tags: ["AJAX", "Fetch", "axios"]
 weather: 🌞

@@ -1,7 +1,7 @@
 ---
 path: "/blog/setState"
 title: "setState那些事"
-date: "2019-07-15"
+date: "2018-12-15"
 tags: ["react", "state"]
 weather: 🌧️
 ---

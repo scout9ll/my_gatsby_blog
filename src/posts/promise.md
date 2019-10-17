@@ -1,6 +1,6 @@
 ---
 path: "/blog/Promise"
-date: "2019-05-12"
+date: "2019-01-12"
 title: "深入Promise"
 tags: ["Promise", "ES6", "原生JS"]
 weather: ☔

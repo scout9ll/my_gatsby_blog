@@ -1,6 +1,6 @@
 ---
 path: "/blog/Vue-Observer"
-date: "2019-07-23"
+date: "2019-04-23"
 title: "Vue-observer"
 tags: ["VUE", "Observer"]
 weather: ⚡

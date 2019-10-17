@@ -487,6 +487,26 @@ for (const value of normalObj) {
 
 - 如果 `elemB` 在 `elemA`（`elemA` 的后代）中或者当 `elemA==elemB` 时 `elemA.contains(elemB)` 将返回 true。
 
+### readystate 和 status
+
+两个不过程的状态码
+
+#### readystate 为 XML httpRequest 请求过程的不同阶段
+
+- 1=>请求尚未初始化, 已经创建 XMLHttpRequest 对象
+- 2=>服务器链接已经建立, 已经调用了 XMLHttpRequest 对象的 open 方法，并且 XMLHttpRequest 对象已经准备好将一个请求发送到服务器端
+- 3=>请求已经发送, 已经通过 send 方法把一个请求发送到服务器端，但是还没有收到一个响应
+- 4=>请求处理中, 已经接收到 HTTP 响应头部信息，但是消息体部分还没有
+- 5=>完全接收到请求完成, 且响应已经就绪
+
+#### status 为请求在服务端响应的结果
+
+- 1XX 服务器收到请求，需要继续处理。例如 101 状态码，表示服务器将通知客户端使用更高版本的 HTTP 协议。
+- 2XX 请求成功。例如 200 状态码，表示请求所希望的响应头或数据体将随此响应返回。
+- 3XX 重定向。例如 302 状态码，表示临时重定向，请求将包含一个新的 URL 地址，客户端将对新的地址进行 GET 请求。
+- 4XX 客户端错误。例如 404 状态码，表示客户端请求的资源不存在。
+- 5XX 服务器错误。例如 500 状态码，表示服务器遇到了一个未曾预料的情况，导致了它无法完成响应，一般来说，这个问题会在程序代码出错时出现。
+
 ## week 5
 
 ### event.target 和 event.currentTarget
@@ -1914,6 +1934,9 @@ iphonex 存在刘海和底部胡须,若不处理则会影响页面展示
 通过 Apple 提供的`safe-area-inset-*`属性,使用 constant( ) 和 env( ) 获取
 例如:
 
+> PS:必须指定 viweport-fit 后才能使用这两个函数  
+> `<meta name="viewport" content="viewport-fit=cover">`
+
 - 整体处理
 
 ```css
@@ -2063,4 +2086,44 @@ FROM table_name1 t1
 RIGHT JOIN table_name2 t2 ON t2.user_id = t1.id
 RIGHT JOIN table_name3 t3 ON t3.user_id= t2.user_id
 WHERE t1.user_id = 1
+```
+
+### 检测手机端
+
+#### userAgent
+
+```js
+function detectmob() {
+  if (
+    navigator.userAgent.match(/Android/i) ||
+    navigator.userAgent.match(/webOS/i) ||
+    navigator.userAgent.match(/iPhone/i) ||
+    navigator.userAgent.match(/iPad/i) ||
+    navigator.userAgent.match(/iPod/i) ||
+    navigator.userAgent.match(/BlackBerry/i) ||
+    navigator.userAgent.match(/Windows Phone/i)
+  ) {
+    return true
+  } else {
+    return false
+  }
+}
+```
+
+#### pixel
+
+```js
+function detectmob() {
+  if (window.innerWidth <= 800 && window.innerHeight <= 600) {
+    return true
+  } else {
+    return false
+  }
+}
+```
+
+### window.orientation
+
+```js
+var isMobile = window.orientation > -1
 ```

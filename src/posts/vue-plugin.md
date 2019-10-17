@@ -1,7 +1,7 @@
 ---
 path: "/blog/vuePlugin"
 title: "实现一个Vue插件"
-date: "2019-08-30"
+date: "2019-05-30"
 tags: ["VUE", "源码", "插件"]
 weather: ⛅
 ---
