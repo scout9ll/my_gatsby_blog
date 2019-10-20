@@ -1280,7 +1280,7 @@ token 需从服务端获得后再在前端设置存储(`localStorage.set`)
 
 #### api example
 
-`https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=5000557018&key=0D6563D96A865670FBA3171ADC40DDB0`
+> https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=5000557018&key=0D6563D96A865670FBA3171ADC40DDB0
 
 ### encodeURIComponent 和 encodeURI
 
@@ -1388,7 +1388,7 @@ function foo() {
 foo()
 //create foo function enviroment
 // register args
-// regist a  in window
+// regist a  in functionFoo
 // begin execute
 // find b in foo environment,can't find
 // to find b in foo[[environment]]
