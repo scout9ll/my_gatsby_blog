@@ -2149,3 +2149,26 @@ new axios.get("/async-component").then(asyncComponet => {
   this.render()
 })
 ```
+
+## week15
+
+### webpack-loader 执行顺序
+
+loader由后向前执行(栈式)
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader", // json => stylesheet
+          "css-loader", //css content=> CommonJS module
+          "sass-loader", //sass =>css
+        ],
+      },
+    ],
+  },
+}
+```
