@@ -2154,7 +2154,7 @@ new axios.get("/async-component").then(asyncComponet => {
 
 ### webpack-loader 执行顺序
 
-loader由后向前执行(栈式)
+loader 由后向前执行(栈式)
 
 ```js
 module.exports = {
@@ -2172,3 +2172,50 @@ module.exports = {
   },
 }
 ```
+
+### @装饰器
+
+#### 具体作用
+
+```ts
+type descriptor = {
+  value: any
+  enumerable: boolean
+  configurable: boolean
+  writable: boolean
+}
+function readonly(target: object, name: string, descriptor: descriptor) {
+  desciptor.writable = false
+  return desciptor
+}
+//在装饰类方法的时候，第一个参数表示类的原型(prototype), 第二个参数表示方法名, 第三个参数表示被装饰参数的属性
+class Example {
+  @readonly
+  id: 123
+}
+```
+
+### 浏览器中的进程和线程
+
+> [参考文章](https://www.cnblogs.com/cangqinglang/p/8963557.html)
+
+#### 浏览器的进程
+
+- browser 进程,浏览器的*主进程*（负责协调、主控），只有一个。作用有:
+  - 负责浏览器界面显示，与用户交互。如前进，后退等
+  - 负责各个页面的管理，创建和销毁其他进程
+  - 将 Renderer 进程得到的内存中的 Bitmap，绘制到用户界面上(所以不同 tab 只有一个会被绘制,其他会暂停绘制)
+  - 网络资源的管理，下载等
+- 渲染进程,_子进程_,每个 tab 单独的进程,主要作用为:
+  - 页面渲染，脚本执行，事件处理等
+- 第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建
+- GPU 进程：最多一个，用于 3D 绘制等
+
+#### 浏览器的线程
+
+- js 线程,处理 js
+- GUI 渲染线程,处理 dom 和 css 树,绘制渲染树
+- 事件触发线程,事件列队,处理事件循环
+- 定时器线程,处理定时
+- 请求线程,处理异步请求
+  - 其中为了防止二次回流,CSS 和初次未设置异步的 JS 文件会阻塞 dom 加载
