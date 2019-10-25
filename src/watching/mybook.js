@@ -1,4 +1,4 @@
-const mybook = [
+const mybooks = [
   {
     img: "https://img1.doubanio.com/view/subject/m/public/s32285289.jpg",
     src: "https://book.douban.com/subject/30320889/",
@@ -46,4 +46,4 @@ const mybook = [
   },
 ]
 
-export default mybook
+export default mybooks
