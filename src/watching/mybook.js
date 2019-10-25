@@ -22,7 +22,7 @@ const mybooks = [
   {
     title: "自卑与超越",
     src: "https://book.douban.com/subject/3389960/",
-    img: "https://img1.doubanio.com/view/subject/m/public/s32285289.jpg",
+    img: "https://img3.doubanio.com/view/subject/l/public/s4441345.jpg",
   },
   {
     title: "Web高效编程与优化实践",
