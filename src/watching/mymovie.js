@@ -53,6 +53,12 @@ const myMovies = [
     img:
       "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2497190395.jpg",
   },
+  {
+    title: "花樣年華",
+    src: "https://movie.douban.com/subject/1291557/",
+    img:
+      "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p1910828286.jpg",
+  },
 ]
 
 export default myMovies
