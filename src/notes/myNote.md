@@ -3,7 +3,7 @@ path: "/note"
 date: "2019-05-20"
 title: "note"
 lastTime: "2019-10-31"
-words: "42099"
+words: "46099"
 ---
 
 ## week 1
