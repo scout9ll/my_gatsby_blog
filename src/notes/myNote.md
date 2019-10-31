@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2019-10-13"
+lastTime: "2019-10-31"
 words: "42099"
 ---
 
@@ -2219,3 +2219,25 @@ class Example {
 - 定时器线程,处理定时
 - 请求线程,处理异步请求
   - 其中为了防止二次回流,CSS 和初次未设置异步的 JS 文件会阻塞 dom 加载
+
+## week16
+
+### process
+`process`为node中的进程变量，是全局变量，可直接使用
+
+#### process.env
+是进程中的环境变量对象
+- 在一般命令行声明
+>表示`process.env.NODE_ENV=production`
+```bash
+NODE_ENV=production node build.js #linux 
+set NODE_ENV=production node build.js #windows
+cross-env NODE_ENV=production node build.js #adapt all apply by `cross-env` 
+```
+
+- 在npm中声明时
+>表示`process.env.env.npm_config_project=testProject`
+```bash
+npm run serve --project=testProject
+```
+
