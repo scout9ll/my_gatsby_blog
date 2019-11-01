@@ -2243,6 +2243,22 @@ cross-env NODE_ENV=production node build.js #adapt all apply by `cross-env`
 npm run serve --project=testProject
 ```
 
+- 在`.env.[mode].local`文件中
+*local表示被 git 忽略且出现在 .gitignore 中*
+>表示当mode为mode时，设置文件下的环境变量
+```bash
+# .env.dev
+# key=value
+FOO=bar
+VUE_APP_SECRET=secret
+```
+```bash
+vue-cli-service  serve --mode dev
+```
+>可通过webpack.DefinePlugin在客户端侧代码中使用环境变量
+>例如在vue-cli中，集成的webpack.DefinePlugin在构建过程中，process.env.VUE_APP_SECRET 将会被相应的值所取代。在 VUE_APP_SECRET=secret 的情况下，它会被替换为 "secret"  
+>*在cli中还包括NODE_ENV和BASE_URL这两个可以被编译在客户端的环境变量*
+
 #### process.argv
 表示启动node进程时在命令行中的参数数组
 - 第一个参数为`process.execPath`路径，启动的node路径，一般为/usr/local/bin/node，该参数也为process.argv0
