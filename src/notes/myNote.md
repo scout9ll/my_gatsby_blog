@@ -1464,6 +1464,8 @@ foo()
 - git checkout dev(需要切换到的分支名称) 切换分支
 - git merge xx(把分支 xx 合并到当前分支) 合并分支(子分支还存在)
 - git branch -d dev 删除分支
+- git checkout -b  `dev` ，创建dev分支并切换到dev
+- git checkout -b localDev origin/remoteDev 创建本地localDev并关联到Origin仓库的remoteDev分支
 
 #### github
 
