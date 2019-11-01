@@ -2243,3 +2243,27 @@ cross-env NODE_ENV=production node build.js #adapt all apply by `cross-env`
 npm run serve --project=testProject
 ```
 
+#### process.argv
+表示启动node进程时在命令行中的参数数组
+- 第一个参数为`process.execPath`路径，启动的node路径，一般为/usr/local/bin/node，该参数也为process.argv0
+- 第二个参数为JavaScript文件的路径
+>example
+```js
+// process-args.js
+// 打印 process.argv。
+process.argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`);
+});
+```
+>cmd命令
+```cmd
+node process-args.js one two=three four
+```
+>输出如下
+```cmd
+0: /usr/local/bin/node
+1: /Users/mjr/work/node/process-args.js
+2: one
+3: two=three
+4: four
+```
