@@ -2147,7 +2147,7 @@ splitChunks 有两个功能
 
 ```js
 new axios.get("/async-component").then(asyncComponet => {
-  this.routerCompone = asyncComponet //得到组件后缓存
+  this.routerComponent = asyncComponet //得到组件后缓存
   this.render()
 })
 ```
@@ -2283,3 +2283,10 @@ node process-args.js one two=three four
 3: two=three
 4: four
 ```
+#### process.cwd()
+表示node进程的工作路径，不包含执行文件，即执行文件的工作路径
+
+### webpack devServer
+
+#### after
+after 接受一个以express实例(app)的参数的函数，在proxy后调用，通常用来做测试服务器
