@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2019-10-13"
-words: "42099"
+lastTime: "2019-10-25"
+words: "45099"
 ---
 
 ## week 1
@@ -194,7 +194,7 @@ window.addEventListener("scroll", debounce(func))
 
 - 基本数据类型
 
-  - 包括，string,null,undefine,boolean,number,
+  - 包括，string(utf-16),null,undefine,boolean,number(8字节),
   - 存储内容，变量名与数据本身
   - 存储位置，栈内存
 
