@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2019-10-25"
-words: "45099"
+lastTime: "2019-10-31"
+words: "46099"
 ---
 
 ## week 1
@@ -194,7 +194,7 @@ window.addEventListener("scroll", debounce(func))
 
 - 基本数据类型
 
-  - 包括，string(utf-16),null,undefine,boolean,number(8字节),
+  - 包括，string(utf-16),null,undefine,boolean,number(8 字节),
   - 存储内容，变量名与数据本身
   - 存储位置，栈内存
 
@@ -1464,6 +1464,8 @@ foo()
 - git checkout dev(需要切换到的分支名称) 切换分支
 - git merge xx(把分支 xx 合并到当前分支) 合并分支(子分支还存在)
 - git branch -d dev 删除分支
+- git checkout -b `dev` ，创建 dev 分支并切换到 dev
+- git checkout -b localDev origin/remoteDev 创建本地 localDev 并关联到 Origin 仓库的 remoteDev 分支
 
 #### github
 
@@ -2145,7 +2147,7 @@ splitChunks 有两个功能
 
 ```js
 new axios.get("/async-component").then(asyncComponet => {
-  this.routerCompone = asyncComponet //得到组件后缓存
+  this.routerComponent = asyncComponet //得到组件后缓存
   this.render()
 })
 ```
@@ -2219,3 +2221,131 @@ class Example {
 - 定时器线程,处理定时
 - 请求线程,处理异步请求
   - 其中为了防止二次回流,CSS 和初次未设置异步的 JS 文件会阻塞 dom 加载
+
+## week16
+
+### process
+
+`process`为 node 中的进程变量，是全局变量，可直接使用
+
+#### process.env
+
+是进程中的环境变量对象
+
+- 在一般命令行声明
+  > 表示`process.env.NODE_ENV=production`
+
+```bash
+NODE_ENV=production node build.js #linux
+set NODE_ENV=production node build.js #windows
+cross-env NODE_ENV=production node build.js #adapt all apply by `cross-env`
+```
+
+- 在 npm 中声明时
+  > 表示`process.env.env.npm_config_project=testProject`
+
+```bash
+npm run serve --project=testProject
+```
+
+- 在`.env.[mode].local`文件中
+  _local 表示被 git 忽略且出现在 .gitignore 中_
+  > 表示当 mode 为 mode 时，设置文件下的环境变量
+
+```bash
+# .env.dev
+# key=value
+FOO=bar
+VUE_APP_SECRET=secret
+```
+
+```bash
+vue-cli-service  serve --mode dev
+```
+
+> 可通过 webpack.DefinePlugin 在客户端侧代码中使用环境变量
+> 例如在 vue-cli 中，集成的 webpack.DefinePlugin 在构建过程中，process.env.VUE*APP_SECRET 将会被相应的值所取代。在 VUE_APP_SECRET=secret 的情况下，它会被替换为 "secret"  
+> *在 cli 中还包括 NODE*ENV 和 BASE_URL 这两个可以被编译在客户端的环境变量*
+
+#### process.argv
+
+表示启动 node 进程时在命令行中的参数数组
+
+- 第一个参数为`process.execPath`路径，启动的 node 路径，一般为/usr/local/bin/node，该参数也为 process.argv0
+- 第二个参数为 JavaScript 文件的路径
+  > example
+
+```js
+// process-args.js
+// 打印 process.argv。
+process.argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`)
+})
+```
+
+> cmd 命令
+
+```cmd
+node process-args.js one two=three four
+```
+
+> 输出如下
+
+```cmd
+0: /usr/local/bin/node
+1: /Users/mjr/work/node/process-args.js
+2: one
+3: two=three
+4: four
+```
+
+#### process.cwd()
+
+表示 node 进程的工作路径，不包含执行文件，即执行文件的工作路径
+
+### webpack devServer
+
+#### after
+
+after 接受一个以 express 实例(app)的参数的函数，在 proxy 后调用，通常用来做测试服务器
+
+### python_class
+
+```python
+class Person:
+    world = earth
+    def __init__(self,lastname,firstname):
+      self.lastname =lastname
+      self.firstname=firstname
+
+    def fullName(self):
+      return '{} {}'.format(self.firstname,self.lastname)
+
+    @classmethods
+    def get_person(cls,nameString):
+      first,last = nameString.split(',')
+      return cls(last,first)
+
+person1 = Person('steve')
+person2 = Person('scout')
+
+```
+
+#### self
+
+self 为实例对象,故 Person.fullName(person1)==person1.fullName()
+
+#### class variable
+
+world 为类变量,当访问实例中不存在则会找到该类中的变量
+
+```python
+Person.world== person1.world
+person1.world = mars # person2.world ==earth
+Person.world = mars # person2.world ==mars
+```
+
+#### classmethods staticmethods
+
+- classmethods:接受 class 自身为参数的方法
+- staticmethods:默认没有参数
