@@ -1464,13 +1464,8 @@ foo()
 - git checkout dev(需要切换到的分支名称) 切换分支
 - git merge xx(把分支 xx 合并到当前分支) 合并分支(子分支还存在)
 - git branch -d dev 删除分支
-<<<<<<< HEAD
-- git checkout -b `dev` ，创建 dev 分支并切换到 dev
-- git checkout -b localDev origin/remoteDev 创建本地 localDev 并关联到 Origin 仓库的 remoteDev 分支
-=======
 - git checkout -b  `dev` ，创建dev分支并切换到dev
 - git checkout -b localDev origin/remoteDev 创建本地localDev并关联到Origin仓库的remoteDev分支
->>>>>>> 8233b4a655f111e479a6f1fe0bd9c16e352e2792
 
 #### github
 
@@ -2230,7 +2225,6 @@ class Example {
 ## week16
 
 ### process
-<<<<<<< HEAD
 
 `process`为 node 中的进程变量，是全局变量，可直接使用
 
@@ -2250,42 +2244,20 @@ cross-env NODE_ENV=production node build.js #adapt all apply by `cross-env`
 - 在 npm 中声明时
   > 表示`process.env.env.npm_config_project=testProject`
 
-=======
-`process`为node中的进程变量，是全局变量，可直接使用
-
-#### process.env
-是进程中的环境变量对象
-- 在一般命令行声明
->表示`process.env.NODE_ENV=production`
-```bash
-NODE_ENV=production node build.js #linux 
-set NODE_ENV=production node build.js #windows
-cross-env NODE_ENV=production node build.js #adapt all apply by `cross-env` 
-```
-
-- 在npm中声明时
->表示`process.env.env.npm_config_project=testProject`
->>>>>>> 8233b4a655f111e479a6f1fe0bd9c16e352e2792
 ```bash
 npm run serve --project=testProject
 ```
 
 - 在`.env.[mode].local`文件中
-<<<<<<< HEAD
   _local 表示被 git 忽略且出现在 .gitignore 中_
   > 表示当 mode 为 mode 时，设置文件下的环境变量
 
-=======
-*local表示被 git 忽略且出现在 .gitignore 中*
->表示当mode为mode时，设置文件下的环境变量
->>>>>>> 8233b4a655f111e479a6f1fe0bd9c16e352e2792
 ```bash
 # .env.dev
 # key=value
 FOO=bar
 VUE_APP_SECRET=secret
 ```
-<<<<<<< HEAD
 
 ```bash
 vue-cli-service  serve --mode dev
@@ -2303,25 +2275,10 @@ vue-cli-service  serve --mode dev
 - 第二个参数为 JavaScript 文件的路径
   > example
 
-=======
-```bash
-vue-cli-service  serve --mode dev
-```
->可通过webpack.DefinePlugin在客户端侧代码中使用环境变量
->例如在vue-cli中，集成的webpack.DefinePlugin在构建过程中，process.env.VUE_APP_SECRET 将会被相应的值所取代。在 VUE_APP_SECRET=secret 的情况下，它会被替换为 "secret"  
->*在cli中还包括NODE_ENV和BASE_URL这两个可以被编译在客户端的环境变量*
-
-#### process.argv
-表示启动node进程时在命令行中的参数数组
-- 第一个参数为`process.execPath`路径，启动的node路径，一般为/usr/local/bin/node，该参数也为process.argv0
-- 第二个参数为JavaScript文件的路径
->example
->>>>>>> 8233b4a655f111e479a6f1fe0bd9c16e352e2792
 ```js
 // process-args.js
 // 打印 process.argv。
 process.argv.forEach((val, index) => {
-<<<<<<< HEAD
   console.log(`${index}: ${val}`)
 })
 ```
@@ -2334,16 +2291,6 @@ node process-args.js one two=three four
 
 > 输出如下
 
-=======
-  console.log(`${index}: ${val}`);
-});
-```
->cmd命令
-```cmd
-node process-args.js one two=three four
-```
->输出如下
->>>>>>> 8233b4a655f111e479a6f1fe0bd9c16e352e2792
 ```cmd
 0: /usr/local/bin/node
 1: /Users/mjr/work/node/process-args.js
@@ -2351,20 +2298,14 @@ node process-args.js one two=three four
 3: two=three
 4: four
 ```
-<<<<<<< HEAD
 
 #### process.cwd()
 
 表示 node 进程的工作路径，不包含执行文件，即执行文件的工作路径
-=======
-#### process.cwd()
-表示node进程的工作路径，不包含执行文件，即执行文件的工作路径
->>>>>>> 8233b4a655f111e479a6f1fe0bd9c16e352e2792
 
 ### webpack devServer
 
 #### after
-<<<<<<< HEAD
 
 after 接受一个以 express 实例(app)的参数的函数，在 proxy 后调用，通常用来做测试服务器
 
@@ -2408,6 +2349,3 @@ Person.world = mars # person2.world ==mars
 
 - classmethods:接受 class 自身为参数的方法
 - staticmethods:默认没有参数
-=======
-after 接受一个以express实例(app)的参数的函数，在proxy后调用，通常用来做测试服务器
->>>>>>> 8233b4a655f111e479a6f1fe0bd9c16e352e2792
