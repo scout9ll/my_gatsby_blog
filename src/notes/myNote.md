@@ -1699,11 +1699,18 @@ const exampleCp = new Vue({
   functional: true,
   props: ["tags"],
   render(h) {
-    return h("div", this.tags.map((e, i) => h(e, i)))
+    return h(
+      "div",
+      this.tags.map((e, i) => h(e, i))
+    )
   },
 })
 
-const exampleFn = (h, data) => h("div", data.props.tags.map((e, i) => h(e, i)))
+const exampleFn = (h, data) =>
+  h(
+    "div",
+    data.props.tags.map((e, i) => h(e, i))
+  )
 ```
 
 #### 在 jsx 中
@@ -2043,7 +2050,9 @@ URL 重写
 
 #### native
 
-类似 RN.WEEX 是一个 js 运行时环境,是一个 ios(jscore)或者 Android(v8)的原生应用, 这种用 jsx + 类 css 描述界面，界面上的控件元素是通过你前面的 描述 来要求原生层创建对应样式的原生控件。
+类似 RN,WEEX 是一个 js 运行时环境,是一个 ios(jscore)或者 Android(v8)的原生应用, 这种用 jsx + 类 css 描述界面，界面上的控件元素是通过你前面的 描述 来要求原生层创建对应样式的原生控件。
+
+> 例如在 weex 中用 jsFile 来控制页面的逻辑
 
 ### Mysql 级联查询
 
@@ -2349,3 +2358,87 @@ Person.world = mars # person2.world ==mars
 
 - classmethods:接受 class 自身为参数的方法
 - staticmethods:默认没有参数
+
+### andriod 开发环境
+
+#### jdk
+
+#### andriod studio
+
+## week17
+
+### node-stream
+
+#### stream 是什么
+
+stream 是 node 中的流类型，stream 来源于操作系统，操作系统在一些 IO 操作时为避免一次性处理大量数据导致内存的不足的问题而采用的流式处理模式，将数据在管道中处理并像水流一样流向目标。
+
+![node-stream](https://user-gold-cdn.xitu.io/2019/7/10/16bdc4cdc5cdccc4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+#### node 中的 stream 类型
+
+- Readable Stream 可读数据流
+- Writeable Stream 可写数据流
+- Duplex Stream 双向数据流，可以同时读和写
+- Transform Stream 转换数据流，可读可写，同时可以转换（处理）数据(不常用)
+
+#### stream 用法
+
+stream 使用的两个关键对象，source 对象和 destination 对象
+
+案例参考：https://juejin.im/post/5d25ce36f265da1ba84ab97a#heading-3
+
+> 大文件读写
+
+```js
+const fs = require("fs")
+const path = require("path")
+
+// 两个文件名
+const fileName1 = path.resolve(__dirname, "data.txt")
+const fileName2 = path.resolve(__dirname, "data-bak.txt")
+// 读取文件的 stream 对象
+const readStream = fs.createReadStream(fileName1) //source 对象
+// 写入文件的 stream 对象
+const writeStream = fs.createWriteStream(fileName2) // destination 对象
+// 通过 pipe执行拷贝，数据流转
+readStream.pipe(writeStream)
+// 数据读取完成监听，即拷贝完成
+readStream.on("end", function() {
+  console.log("拷贝完成")
+})
+```
+
+> 高频度网络请求
+
+```js
+/*
+ * 微信生成二维码接口
+ * params src 微信url / 其他图片请求链接
+ * params localFilePath: 本地路径
+ * params data: 微信请求参数
+ * */
+const downloadFile = async (src, localFilePath, data) => {
+  try {
+    const ws = fs.createWriteStream(localFilePath)
+    return new Promise((resolve, reject) => {
+      ws.on("finish", () => {
+        resolve(localFilePath)
+      })
+      if (data) {
+        request({
+          method: "POST",
+          uri: src,
+          json: true,
+          body: data,
+        }).pipe(ws)
+      } else {
+        request(src).pipe(ws)
+      }
+    })
+  } catch (e) {
+    logger.error("wxdownloadFile error: ", e)
+    throw e
+  }
+}
+```
