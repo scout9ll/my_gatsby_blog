@@ -62,8 +62,8 @@ const Blog = () => {
             return (
               <div key={node.frontmatter.path} className="blog-block">
                 <div className="blog-condition">
-                  {node.frontmatter.weather}
-                  {node.frontmatter.date}
+                  <span> {node.frontmatter.date} </span>
+                  <span> {node.frontmatter.weather} </span>
                 </div>
                 <Link to={node.frontmatter.path} className="blog-title">
                   {node.frontmatter.title}
