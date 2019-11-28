@@ -1699,18 +1699,11 @@ const exampleCp = new Vue({
   functional: true,
   props: ["tags"],
   render(h) {
-    return h(
-      "div",
-      this.tags.map((e, i) => h(e, i))
-    )
+    return h("div", this.tags.map((e, i) => h(e, i)))
   },
 })
 
-const exampleFn = (h, data) =>
-  h(
-    "div",
-    data.props.tags.map((e, i) => h(e, i))
-  )
+const exampleFn = (h, data) => h("div", data.props.tags.map((e, i) => h(e, i)))
 ```
 
 #### 在 jsx 中
@@ -2442,3 +2435,22 @@ const downloadFile = async (src, localFilePath, data) => {
   }
 }
 ```
+
+### 在 vscode 中写 python
+
+#### 开启虚拟环境
+
+安装`pipenv`虚拟环境
+
+> pip install pipenv
+> pipenv shell
+
+#### 选择解释器
+
+成功创建完虚拟环境后需要在 vscode 中指定改环境解释器
+
+> cmd+shift+p; > python select interpreter
+
+#### 在虚拟环境下安装依赖
+
+> pipenv install \*\*
