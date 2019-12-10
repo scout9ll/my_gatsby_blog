@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2019-11-14"
-words: "48099"
+lastTime: "2019-12-10"
+words: "53706"
 ---
 
 ## week 1
@@ -1699,11 +1699,18 @@ const exampleCp = new Vue({
   functional: true,
   props: ["tags"],
   render(h) {
-    return h("div", this.tags.map((e, i) => h(e, i)))
+    return h(
+      "div",
+      this.tags.map((e, i) => h(e, i))
+    )
   },
 })
 
-const exampleFn = (h, data) => h("div", data.props.tags.map((e, i) => h(e, i)))
+const exampleFn = (h, data) =>
+  h(
+    "div",
+    data.props.tags.map((e, i) => h(e, i))
+  )
 ```
 
 #### 在 jsx 中
@@ -2454,3 +2461,128 @@ const downloadFile = async (src, localFilePath, data) => {
 #### 在虚拟环境下安装依赖
 
 > pipenv install \*\*
+
+## week 18
+
+### CallExpression||MemberExpression
+
+func() is a CallExpression
+thing.func is a MemberExpression
+thing is the object of the MemberExpression
+func is the property of the MemberExpression
+thing.func() is a MemberExpression within a CallExpression
+thing.func is the callee of the CallExpression
+
+### how to make a eslint plugin
+
+the best way to create it is using cli to generator
+`npm install -g yo generator-eslint`
+
+#### create eslint plugin project module
+
+`yo eslint:plugin`
+
+#### create eslint rule file
+
+`yo eslint:rule`
+
+#### write rule file
+
+rule example
+
+```js
+// lib/rules/ruleName
+module.exports = {
+  meta: {
+    docs: {
+      description: "setTimeout 第二个参数禁止是数字",
+    },
+    fixable: null, // 修复函数
+  },
+  // rule 核心
+  create: function(context) {
+    // 公共变量和函数应该在此定义
+    return {
+      // 返回事件钩子,一个对象key为触发钩子的语法类型,value为钩子的检测函数
+      CallExpression: node => {
+        if (node.callee.name !== "setTimeout") return // 不是定时器即过滤
+        const timeNode = node.arguments && node.arguments[1] // 获取第二个参数
+        if (!timeNode) return // 没有第二个参数
+        // 检测报错第二个参数是数字 报错
+        if (timeNode.type === "Literal" && typeof timeNode.value === "number") {
+          context.report({
+            node,
+            message: "setTimeout第二个参数禁止是数字",
+          })
+        }
+      },
+    }
+  },
+}
+```
+
+> 语法类型，AST 对 js 代码类型的分类，包括 Program,\*Declaration,\*Expression,Identifier(变量名),\*Statement
+
+#### plugin publish
+
+> npm login ; npm publish
+
+#### use plugin in project
+
+> npm i eslint-plugin-yourPluginName
+
+- method-1
+  need write all of rules you want to add
+
+```js
+// .eslintrc.js
+module.exports = {
+  plugins: ["pluginName"],
+  rules: {
+    "pluginName/settimeout-no-number": "error",
+  },
+}
+```
+
+can straightly extend after config rule file
+
+- method-2
+
+```js
+// lib/rules/index.js
+
+var requireIndex = require("requireindex")
+const output = {
+  rules: requireIndex(__dirname + "/rules"), // 导出所有规则
+  configs: {
+    // 导出自定义规则 在项目中直接引用
+    koroRule: {
+      plugins: ["korolint"], // 引入插件
+      rules: {
+        // 开启规则
+        "korolint/settimeout-no-number": "error",
+      },
+    },
+  },
+}
+module.exports = output
+```
+
+#### add fix in plugin
+
+```js
+context.report({
+  node,
+  message: "setTimeout第二个参数禁止是数字",
+  fix(fixer) {
+    const numberValue = timeNode.value
+    const statementString = `const countNumber1 = ${numberValue}\n`
+    return [
+      // 修改数字为变量 变量名故意写错 为了让用户去修改它
+      fixer.replaceTextRange(node.arguments[1].range, "countNumber2"),
+      // 在setTimeout之前增加一行声明变量的代码 用户自行修改变量名
+      fixer.insertTextBeforeRange(node.range, statementString),
+    ]
+  },
+})
+```
