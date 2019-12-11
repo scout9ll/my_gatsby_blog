@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2019-12-10"
-words: "53706"
+lastTime: "2019-12-11"
+words: "54336"
 ---
 
 ## week 1
@@ -2585,4 +2585,41 @@ context.report({
     ]
   },
 })
+```
+
+### Differences between ESLint in different places
+
+#### in npm module
+
+it is a major engine of code checking
+
+#### in vscode
+
+it is a plugin to notify error in coding,given cmd tools and display of problems
+
+### in webpack
+
+it is a loader to check code in compiling
+
+### node 中的 sync 和 nonSync
+
+#### io 计算默认为 async
+
+当函数名中不写 sync 时，默认为异步操作
+
+```js
+fs.readdir(path, (err, files) => console.log(`async callBack`)) //异步操作需要写回调
+console.log("done")
+
+//output: done , async callBack
+```
+
+#### 后缀加 Sync 转为同步
+
+```js
+const files = fs.readdirSync(path) //同步操作不需要写回调
+console.log(files)
+console.log("done")
+
+//output: files , done
 ```
