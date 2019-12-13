@@ -2597,7 +2597,7 @@ it is a major engine of code checking
 
 it is a plugin to notify error in coding,given cmd tools and display of problems
 
-### in webpack
+#### in webpack
 
 it is a loader to check code in compiling
 
@@ -2623,3 +2623,24 @@ console.log("done")
 
 //output: files , done
 ```
+
+### Etag 和 Last-Modified
+
+#### 相同点
+
+都是属于协商缓存,都属于后端生成，需要请求服务端判断。
+
+#### 不同点
+
+> ETag: W/"<etag_value>"
+> ETag: "<etag_value>"
+
+Etag is an identifier for a specific version of a resource , 资源的版本标识符
+请求时通过 `if-match||if-none-match`来判断
+
+> Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
+
+Last-Modified is the date and time at which the origin server believes the resource was last modified,资源上次修改的时间
+请求时通过`If-Modified-Since`来判断
+
+\*_Last-Modified 是以时间来判断，但是其能精确到 second,所以当版本的变化小于 second 时则无法成功判断，所以这时可以使用 Etag_
