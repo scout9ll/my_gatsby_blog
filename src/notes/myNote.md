@@ -2644,3 +2644,15 @@ Last-Modified is the date and time at which the origin server believes the resou
 请求时通过`If-Modified-Since`来判断
 
 \*_Last-Modified 是以时间来判断，但是其能精确到 second,所以当版本的变化小于 second 时则无法成功判断，所以这时可以使用 Etag_
+
+### commonJs 模块和 ES6 模块
+
+#### 加载原理
+
+- CommonJS 模块是运行时加载,
+- ES6 模块会根据 import 被编译成接口接入入口文件，只是一个“符号连接”，解析的时候不会执行
+
+#### 输出差异
+
+- CommonJS 模块输出的是一个值的拷贝(类似return后的结果)
+- ES6 模块输出的是值的引用,原始值变了，import加载的值也会跟着变。
