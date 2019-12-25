@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2019-12-11"
-words: "54336"
+lastTime: "2019-12-25"
+words: "56105"
 ---
 
 ## week 1
@@ -2568,7 +2568,7 @@ const output = {
 module.exports = output
 ```
 
-#### add fix in plugin
+#### add fix/format in plugin
 
 ```js
 context.report({
@@ -2654,5 +2654,63 @@ Last-Modified is the date and time at which the origin server believes the resou
 
 #### 输出差异
 
-- CommonJS 模块输出的是一个值的拷贝(类似return后的结果)
-- ES6 模块输出的是值的引用,原始值变了，import加载的值也会跟着变。
+- CommonJS 模块输出的是一个值的拷贝(类似 return 后的结果)
+- ES6 模块输出的是值的引用,原始值变了，import 加载的值也会跟着变。
+
+### d.ts
+
+d 就是 declare,是类型声明文件，通过该文件赋予编辑器类型提示与检查的能力
+
+### UMD 模块( (Universal Module Definition))
+
+UMD 模块是指那些既可以作为模块使用（通过导入）又可以作为全局（在没有模块加载器的环境里）使用的模块。
+
+#### 兼容使用
+
+模块导入
+
+```js
+const moment = require("moment")
+```
+
+全局使用(直接在浏览器环境下)
+
+```html
+<script  src="./moment">
+const date = moment()
+```
+
+### 实现原理
+
+```js
+(function (root, factory) {
+    if (typeof define === "function" && define.amd) {
+        define(["libName"], factory);
+    } else if (typeof module === "object" && module.exports) {
+        module.exports = factory(require("libName"));
+    } else {
+        root.returnExports = factory(root.libName);
+    }
+}(this, function (b) {
+```
+
+### 处理器架构
+
+## week18
+
+### js 中数字类型
+
+#### 整型
+
+- 组成，2 段
+  - sign: 符号位，占 1 位；
+  - fraction: 有效数字位。占 31 位
+    共 32 位，最左位为符号，表达式为(-1)^32bin\*(31~1)bin
+
+#### 浮点型
+
+- 组成，3 段
+  - sign: 符号位，占 1 位；
+  - exponent: 指数位，占 11 位；
+  - fraction: 有效数字位，占 52 位。
+    共 64 位，最左位为符号，
