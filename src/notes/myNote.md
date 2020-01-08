@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2019-12-25"
+lastTime: "2020-1-8"
 words: "56105"
 ---
 
@@ -13,7 +13,7 @@ words: "56105"
 #### 类型区别
 
 - js: number,Boolean,null,undefined,NaN,Object,Symbol
-- pythob:
+- python:
   - 不可变:Number（int、float、bool、complex（复数）String（字符串）Tuple（元组,有序）
   - 可变: List（列表,有序）Set（集合,无序）Dictionary（字典,无序）
 
@@ -161,7 +161,7 @@ window.addEventListener("scroll", debounce(func))
   A：handle = debounce(func),每次事件触发将执行的是 debounce 的 return ，即 function。
 
 - Q2：如何每次都能取到 timeout?  
-  A: 通过闭包，每次调用 function 时，遇到 timeout 标识符若本函数内词法环境中没有，将根据该函数的[[environment]](函数自身注册时的词法环境)中寻找(作用域链)，词法环境在函数创建时生成。 debounce 作为声明，在全局中处理代码之前就应经解析创建注册。
+  A: 通过闭包，每次调用 function 时，遇到 timeout 标识符若本函数内词法环境中没有，将根据该函数的[[environment]]\(函数自身注册时的词法环境\)中寻找(作用域链)，词法环境在函数创建时生成。 debounce 作为声明，在全局中处理代码之前就应经解析创建注册。
   ps:js 中所有的标识符寻找都通过作用域链，即取决于变量函数写在哪个作用域内。如下：
 
   ```javascript
@@ -2756,3 +2756,5 @@ const date = moment()
 
 'example':'^1.2.3'
 ^表示指下载最新的次要版本，即 1 不变
+
+## 用graphQL获取客户部署数据
