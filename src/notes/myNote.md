@@ -1465,7 +1465,12 @@ foo()
 - git merge xx(把分支 xx 合并到当前分支) 合并分支(子分支还存在)
 - git branch -d dev 删除分支
 - git checkout -b `dev` ，创建 dev 分支并切换到 dev
-- git checkout -b localDev origin/remoteDev 创建本地 localDev 并关联到 Origin 仓库的 remoteDev 分支
+- 创建本地 localDev 并关联到 Origin 仓库的 remoteDev 分支
+
+#### 精细操作
+
+- git stash 将 stage 和
+- git cherry-pick \[commitid\] 可提取其它分支的 commit 合并到当前分支
 
 #### github
 
@@ -2757,4 +2762,26 @@ const date = moment()
 'example':'^1.2.3'
 ^表示指下载最新的次要版本，即 1 不变
 
-## 用graphQL获取客户部署数据
+### 用 graphQL 获取客户部署数据
+
+#### _todo_
+
+### 第三方授权流程
+
+#### 产品申请第三方授权
+
+将自己产品的 url 或 appId 注册在第三方
+
+#### 用户点击授权链接获取 token
+
+用户请求由第三方规定的申请接口，用户成功登录第三方并确定授权后，返回 token
+
+> `token`一般附在确定授权后的重定向的`url`的 param 上
+
+#### 后台根据 token 获取用户信息
+
+用于安全因素，根据 token 获取用户信息的接口不允许跨域，需要返回给后端去调用获取
+
+#### 后台存储用户信息
+
+一般第三方返回的信息存在唯一 id，后台可根据此 id 作为主键建立表保证用户信息持久化
