@@ -44,6 +44,11 @@ const mybooks = [
     src: "https://book.douban.com/subject/3171735/",
     img: "https://img9.doubanio.com/view/subject/m/public/s3226976.jpg",
   },
+  {    
+    title: "非暴力沟通",
+    src: "https://book.douban.com/subject/3533221/",
+    img: "https://img1.doubanio.com/view/subject/l/public/s9346487.jpg",
+  }   
 ]
 
 export default mybooks
