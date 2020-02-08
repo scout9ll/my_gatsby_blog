@@ -2797,3 +2797,34 @@ const date = moment()
 #### 后台存储用户信息
 
 一般第三方返回的信息存在唯一 id，后台可根据此 id 作为主键建立表保证用户信息持久化
+
+### RN
+
+#### emulator
+
+> android
+ADV
+
+> ios
+
+#### v-dom tag(components)
+all in react-native
+> view 
+similar to div
+
+> text
+for font
+
+#### css 
+
+> flexbox 
+default col direction
+
+> styleSheet 
+create css object
+- no unit
+
+#### spec components
+
+> TouchableOpacity
+opacity wrapper
