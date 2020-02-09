@@ -61,7 +61,7 @@ server {
         server_name _;
 
 
-        location \ {
+        location / {
 
                 # 静态文件夹地址
                 root /root/apps/myproject/public/;
