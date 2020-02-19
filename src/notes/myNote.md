@@ -345,7 +345,7 @@ for (const value of normalObj) {
   - `str.match(reg)`没有 g 修饰符时，结果是一个数组，里面有该第一个匹配项和额外的属性：index – 匹配项在字符串中所处在的位置，
     input – 原始字符串。；有 g 修饰符时，就会返回由所有匹配项组成的数组。在数组中没有`额外的属性`，而且`圆括号`也不会创建任何元素。
   - `str.replace(reg,function||str)`,返回替换后的 NEWstr,但不改变自生 str(与 python 不同)
-  - `str.test(reg)`用于检测是否存在可以匹配的 str，返回 boolean 值
+  - `reg.test(str)`用于检测是否存在可以匹配的 str，返回 boolean 值,一般用`^`和`$`来检测整个字符串
 
 - 字符集合: -`\d`（“d” 来源于 “digit”）一个数字：0 到 9 的一个字符。;`\D` 一个非数字
   - `\s`（“s” 来源于 “space”）一个空格符：包括空格，制表符和换行符。;`\S` 一个非空格符
@@ -410,12 +410,12 @@ for (const value of normalObj) {
 
   - .match 只返回断言的内容
 
-  | 模式   | 类型         | 匹配                 |
-  | ------ | ------------ | -------------------- |
-  | x(?=y) | 前瞻肯定断言 | x ，仅当后面跟着 y   |
-  | x(?!y) | 前瞻否定断言 | x ，仅当后面不跟 y   |
-  | (?=y)x | 后瞻肯定断言 | x ，仅当前面跟着 y   |
-  | (?!y)x | 后瞻肯定断言 | x ，仅当前面不跟着 y |
+| 模式   | 类型         | 匹配                 |
+|--------|--------------|----------------------|
+| x(?=y) | 前瞻肯定断言 | x ，仅当后面跟着 y   |
+| x(?!y) | 前瞻否定断言 | x ，仅当后面不跟 y   |
+| (?=y)x | 后瞻肯定断言 | x ，仅当前面跟着 y   |
+| (?!y)x | 后瞻肯定断言 | x ，仅当前面不跟着 y |
 
 ### getElementBy..()和 querySelector()
 
@@ -2828,3 +2828,20 @@ create css object
 
 > TouchableOpacity
 opacity wrapper
+
+
+## week21
+
+### monogdb 迁移
+
+#### 连接远端
+
+#### dump数据至指定数据
+>mongodump --host="mongodb0.example.com" --port=27017 [additional options]
+
+可将数据转成2进制文件
+
+#### restore dump文件
+> mongorestore [options] [\<directory>/\<BSON file>]
+
+恢复指定文件夹下的dump二进制文件至数据库，其操作会自动创建database和collection
