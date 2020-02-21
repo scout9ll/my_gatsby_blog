@@ -48,7 +48,12 @@ const mybooks = [
     title: "非暴力沟通",
     src: "https://book.douban.com/subject/3533221/",
     img: "https://img1.doubanio.com/view/subject/l/public/s9346487.jpg",
-  }   
+  },
+  {    
+    title: "陈舜臣说十八史略",
+    src: "https://book.douban.com/subject/34450750/",
+    img: "https://img3.doubanio.com/view/subject/l/public/s33314540.jpg",
+  }  
 ]
 
 export default mybooks
