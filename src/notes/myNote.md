@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-2-7"
-words: "57105"
+lastTime: "2020-2-24"
+words: "58034"
 ---
 
 ## week 1
@@ -2845,3 +2845,11 @@ opacity wrapper
 > mongorestore [options] [\<directory>/\<BSON file>]
 
 恢复指定文件夹下的dump二进制文件至数据库，其操作会自动创建database和collection
+
+### schema 和 model
+
+#### schema
+schema(`ˈskiːmə`)是database关系的模式，主要表示*关系*
+
+#### model
+在mongo中表示一个collection的模型，其定义由其schema关系确定
