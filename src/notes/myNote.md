@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-2-24"
-words: "58034"
+lastTime: "2020-3-10"
+words: "58334"
 ---
 
 ## week 1
@@ -783,19 +783,28 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 ## week10
 
 ### preload 和 prefetch
+明白预加载和预获取需要首先清楚浏览器使用资源的流程  
+其流程基本可以分为两个部分  Network Transmisson(资源的网络传输) | Resource Processing (资源处理、加工、执行)   
+>例如js文件，首先网络下载后，处理的过程包括编译和执行  
+图片文件，网络下载后，处理的过程包括解码和绘制
+
+
+![webGL](../images/resource-load.jpg)
 
 #### preload
 
 - 定义
-  优先预加载，_优先级高_，可以在 render tree 时候异步加载，但不会执行导致 render 阻塞
+  优先预加载，_优先级高_，可以在 render tree 时候异步下载(transmission)，但不会执行导致 render 阻塞，在render完后执行(processing)
 
 - 用法  
-  `<link rel="preload" href="..." as="..." onload="preloadFinished()">`
+  `<link rel="preload" href="..." as="..." type="..." onload="preloadFinished()">`
   可定义回调函数
-
+  > `as`可以为`script`、`image`、`style`、`audio`、`font `、etc.
 #### prefetch
 
-- 预获取，_优先级低_,将在页面加载完成后提前加载，作为下一页的部分
+- 预获取，_优先级低_,将在页面加载完成后提前下载但不会加载(transmission)，作为下一页的部分，调取时执行(processing)
+
+- 用法与preload基本一致
 
 #### 应用
 
