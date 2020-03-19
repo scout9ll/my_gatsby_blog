@@ -2020,7 +2020,7 @@ try_files
 #### Nginx location 的匹配规则
 
 - ~ 波浪线表示执行一个正则匹配，区分大小写
-- ~\_ 表示执行一个正则匹配，不区分大小写
+- ~\_ 表示执行一���正则匹配，不区分大小写
 - ^~ ^~表示普通字符匹配，如果该选项匹配，只匹配该选项，不匹配别的选项，一般用来匹配目录
 - = 进行普通字符精确匹配
 - @ #"@" 定义一个命名的 location，使用在内部定向时，例如 error_page, try_files
@@ -2862,3 +2862,12 @@ schema(`ˈskiːmə`)是database关系的模式，主要表示*关系*
 
 #### model
 在mongo中表示一个collection的模型，其定义由其schema关系确定
+
+### file-loader 和 url-loader 和 image-loader
+
+### todo 3.20
+
+- 实现一个webpack插件，tinyIMG
+
+- 实现一个eslint插件,除去console.log
+
