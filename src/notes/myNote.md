@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-3-10"
-words: "58334"
+lastTime: "2020-3-20"
+words: "58534"
 ---
 
 ## week 1
@@ -1054,7 +1054,7 @@ HelloWorldPlugin.prototype.apply = function(compiler) {
   // 初始时通过apply将插件注入到 compiler周期钩子中
   compiler.plugin("done", function(compilation) {
     console.log("Hello World!")
-     // 现在，设置回调来访问 compilation 中的步骤：
+     // 现在，设置回调来访问 compilation(compiler的实例) 中的步骤：
     compilation.plugin("optimize", function() {
       console.log("Assets are being optimized.");
   })
@@ -2393,6 +2393,17 @@ Person.world = mars # person2.world ==mars
 
 ## week17
 
+### __dirname 和 ./
+
+#### __dirname
+`__dirname`是被执行文件的绝对路径
+
+#### ./
+`./`是工作路径，即执行命令时(工作路径)的相对路径。
+>例如在`D:/a`下执行`D:/a/b/c.js`,此时`./`表示`D:/a`
+  
+*特殊情况*：`require('./)`表示该文件的相对路径
+
 ### node-stream
 
 #### stream 是什么
@@ -2871,3 +2882,4 @@ schema(`ˈskiːmə`)是database关系的模式，主要表示*关系*
 
 - 实现一个eslint插件,除去console.log
 
+- 实践FaaS
