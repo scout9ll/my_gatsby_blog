@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-3-20"
-words: "58534"
+lastTime: "2020-3-31"
+words: "61534"
 ---
 
 ## week 1
@@ -2876,6 +2876,56 @@ schema(`ˈskiːmə`)是database关系的模式，主要表示*关系*
 
 ### file-loader 和 url-loader 和 image-loader
 
+#### 作用
+- file-loader，将项目中定义加载的文件通过webpack编译打包，并返回一个编码后的公共的url路径。
+
+- url-loader，将小图片编码为base64，返回base64码，减少网络请求，优化performance。
+
+- image-webpack-loader,压缩图片
+
+#### 联合使用 
+```js
+
+// webpack.config.js
+...
+ module: {
+        rules: [
+          ...
+         {
+            test: /\.(png|jpe?g|gif|svg)$/i,
+            exclude: /node_modules/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 10240, // 是否编码图片的阈值
+                    fallback: {  // 大于阈值的回调
+                      loader: 'file-loader',
+                      options: {
+                        name: '[name].[hash:8].[ext]', // 文件名字，可以加入path
+                        publicPath:String //部署路径,最终与name合并成导出的路径（代码中引用路径），为空则是全局的publicPath值
+                        outputPath:String  //文件存储的路径，为空则是全局的outputPath的值
+                        useRelativePath:Boolean //   outputPath是否为相对于static(静态文件夹，可能为assets)的路径
+                      }
+                    }
+                }
+            }, {
+                loader: 'image-webpack-loader',//新增image-webpack-loader
+                options: {
+                    mozjpeg: {//设置对jpg格式的图片压缩的程度设置
+                        progressive: true,
+                        quality: 65
+                    },
+                }
+            }]
+          }
+        ]
+    }
+
+...
+
+```
+> 由于loader为注册后栈式调用，所以先经过image-webpack-loader压缩图片后，再由url-loader处理，若图片大于limit则由file-loader`emitfile`并返回引用路径
+
 ### todo 3.20
 
 - 实现一个webpack插件，tinyIMG
@@ -2883,3 +2933,33 @@ schema(`ˈskiːmə`)是database关系的模式，主要表示*关系*
 - 实现一个eslint插件,除去console.log
 
 - 实践FaaS
+
+
+### node的事件循环与异步IO
+
+#### node 真的是单线程吗？
+可以说是，但也不是。node被称为单线程，是因为以`v8`引擎的`js`为主线程（main thread）调度所有运行，但是其真正运行`I/O`时会调用由`c++`执行的线程池，该线程池默认设置4个线程(线程由物理cpu核心决定，但是一个cpu核心可以通过竞争)。
+> 线程由物理cpu核心决定，但是一个cpu核心可以通过抢占式多任务模式(preemptive multitasking,暂停一个，开启另一个)同时分配几个线程
+  
+
+> processes 和 threads
+
+| processes                 | threads            |
+|---------------------------|--------------------|
+| 顶级执行容器              | 运行在一个进程     |
+| 通过ipc相互通信，存在限制 | 容易通信，共享变量 |
+| 分割内存空间              | 分享同一个内存     |
+
+> 架构
+
+
+#### node event loop
+node内核每次进行一次以下的轮询：
+
+- 定时器：本阶段执行已经被 setTimeout() 和 setInterval() 的调度回调函数。
+- 待定回调：执行延迟到下一个循环迭代的 I/O 回调。
+- idle, prepare：仅系统内部使用。
+- 轮询：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，那些由计时器和 setImmediate() 调度的之外），其余情况 node 将在适当的时候在此阻塞。
+- 检测：setImmediate() 回调函数在这里执行。
+- 关闭的回调函数：一些关闭的回调函数，如：socket.on('close', ...)。
+
