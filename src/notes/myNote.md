@@ -8,7 +8,7 @@ words: "61534"
 
 ## week 1
 
-### js&python
+### js 与 python
 
 #### 类型区别
 
@@ -2936,13 +2936,13 @@ schema(`ˈskiːmə`)是database关系的模式，主要表示*关系*
 
 
 ### node的事件循环与异步IO
-
+>参考：[https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/](https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/)
 #### node 真的是单线程吗？
 可以说是，但也不是。node被称为单线程，是因为以`v8`引擎的`js`为主线程（main thread）调度所有运行，但是其真正运行`I/O`时会调用由`c++`执行的线程池，该线程池默认设置4个线程(线程由物理cpu核心决定，但是一个cpu核心可以通过竞争)。
 > 线程由物理cpu核心决定，但是一个cpu核心可以通过抢占式多任务模式(preemptive multitasking,暂停一个，开启另一个)同时分配几个线程
   
 
-> processes 和 threads
+- processes 和 threads
 
 | processes                 | threads            |
 |---------------------------|--------------------|
@@ -2950,16 +2950,26 @@ schema(`ˈskiːmə`)是database关系的模式，主要表示*关系*
 | 通过ipc相互通信，存在限制 | 容易通信，共享变量 |
 | 分割内存空间              | 分享同一个内存     |
 
-> 架构
+-  架构
 
 
 #### node event loop
+>事件循环是 Node.js 处理非阻塞 I/O 操作的机制——尽管 JavaScript 是单线程处理的——当有可能的时候，它们会把操作转移到系统内核中去。  
+既然目前大多数内核都是多线程的，它们可在后台处理多种操作。当其中的一个操作完成的时候，内核通知 Node.js 将适合的回调函数添加到*轮询队列*中等待时机执行。
+
 node内核每次进行一次以下的轮询：
 
 - 定时器：本阶段执行已经被 setTimeout() 和 setInterval() 的调度回调函数。
 - 待定回调：执行延迟到下一个循环迭代的 I/O 回调。
 - idle, prepare：仅系统内部使用。
 - 轮询：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，那些由计时器和 setImmediate() 调度的之外），其余情况 node 将在适当的时候在此阻塞。
-- 检测：setImmediate() 回调函数在这里执行。
-- 关闭的回调函数：一些关闭的回调函数，如：socket.on('close', ...)。
+- 检测：setImmediate() 回调函数在这里执行。  
+_使用 setImmediate() 相对于setTimeout() 的主要优势是，如果setImmediate()是在 `I/O` 周期内被调度的，那它将会在其中任何的定时器之前执行，跟这里存在多少个定时器无关_
+- 关闭的回调函数：一些关闭的回调函数，如：socket.on('close', ...)。  
+ _其余的close回调由`process.nextTick()`执行，`process.nextTick`在脚本运行完毕,事件循环开始前执行。因此`process.nextTick()`快于`setImmediate()`的执行_
 
+
+
+## week 22
+
+### 点聚合
