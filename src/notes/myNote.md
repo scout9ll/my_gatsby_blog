@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-3-31"
-words: "61534"
+lastTime: "2020-4-7"
+words: "61634"
 ---
 
 ## week 1
@@ -2973,3 +2973,6 @@ _使用 setImmediate() 相对于setTimeout() 的主要优势是，如果setImmed
 ## week 22
 
 ### 点聚合
+  
+### node多进程
+  https://www.jb51.net/article/148997.html
