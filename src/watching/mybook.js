@@ -53,6 +53,11 @@ const mybooks = [
     title: "陈舜臣说十八史略",
     src: "https://book.douban.com/subject/34450750/",
     img: "https://img3.doubanio.com/view/subject/l/public/s33314540.jpg",
+  },
+  {
+    title: "深入浅出RxJs",
+    src: "https://book.douban.com/subject/30217949/",
+    img: "https://img9.doubanio.com/view/subject/s/public/s29764075.jpg",
   }  
 ]
 
