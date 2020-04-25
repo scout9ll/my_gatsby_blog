@@ -58,6 +58,11 @@ const mybooks = [
     title: "深入浅出RxJs",
     src: "https://book.douban.com/subject/30217949/",
     img: "https://img9.doubanio.com/view/subject/s/public/s29764075.jpg",
+  },  
+  {
+    title: "SVG动画",
+    src: "https://book.douban.com/subject/30239781/",
+    img: "https://img1.doubanio.com/view/subject/s/public/s29785018.jpg",
   }  
 ]
 
