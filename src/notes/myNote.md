@@ -2857,7 +2857,11 @@ opacity wrapper
 #### 连接远端
 
 #### dump数据至指定数据
->mongodump --host="mongodb0.example.com" --port=27017 [additional options]
+>mongodump --host="mongodb0.example.com" --port=27017   --out=/opt/backup/mongodump-2020-02-3   [additional options] 
+
+或  
+
+>mongodump --uri="mongodb+srv://name:password@music-6epxh.mongodb.net/db?retryWrites=true&w=majority" --port=27017  --out=/opt/backup/mongodump-2020-02-3 [additional options]
 
 可将数据转成2进制文件
 
