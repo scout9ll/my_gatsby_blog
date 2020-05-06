@@ -3033,3 +3033,17 @@ var b = (++a,10);
 alert(b); 
 ```
 > 返回10，使用括号,令其优先执行
+
+## week22
+
+### 当webpack解析到引用变量
+```js
+const agentCfg = require("../../common/agentConfig.js");
+const bgTop = require(`/static/${agentCfg.buildApp}/unexist.png`);
+```
+与
+```js
+const bgTop = require(`/static/${process.env.npm_config_env}/unexist.png`);
+```
+
+>为什么第一个不会报错，第二个能报错？
