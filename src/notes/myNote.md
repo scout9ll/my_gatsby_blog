@@ -3036,14 +3036,78 @@ alert(b);
 
 ## week22
 
-### 当webpack解析到引用变量
+### 当 webpack 加载到含有变量的引用
+
 ```js
-const agentCfg = require("../../common/agentConfig.js");
-const bgTop = require(`/static/${agentCfg.buildApp}/unexist.png`);
-```
-与
-```js
-const bgTop = require(`/static/${process.env.npm_config_env}/unexist.png`);
+const directoryName = require("./directoryName") // {a:'a',b:'b',c:'c'}
+const img = require(`/static/${directoryName.a}/nonexistent.png`)
 ```
 
->为什么第一个不会报错，第二个能报错？
+与
+
+```js
+const img = require(`/static/a/nonexistent.png`)
+```
+
+#### 为什么第一个不会报错，第二个能报错
+
+
+
+
+看看打包后的代码
+
+
+
+```js
+(function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "existent.png");
+
+/***/ }),
+```
+
+再看看资源存在时
+
+```js
+(function(module, exports, __webpack_require__) {
+
+var map = {
+	"./a/existent.png": 432,
+	"./b/existent.png": 433,
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 418;
+
+/***/ }),
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var existent = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/existent.png");
+
+module.exports = {
+  existent: existent
+};
+
+/***/ }),
+```
