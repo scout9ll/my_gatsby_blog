@@ -3043,7 +3043,6 @@ alert(b);
 const directoryName = require("./directoryName") // {a:'a',b:'b',c:'c'}
 const img = require(`/static/${directoryName.a}/nonexistent.png`)
 
-module.exports = {img}
 
 ```
 
@@ -3052,7 +3051,6 @@ module.exports = {img}
 ```js
 const img = require(`/static/a/nonexistent.png`)
 
-module.exports = {img}
 ```
 
 #### 为什么第一个不会报错，第二个能报错
@@ -3063,20 +3061,24 @@ module.exports = {img}
 看看打包后的代码
 
 第一个
-
 ```js
-(function(module, __webpack_exports__, __webpack_require__) {
+(function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "existent.png");
+
+
+var img = !(function webpackMissingModule() { var e = new Error("Cannot find module \"../../assets\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+
+module.exports = {
+  img: img
+};
 
 /***/ }),
 ```
 
 第二个直接打包错误，当然没有代码 😅
 
-再看看资源存在时
+再看看存在变量且资源存在时
 
 ```js
 (function(module, exports, __webpack_require__) {
@@ -3111,11 +3113,7 @@ webpackContext.id = 418;
 "use strict";
 
 
-var existent = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/existent.png");
-
-module.exports = {
-  existent: existent
-};
+var img = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/existent.png");
 
 /***/ }),
 ```
@@ -3134,19 +3132,5 @@ module.exports = {
 
   - 若没有满足的文件
 
-    ```js
-    (function(module, exports, __webpack_require__) {
-
-    "use strict";
-
-
-    var icon_map_bike_location = !(function webpackMissingModule() { var e = new Error("Cannot find module \"../../assets\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-
-    module.exports = {
-      icon_map_bike_location: icon_map_bike_location
-    };
-
-    /***/ }),
-    ```
 
     其引用返回webpackMissingModule函数
