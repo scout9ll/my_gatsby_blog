@@ -1233,7 +1233,8 @@ http 协议中`浏览器中的一种缓存类型,是服务器或脚本可以维�
   由服务器设置的时间决定(`max-age`||`Expire`),也可自行删除
 - 使用注意
   Cookie 必须在 HTML 文件的内容输出之前设置
-
+  >setCookie(someCookie);send(html)
+  
 #### token
 
 token 一般指 http 协议中请求头中`authorization`中设置的一个`key-Value`
@@ -3041,12 +3042,17 @@ alert(b);
 ```js
 const directoryName = require("./directoryName") // {a:'a',b:'b',c:'c'}
 const img = require(`/static/${directoryName.a}/nonexistent.png`)
+
+module.exports = {img}
+
 ```
 
 与
 
 ```js
 const img = require(`/static/a/nonexistent.png`)
+
+module.exports = {img}
 ```
 
 #### 为什么第一个不会报错，第二个能报错
@@ -3056,7 +3062,7 @@ const img = require(`/static/a/nonexistent.png`)
 
 看看打包后的代码
 
-
+第一个
 
 ```js
 (function(module, __webpack_exports__, __webpack_require__) {
@@ -3067,6 +3073,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 ```
+
+第二个直接打包错误，当然没有代码 😅
 
 再看看资源存在时
 
@@ -3111,3 +3119,34 @@ module.exports = {
 
 /***/ }),
 ```
+
+#### 模块引用策略
+
+根据上面打包完的结果总结一下模块处理引用策略
+
+- 不存在变量  
+不做处理，资源不存在则exit,存在则被loader处理(loader处理前该代码可能会被plugin编译)
+
+- 存在变量  
+  - 存在满足的文件  
+匹配所有满足`./.*/img/existent.png`的文件，生成一个返回包含文件map的`webpackContext`的对象的`module`  
+其map中的module会被loader处理后分别存储并生成moduleId，通过`__webpack_require__(418)('./a/existent.png')`动态引用  
+
+  - 若没有满足的文件
+
+    ```js
+    (function(module, exports, __webpack_require__) {
+
+    "use strict";
+
+
+    var icon_map_bike_location = !(function webpackMissingModule() { var e = new Error("Cannot find module \"../../assets\""); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+
+    module.exports = {
+      icon_map_bike_location: icon_map_bike_location
+    };
+
+    /***/ }),
+    ```
+
+    其引用返回webpackMissingModule函数
