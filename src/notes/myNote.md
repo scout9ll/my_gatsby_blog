@@ -3134,3 +3134,13 @@ var img = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/
 
 
     其引用返回webpackMissingModule函数
+
+
+
+
+### bufferArray 和 ArrayBuffer 和 blob
+
+
+### DataView
+
+#### 
