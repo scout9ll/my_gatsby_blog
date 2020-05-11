@@ -3138,9 +3138,33 @@ var img = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/
 
 
 
-### bufferArray 和 ArrayBuffer 和 blob
-
+### ArrayBuffer 和 TypedArray 和 blob
 
 ### DataView
 
-#### 
+## week 24
+
+### 删除git大文件记录
+
+git会存储所有的文件提交修改记录，无论是添加还是删除，其一直存在引用，该文件就会永久存储，这样就会导致废弃的大文件将永远占据仓库的大量存储空间，影响仓库的下载。  
+可以根据git命令找出大文件，然后删除所有该文件的记录，最后强制推至远端
+
+#### 获取大文件排序
+
+```bash
+git rev-list --all | xargs -rL1 git ls-tree -r --long | sort -uk3 | sort -rnk4 | head -10
+```
+
+#### 重写git中所有存在该大文件的提交记录
+
+丢弃大文件的引用，令其被垃圾回收
+
+```bash
+git filter-branch --force --index-filter 'git rm -rf --cached --ignore-unmatch target_file' --prune-empty --tag-name-filter cat -- --all
+```
+
+#### 改动强推至远端仓库
+
+```bash
+git push -f --all
+```
