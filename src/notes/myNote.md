@@ -317,7 +317,7 @@ for (const value of normalObj) {
   - 特点:纯粹的字典映射,不继承普通对象的方法,比如`constructor`,同样也去除了`key`必须是字符串的限制  
     　 map 是键值对的集合，key 可以是任意类型的值，甚至可以是对象
   - 常用方法:example:`const ninjaIslandMap = new Map();ninga1={name:"yoshi",}`.
-    `ninjaIslandMap.map.set(ninja1, { homeIsland: "Honshu"})`,则设置了 ninja1 和`{ homeIsland: "Honshu"}`的映射,`ninjaIslandMap.map.get(ninja1).homeIsland =='honshu'`  
+    `ninjaIslandMap.set(ninja1, { homeIsland: "Honshu"})`,则设置了 ninja1 和`{ homeIsland: "Honshu"}`的映射,`ninjaIslandMap.get(ninja1).homeIsland =='honshu'`  
     `for of`对其中每个元素进行遍历,返回每个元素本身,包括 key 和 value.`for in`则只返回 key  
     `.has(key)`通过对 key 进行 hash 运算后散射得到其 index 值,故能直接通过 key 进行哈希散射后匹配`map[hash(key)]`,所以时间复杂度为 O(1),可利用其进行判断去重.
 
@@ -3168,3 +3168,25 @@ git filter-branch --force --index-filter 'git rm -rf --cached --ignore-unmatch t
 ```bash
 git push -f --all
 ```
+
+### dpr
+
+`dpr`全称`device pixel ratio`,设备像素比。  
+设备像素比 = 物理像素 / 逻辑像素(px)  
+
+#### 物理像素
+
+`physical pixel`  
+一个物理像素是显示器(手机屏幕)上最小的物理显示单元（像素颗粒），在`操作系统`的调度下，每一个设备像素都有自己的颜色值和亮度值。
+
+如：iPhone6上就有750*1334个物理像素颗粒。
+
+#### 逻辑像素
+
+也叫设备独立像素(`density-independent pixel`)  
+可以认为是计算机坐标系统中得一个点，这个点代表一个可以由`程序`使用的虚拟像素(比如: css像素)
+
+#### dpr意味着什么
+
+越高的dpr,代表在显示相同尺寸的逻辑像素时，能够有更多的像素颗粒来呈现出更细腻的视觉效果。
+> 当然前提是该位图自身提供了足够的逻辑像素，因此为了让高dpr的设备享受到高清的图片且不让低dpr设备产生格外的流量负荷，通常会根据不同的dpr令其下载不同的清晰度的图片
