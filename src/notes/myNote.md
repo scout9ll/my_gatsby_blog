@@ -3135,12 +3135,34 @@ var img = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/
 
     其引用返回webpackMissingModule函数
 
+### ArrayBuffer 和 TypedArray 和 DataView 和 blob
 
+#### ArrayBuffer
 
+字节数组  
+ArrayBuffer是存储二级制数据的byte array,一个byte为一个item，无法直接读写
+>来表示通用的、固定长度的原始二进制数据缓冲区 ---MDN
 
-### ArrayBuffer 和 TypedArray 和 blob
+```js
+// 创建一个8字节的ArrayBuffer,buf是其array头指针
+const buf =  new ArrayBuffer(8)
 
-### DataView
+```
+
+#### TypedArray
+
+类型数组对象
+TypedArray类型数组固定长度缓冲区类型,是ArrayBuffer`特殊格式化`后的的一个类数组视图（view），可以用其特定的格式读写缓冲区内容
+
+```js
+// 创建一个8字节的ArrayBuffer
+const typedArray = new Int16Array(typedArray||buffer||length||object,byteOffset?, length?);
+typedArray[1] = 42;
+
+```
+
+#### DataView
+
 
 ## week 24
 
@@ -3190,3 +3212,5 @@ git push -f --all
 
 越高的dpr,代表在显示相同尺寸的逻辑像素时，能够有更多的像素颗粒来呈现出更细腻的视觉效果。
 > 当然前提是该位图自身提供了足够的逻辑像素，因此为了让高dpr的设备享受到高清的图片且不让低dpr设备产生格外的流量负荷，通常会根据不同的dpr令其下载不同的清晰度的图片
+
+### Object.prototype.toString.call() , instanceof  and  Array.isArray()
