@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-4-7"
-words: "61634"
+lastTime: "2020-5-15"
+words: "67634"
 ---
 
 ## week 1
@@ -3135,7 +3135,7 @@ var img = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/
 
     其引用返回webpackMissingModule函数
 
-### ArrayBuffer 和 TypedArray 和 DataView 和 blob
+### ArrayBuffer 和 TypedArray 和 DataView 和 Blob
 
 #### ArrayBuffer
 
@@ -3152,17 +3152,50 @@ const buf =  new ArrayBuffer(8)
 #### TypedArray
 
 类型数组对象
-TypedArray类型数组固定长度缓冲区类型,是ArrayBuffer`特殊格式化`后的的一个类数组视图（view），可以用其特定的格式读写缓冲区内容
+TypedArray类型数组固定长度缓冲区类型,是ArrayBuffer`特殊格式化`后的的一个类数组视图（view），可以用其特定的格式读写缓冲区内容,每一项都是相同的大小和类型
 
 ```js
-// 创建一个8字节的ArrayBuffer
-const typedArray = new Int16Array(typedArray||buffer||length||object,byteOffset?, length?);
-typedArray[1] = 42;
+const typedArray = new Int16Array(typedArray||buffer||length||object,byteOffset?, length?)
+
+// 创建一个16/8 * 8 字节的typedArray1
+const typedArray1 = new Int16Array(8)
+
+// 创建一个16/8 * 8 字节的,长度为4的typedArray2
+const typedArray2 = new Int32Array(typedArray1)
+
+//以32bit integer的格式插入42到typedArray2的第二项
+typedArray2[1] = 42;
 
 ```
 
 #### DataView
 
+DataView 视图是一个可以从 二进制ArrayBuffer 对象中读写多种数值类型的底层接口， 默认为大端序,可自定义字节序
+>关于字节序  
+>字节序是多字节数据其每个字节存入内存顺序，分为小端字节序（从低位开始存）与大端字节序（从高位开始存）  
+>不同的硬件、机器和环境读取，目前大多数系统都是小端的，所以选择小端字节序这是合情合理的。 当数据采用系统消耗型的格式时，我们能够获得最佳性能，因为我们的数据不需要在可以处理之前进行转换（例如通过GPU、通过WebGL处理）  
+> DataView 大端序的默认值正是因为大端序常用于网络传输（有时称为“网络端序”）。 如果数据被流化，则可以仅通过在下一个存储器位置处添加输入数据来组合数据。例如一个12和34，小端序流化时需 `_ 1` => `2 1` =>`2 1 _ 3`不能直接顺序组合
+
+#### Blob
+
+Blob 对象表示一个不可变、原始数据的MIME类型文件对象,可由ArrayBuffer, ArrayBufferView, Blob, DOMString 等对象创建而成
+
+```js
+new Blob(array:ArrayBuffer|| ArrayBufferView||Blob|| DOMString,options?:{type:String})
+
+var debug = {hello: "world"};
+var blob = new Blob([JSON.stringify(debug, null, 2)], {type : 'application/json'});
+
+```
+
+#### 总结
+
+- ArrayBuffer  用于保存、创建给定数量的原始二进制数据的数据结构，需要TypedArray和DataView提供视图读写
+
+- TypedArray 使用系统的端序，提供一种方法来组合二进制数据以便在同一系统上使用，
+例如Canvas2D ImageData 或 WebGL。
+
+- DataView 可自定义字节序，默认为大端序，在用于序列化和反序列化二进制数据以用于传输
 
 ## week 24
 
