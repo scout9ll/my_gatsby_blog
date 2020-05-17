@@ -3247,3 +3247,9 @@ git push -f --all
 > 当然前提是该位图自身提供了足够的逻辑像素，因此为了让高dpr的设备享受到高清的图片且不让低dpr设备产生格外的流量负荷，通常会根据不同的dpr令其下载不同的清晰度的图片
 
 ### Object.prototype.toString.call() , instanceof  and  Array.isArray()
+
+
+## week 25
+
+### todo 
+- perf the effect of note modal 
