@@ -3251,5 +3251,24 @@ git push -f --all
 
 ## week 25
 
-### todo 
-- perf the effect of note modal 
+### todo
+
+- perf the effect of note modal
+
+### vuex与redux存在的意义
+
+两者都是中心化状态管理的方案，其中两个关键词就是 _中心化_ 和 _状态_
+
+#### 状态管理
+
+在react和vue这种MVVM框架中，数据驱动着整个应用，因此要管理好应用的状态就是需要管理其数据，vuex和redux将关键性的状态数据集中定义管理
+
+#### 中心化
+
+- redux
+dispatch(action) => reducer(type)
+
+- vuex
+dispatch(action) => commit(mutation)
+
+本质都是通过订阅发布的方式，对数据的操作进行封装，并使其统一流向一个reducer，达到中心化管理的目的
