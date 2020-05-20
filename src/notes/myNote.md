@@ -2687,13 +2687,13 @@ Last-Modified is the date and time at which the origin server believes the resou
 
 #### 加载原理
 
-- CommonJS 模块是运行时加载,
+- CommonJS 模块是运行时加载,在没有被执行完之前，它的结构（API）是不可知的 — 即使在它被执行完以后，它的结构也可以随时被其他代码修改
 - ES6 模块会根据 import 被编译成接口接入入口文件，只是一个“符号连接”，解析的时候不会执行
 
 #### 输出差异
 
-- CommonJS 模块输出的是一个值的拷贝(类似 return 后的结果)
-- ES6 模块输出的是值的引用,原始值变了，import 加载的值也会跟着变。
+- CommonJS 模块输出的是一个值的拷贝(类似 return 后的结果)。只能同步加载
+- ES6 模块输出的是值的引用,原始值变了，import 加载的值也会跟着变。可异步加载
 
 ### d.ts
 
@@ -3272,3 +3272,15 @@ dispatch(action) => reducer(type)
 dispatch(action) => commit(mutation)
 
 本质都是通过订阅发布的方式，对数据的操作进行封装，并使其统一流向一个reducer，达到中心化管理的目的
+
+### The key of git flow
+
+! _a great strategy of git workflow_
+
+- A develop branch is created from master
+- A release branch is created from develop
+- Feature branches are created from develop
+- When a feature is complete it is merged into the develop branch
+- When the release branch is done it is merged into develop and master
+- If an issue in master is detected a hotfix branch is created from master
+- Once the hotfix is complete it is merged to both develop and master
