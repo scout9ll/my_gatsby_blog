@@ -3405,12 +3405,22 @@ db.orders.aggregate([
       total: { $sum: "$price" },
     },
   },
+  {
+    sort: {
+      total: 1,
+    },
+  },
 ])
 ```
 
+取 publish_snapshot 表中 env 为`prod`的数据，并以 projectName 字段分类，最后取各类的后三条
+
+- mongo
+
 ```js
  db.publish_snapshot.aggregate([
-...      {$group:{_id:"$projectName", logs:{$push:"$$ROOT"}}},
-...      {$project:{_id:1,log:{$slice:["$ROOT",0,2]}}
-... ])
+    {$match: { env: 'prod' }},
+    {$group:{_id:"$projectName", logs:{$push:"$$ROOT"}}},
+    {$project:{_id:1,log:{$slice:["$logs",-3]}}}
+ ])
 ```
