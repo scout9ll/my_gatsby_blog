@@ -3428,3 +3428,40 @@ db.orders.aggregate([
 ### 事件驱动和消息驱动
 
 todo
+
+
+
+## week 26
+
+### CORS
+
+CORS （Cross-Origin Resource Sharing，跨域资源共享）是一个系统，它由一系列传输的HTTP头组成，这些HTTP头决定浏览器是否阻止前端 JavaScript 代码获取跨域请求的响应。
+
+同源安全策略 默认阻止“跨域”获取资源。但是 CORS 给了web服务器这样的权限，即服务器可以选择，允许跨域请求访问到它们的资源。
+
+#### 脚本内的请求才会有同源限制
+XHR,fetch
+
+
+#### 服务端设置是否允许跨域
+
+服务端需要设置响应头来告知浏览器自己的跨域规则
+
+- `Access-Control-Allow-Origin`
+- `Access-Control-Expose-Headers`
+- `Access-Control-Max-Age`
+- `Access-Control-Allow-Credentials`
+- `Access-Control-Allow-Methods`
+- `Access-Control-Allow-Headers`
+
+#### 浏览器做最终限制
+
+浏览器根据返回的响应头中的`Access-Control-Allow-Origin`,`Access-Control-Allow-Methods`等字段是否匹配请求来决定获取资源
+
+- 简单请求
+`GET`，`POST`,`HEAD`等直接请求后根据响应头判断。
+>这种情况无论是否满足跨域服务端都会返回应返回的数据
+
+- 复杂请求
+`PUT`,`PATCH`,`DELETE`等会对服务器数据造成更改的，会首先发送一个预发请求，若预发的响应头满足此次请求，则再发送。
+>这种情况不满足跨域则服务端没有响应数据，因为根据`OPTIONS`的响应拦截了改请求。
