@@ -2678,11 +2678,18 @@ console.log("done")
 
 #### 不同点
 
-> ETag: W/"<etag_value>"
+> ETag: W/"<etag_value>" // 'W/'(大小写敏感) 表示使用弱验证器。
 > ETag: "<etag_value>"
 
-Etag is an identifier for a specific version of a resource , 资源的版本标识符
-请求时通过 `if-match||if-none-match`来判断
+Etag is an identifier for a specific version of a resource , 资源的版本标识符，通常是返回内容的散列
+请求时通过 `if-match||if-none-match`来判断，服务器仅在请求的资源满足此首部列出的 ETag值时才会返回资源。而对于 PUT 或其他非安全方法来说，只有在满足条件的情况下才可以将资源上传。
+
+- `if-match`
+通常用来防止`空中碰撞`，若put时的请求Etag和服务端的Etag一致则put成功，否则返回412
+
+- `if-none-match`
+通常用来缓存资源,当get时的Etag和服务端的Etag不一致则会重新返回，否则304  
+也可通过`if-none-match:*`来防止多次put
 
 > Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
 
