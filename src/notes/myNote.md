@@ -411,7 +411,7 @@ for (const value of normalObj) {
   - .match 只返回断言的内容
 
 | 模式   | 类型         | 匹配                 |
-|--------|--------------|----------------------|
+| ------ | ------------ | -------------------- |
 | x(?=y) | 前瞻肯定断言 | x ，仅当后面跟着 y   |
 | x(?!y) | 前瞻否定断言 | x ，仅当后面不跟 y   |
 | (?=y)x | 后瞻肯定断言 | x ，仅当前面跟着 y   |
@@ -2682,14 +2682,14 @@ console.log("done")
 > ETag: "<etag_value>"
 
 Etag is an identifier for a specific version of a resource , 资源的版本标识符，通常是返回内容的散列
-请求时通过 `if-match||if-none-match`来判断，服务器仅在请求的资源满足此首部列出的 ETag值时才会返回资源。而对于 PUT 或其他非安全方法来说，只有在满足条件的情况下才可以将资源上传。
+请求时通过 `if-match||if-none-match`来判断，服务器仅在请求的资源满足此首部列出的 ETag 值时才会返回资源。而对于 PUT 或其他非安全方法来说，只有在满足条件的情况下才可以将资源上传。
 
 - `if-match`
-通常用来防止`空中碰撞`，若put时的请求Etag和服务端的Etag一致则put成功，否则返回412
+  通常用来防止`空中碰撞`，若 put 时的请求 Etag 和服务端的 Etag 一致则 put 成功，否则返回 412
 
 - `if-none-match`
-通常用来缓存资源,当get时的Etag和服务端的Etag不一致则会重新返回，否则304  
-也可通过`if-none-match:*`来防止多次put
+  通常用来缓存资源,当 get 时的 Etag 和服务端的 Etag 不一致则会重新返回，否则 304  
+  也可通过`if-none-match:*`来防止多次 put
 
 > Last-Modified: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
 
@@ -2976,7 +2976,7 @@ schema(`ˈskiːmə`)是 database 关系的模式，主要表示*关系*
 - processes 和 threads
 
 | processes                   | threads            |
-|-----------------------------|--------------------|
+| --------------------------- | ------------------ |
 | 顶级执行容器                | 运行在一个进程     |
 | 通过 ipc 相互通信，存在限制 | 容易通信，共享变量 |
 | 分割内存空间                | 分享同一个内存     |
@@ -3425,50 +3425,104 @@ db.orders.aggregate([
 - mongo
 
 ```js
- db.publish_snapshot.aggregate([
-    {$match: { env: 'prod' }},
-    {$group:{_id:"$projectName", logs:{$push:"$$ROOT"}}},
-    {$project:{_id:1,log:{$slice:["$logs",-3]}}}
- ])
+db.publish_snapshot.aggregate([
+  { $match: { env: "prod" } },
+  { $group: { _id: "$projectName", logs: { $push: "$$ROOT" } } },
+  { $project: { _id: 1, log: { $slice: ["$logs", -3] } } },
+])
 ```
 
 ### 事件驱动和消息驱动
 
 todo
 
-
-
 ## week 26
 
 ### CORS
 
-CORS （Cross-Origin Resource Sharing，跨域资源共享）是一个系统，它由一系列传输的HTTP头组成，这些HTTP头决定浏览器是否阻止前端 JavaScript 代码获取跨域请求的响应。
+CORS （Cross-Origin Resource Sharing，跨域资源共享）是一个系统，它由一系列传输的 HTTP 头组成，这些 HTTP 头决定浏览器是否阻止前端 JavaScript 代码获取跨域请求的响应。
 
-同源安全策略 默认阻止“跨域”获取资源。但是 CORS 给了web服务器这样的权限，即服务器可以选择，允许跨域请求访问到它们的资源。
+同源安全策略 默认阻止“跨域”获取资源。但是 CORS 给了 web 服务器这样的权限，即服务器可以选择，允许跨域请求访问到它们的资源。
 
 #### 脚本内的请求才会有同源限制
-XHR,fetch
 
+XHR,fetch
 
 #### 服务端设置是否允许跨域
 
 服务端需要设置响应头来告知浏览器自己的跨域规则
 
-- `Access-Control-Allow-Origin`
+- `Access-Control-Allow-Origin`  
+  允许请求的来源域名，`content-type`,`authorization`等
+
 - `Access-Control-Expose-Headers`
 - `Access-Control-Max-Age`
-- `Access-Control-Allow-Credentials`
-- `Access-Control-Allow-Methods`
-- `Access-Control-Allow-Headers`
+- `Access-Control-Allow-Credentials`  
+  是否允许`Credentials`,`Credentials`可以是 cookies, authorization headers 或 TLS client certificates。需要和 XMLHttpRequest.withCredentials 或 Fetch API 中的 Request() 构造器中的 credentials 选项结合使用
+
+- `Access-Control-Allow-Methods`  
+  允许请求的方法，`GET`,`PUT`等
+
+- `Access-Control-Allow-Headers`  
+  允许请求头的字段，`content-type`,`authorization`等
 
 #### 浏览器做最终限制
 
 浏览器根据返回的响应头中的`Access-Control-Allow-Origin`,`Access-Control-Allow-Methods`等字段是否匹配请求来决定获取资源
 
 - 简单请求
-`GET`，`POST`,`HEAD`等直接请求后根据响应头判断。
->这种情况无论是否满足跨域服务端都会返回应返回的数据
+  `GET`，`POST`,`HEAD`等直接请求后根据响应头判断。
+
+  > 这种情况无论是否满足跨域服务端都会返回应返回的数据
 
 - 复杂请求
-`PUT`,`PATCH`,`DELETE`等会对服务器数据造成更改的，会首先发送一个预发请求，若预发的响应头满足此次请求，则再发送。
->这种情况不满足跨域则服务端没有响应数据，因为根据`OPTIONS`的响应拦截了改请求。
+  `PUT`,`PATCH`,`DELETE`等会对服务器数据造成更改的，会首先发送一个预发请求，若预发的响应头满足此次请求，则再发送。
+  > 这种情况不满足跨域则服务端没有响应数据，因为根据`OPTIONS`的响应拦截了改请求。
+
+### timing breakdown of a request
+![requestTiming](../images/request_timing.png)
+
+浏览器发出请求到完成可以被分解成几个阶段
+
+#### Queueing
+
+浏览器首先对请求进行列队处理
+
+- There are higher priority requests.
+- There are already six TCP connections open for this origin, which is the - limit. Applies to HTTP/1.0 and HTTP/1.1 only.
+
+> HTTP1.0/1.1 只能同时开启 6 个 TCP 连接，故同时大于 6 个请求就需要列队，其中 1.0 每次请求都要重新建立 TCP 连接，1.1 通过`Keep live`可以保持 TCP 连接一直开启，直到用户主动关闭，当然在同一个 TCP 连接中也需要列队，并且请求的返回也要按此列队顺序返回。在 HTTP2.0 中则可以多路复用，同一个域名下，开启一个 TCP 的 connection，每个请求以 stream 的方式传输，每个 stream 有唯一标识，connection 一旦建立，后续的请求都可以复用这个 connection 并且可以同时发送，server 端可以根据 stream 的唯一标识来相应对应的请求。
+
+- The browser is briefly allocating space in the disk cache
+
+#### stalled
+
+请求等待列队
+
+#### DNS Lookup
+
+浏览器去 DNS 服务器解析到域名 ip 地址
+
+#### Proxy negotiation
+
+调用代理 _(if necessary)_
+
+#### Request sent
+
+发送请求
+
+#### ServieWorker Preparation
+
+浏览器启动`servie Worker`_(if necessary)_
+
+#### Request to ServieWorker
+
+请求发送到`servie Worker`_(if necessary)_
+
+#### Waiting(TTFB)
+
+等待接受到服务器返回的第一个字节的时间(Time To First Byte),包括传输和服务器处理的时间
+
+#### Content Download
+
+下载返回的数据
