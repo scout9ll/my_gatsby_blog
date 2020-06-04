@@ -3480,6 +3480,7 @@ XHR,fetch
   > 这种情况不满足跨域则服务端没有响应数据，因为根据`OPTIONS`的响应拦截了改请求。
 
 ### timing breakdown of a request
+
 ![requestTiming](../images/request_timing.png)
 
 浏览器发出请求到完成可以被分解成几个阶段
@@ -3526,3 +3527,23 @@ XHR,fetch
 #### Content Download
 
 下载返回的数据
+
+## week 27
+
+### 关于 JWT
+
+`jwt` json web token. 一个已 json 对象形式独立且紧凑的在双方安全传输信息的方式的开放标准 (RFC 7519)
+
+#### JWT 可以被用于信息加密吗
+
+不行。JWT 虽然涉及到算法加密，但这个加密只单独生成 Signature，jwt 的`payload`部分只用了 base64 编码压缩,Signature 的作用只是为了通过能否正确的解密来保证数据的完整性。所以就想 jwt 定义一样，只保证信息安全可靠不被更改，其中不宜传输隐私信息。
+
+```js
+HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
+```
+
+#### JWT 最佳实践是怎样
+
+- 鉴权
+
+- 信息交换
