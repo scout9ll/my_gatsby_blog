@@ -63,7 +63,12 @@ const mybooks = [
     title: "SVG动画",
     src: "https://book.douban.com/subject/30239781/",
     img: "https://img1.doubanio.com/view/subject/s/public/s29785018.jpg",
-  }  
+  },
+  {
+    title: "叙事经济学",
+    src: "https://book.douban.com/subject/34976597/",
+    img: "https://img9.doubanio.com/view/subject/s/public/s33625535.jpg",
+  }    
 ]
 
 export default mybooks
