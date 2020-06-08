@@ -618,7 +618,8 @@ Promise.resolve().then(() => console.log("3"))
 console.log("4")
 // 1 4 解析执行主线程JS 属于第一个事件循环(宏任务),同步任务执行完
 // 3  进入微任务队列,在下个宏任务(2)执行前执行
-// 2 执行最后一个宏任务
+// 渲染线程进行渲染，渲染结束进行下一轮循环
+// 2 执行第二轮的第一个宏任务
 ```
 
 ### this
@@ -3290,7 +3291,8 @@ git push -f --all
 
 ### todo
 
-- perf the effect of note modal
+<!-- - perf the effect of note modal -->
+
 - 多线程安全
 
 ### vuex 与 redux 存在的意义
@@ -3545,5 +3547,35 @@ HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 #### JWT 最佳实践是怎样
 
 - 鉴权
-
+  服务端返回 JWT 作为用户登录的凭证
 - 信息交换
+  用户端
+
+### requestAnimationFrame 是最极致的节流
+
+requestAnimationFrame 在每一次设备渲染前(一般为 60hz)才执行，保证更改 DOM 的脚本每一次执行都能在界面生效，也避免了不能生效脚本的执行（若两次执行间隔小于设备的渲染极限则后一次将不会生效）
+
+#### example
+
+```js
+let last_known_scroll_position = 0;
+let ticking = false;
+
+function doSomething(scroll_pos) {
+// 根据滚动位置做的事
+}
+
+window.addEventListener('scroll', function(e) {
+last_known_scroll_position = window.scrollY;
+
+if (!ticking) {
+window.requestAnimationFrame(function() {
+doSomething(last_known_scroll_position);
+ticking = false;
+});
+
+    ticking = true;
+
+}
+});
+```
