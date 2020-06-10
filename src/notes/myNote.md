@@ -3558,24 +3558,45 @@ requestAnimationFrame 在每一次设备渲染前(一般为 60hz)才执行，保
 #### example
 
 ```js
-let last_known_scroll_position = 0;
-let ticking = false;
+let last_known_scroll_position = 0
+let ticking = false
 
 function doSomething(scroll_pos) {
-// 根据滚动位置做的事
+  // 根据滚动位置做的事
 }
 
-window.addEventListener('scroll', function(e) {
-last_known_scroll_position = window.scrollY;
+window.addEventListener("scroll", function(e) {
+  last_known_scroll_position = window.scrollY
 
-if (!ticking) {
-window.requestAnimationFrame(function() {
-doSomething(last_known_scroll_position);
-ticking = false;
-});
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      doSomething(last_known_scroll_position)
+      ticking = false
+    })
 
-    ticking = true;
-
-}
-});
+    ticking = true
+  }
+})
 ```
+
+### 抽离与冗余
+
+将复用的代码进行抽离毫无疑问是个优秀的习惯，这样可以移除重复的代码，减少了代码的体积，美化了代码结构。所以我们需要任何时候都要对重复的逻辑、代码、资源进行抽离吗？先看看我们做抽离的代价是什么
+
+#### 抽离的代价
+
+- 花时间思考归纳出恰好能复用的逻辑
+
+- 分散复用的代码、资源。通常会把多文件复用的代码分配到一个新建的文件中，可能导致多一个网络请求
+
+- 为了保证提取的代码被高效利用，之后的写代码的逻辑将被抽离的逻辑限制
+
+#### 合理的冗余
+
+我们在决定抽离与冗余需要做出一些权衡，必要时候合理的冗余
+
+- 若抽离的代码复用率低，且影响了代码可读性，不应抽离
+
+- 若抽取的代码涉及到其他逻辑的依赖，并因此在进行复用时影响原本的思路，不应抽离
+
+- 若增加的请求耗时大于减少的体积所加载的时间，不应抽离
