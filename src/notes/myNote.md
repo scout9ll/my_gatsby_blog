@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-5-15"
+lastTime: "2020-6-11"
 words: "67634"
 ---
 
@@ -14,7 +14,7 @@ words: "67634"
 
 - js: number,Boolean,null,undefined,NaN,Object,Symbol
 - python:
-  - 不可变:Number（int、float、bool、complex（复数）String（字符串）Tuple（元组,有序）
+  - 不可变:Number（int、float、bool、complex（复数））String（字符串）Tuple（元组,有序）
   - 可变: List（列表,有序）Set（集合,无序）Dictionary（字典,无序）
 
 #### 可变参数
@@ -1485,6 +1485,7 @@ foo()
 
 - git stash 将 stage 和
 - git cherry-pick \[commitid\] 可提取其它分支的 commit 合并到当前分支
+- git rebase \[branch\] 将最近一次提交变基到最新的分支HEAD上
 
 #### github
 
@@ -2259,6 +2260,10 @@ class Example {
 
 - js 线程,处理 js
 - GUI 渲染线程,处理 dom 和 css 树,绘制渲染树
+  - 解析代码：HTML代码解析为DOM，CSS代码解析为CSSOM（CSS Object Model）
+  - 对象合成：将DOM和CSSOM合成一棵渲染树（render tree）
+  - 布局：计算出渲染树的布局（layout）
+  - 绘制：将渲染树绘制到屏幕 （painting）
 - 事件触发线程,事件列队,处理事件循环
 - 定时器线程,处理定时
 - 请求线程,处理异步请求
@@ -3579,6 +3584,8 @@ window.addEventListener("scroll", function(e) {
 })
 ```
 
+> BTW resize和scroll事件其实自带节流，因为它只在 Event Loop 的渲染阶段（该阶段涉及对是否绘制的判断）去派发事件到 EventTarget 上。
+
 ### 抽离与冗余
 
 将复用的代码进行抽离毫无疑问是个优秀的习惯，这样可以移除重复的代码，减少了代码的体积，美化了代码结构。所以我们需要任何时候都要对重复的逻辑、代码、资源进行抽离吗？先看看我们做抽离的代价是什么
@@ -3600,3 +3607,5 @@ window.addEventListener("scroll", function(e) {
 - 若抽取的代码涉及到其他逻辑的依赖，并因此在进行复用时影响原本的思路，不应抽离
 
 - 若增加的请求耗时大于减少的体积所加载的时间，不应抽离
+
+### 在绘制之前拿到节点的Layout
