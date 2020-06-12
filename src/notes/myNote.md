@@ -1485,7 +1485,7 @@ foo()
 
 - git stash 将 stage 和
 - git cherry-pick \[commitid\] 可提取其它分支的 commit 合并到当前分支
-- git rebase \[branch\] 将最近一次提交变基到最新的分支HEAD上
+- git rebase \[branch\] 将最近一次提交变基到最新的分支 HEAD 上
 
 #### github
 
@@ -2260,8 +2260,8 @@ class Example {
 
 - js 线程,处理 js
 - GUI 渲染线程,处理 dom 和 css 树,绘制渲染树
-  - 解析代码：HTML代码解析为DOM，CSS代码解析为CSSOM（CSS Object Model）
-  - 对象合成：将DOM和CSSOM合成一棵渲染树（render tree）
+  - 解析代码：HTML 代码解析为 DOM，CSS 代码解析为 CSSOM（CSS Object Model）
+  - 对象合成：将 DOM 和 CSSOM 合成一棵渲染树（render tree）
   - 布局：计算出渲染树的布局（layout）
   - 绘制：将渲染树绘制到屏幕 （painting）
 - 事件触发线程,事件列队,处理事件循环
@@ -3584,7 +3584,7 @@ window.addEventListener("scroll", function(e) {
 })
 ```
 
-> BTW resize和scroll事件其实自带节流，因为它只在 Event Loop 的渲染阶段（该阶段涉及对是否绘制的判断）去派发事件到 EventTarget 上。
+> BTW resize 和 scroll 事件其实自带节流，因为它只在 Event Loop 的渲染阶段（[该阶段涉及对是否绘制的判断)](https://html.spec.whatwg.org/multipage/webappapis.html#update-the-rendering)去派发事件到 EventTarget 上。
 
 ### 抽离与冗余
 
@@ -3608,4 +3608,6 @@ window.addEventListener("scroll", function(e) {
 
 - 若增加的请求耗时大于减少的体积所加载的时间，不应抽离
 
-### 在绘制之前拿到节点的Layout
+### 在绘制之前拿到节点的 Layout
+
+js 脚本执行中若调用了读写 dom 的接口，可能会触发渲染引擎计算当前 dom 的 layout,所以可以在页面渲染（指包括绘制的完整流程）之前获取到最新的 dom 的 layout 信息
