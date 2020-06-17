@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-5-15"
+lastTime: "2020-6-11"
 words: "67634"
 ---
 
@@ -14,7 +14,7 @@ words: "67634"
 
 - js: number,Boolean,null,undefined,NaN,Object,Symbol
 - python:
-  - 不可变:Number（int、float、bool、complex（复数）String（字符串）Tuple（元组,有序）
+  - 不可变:Number（int、float、bool、complex（复数））String（字符串）Tuple（元组,有序）
   - 可变: List（列表,有序）Set（集合,无序）Dictionary（字典,无序）
 
 #### 可变参数
@@ -618,7 +618,8 @@ Promise.resolve().then(() => console.log("3"))
 console.log("4")
 // 1 4 解析执行主线程JS 属于第一个事件循环(宏任务),同步任务执行完
 // 3  进入微任务队列,在下个宏任务(2)执行前执行
-// 2 执行最后一个宏任务
+// 渲染线程进行渲染，渲染结束进行下一轮循环
+// 2 执行第二轮的第一个宏任务
 ```
 
 ### this
@@ -1484,6 +1485,7 @@ foo()
 
 - git stash 将 stage 和
 - git cherry-pick \[commitid\] 可提取其它分支的 commit 合并到当前分支
+- git rebase \[branch\] 将最近一次提交变基到最新的分支 HEAD 上
 
 #### github
 
@@ -2258,6 +2260,10 @@ class Example {
 
 - js 线程,处理 js
 - GUI 渲染线程,处理 dom 和 css 树,绘制渲染树
+  - 解析代码：HTML 代码解析为 DOM，CSS 代码解析为 CSSOM（CSS Object Model）
+  - 对象合成：将 DOM 和 CSSOM 合成一棵渲染树（render tree）
+  - 布局：计算出渲染树的布局（layout）
+  - 绘制：将渲染树绘制到屏幕 （painting）
 - 事件触发线程,事件列队,处理事件循环
 - 定时器线程,处理定时
 - 请求线程,处理异步请求
@@ -3277,12 +3283,13 @@ git push -f --all
 
 也叫设备独立像素(`density-independent pixel`)  
 可以认为是计算机坐标系统中得一个点，这个点代表一个可以由`程序`使用的虚拟像素(比如: css 像素)
+> 调节设备的分辨率其实就是改变其设备独立像素，例如把4K（3840x2160）的物理像素改变其分辨率为1K（1920x1080），其`dpr`将变为2，每1px * 1px 的背后则是4个物理像素的绘制
 
 #### dpr 意味着什么
 
 越高的 dpr,代表在显示相同尺寸的逻辑像素时，能够有更多的像素颗粒来呈现出更细腻的视觉效果。
 
-> 当然前提是该位图自身提供了足够的逻辑像素，因此为了让高 dpr 的设备享受到高清的图片且不让低 dpr 设备产生格外的流量负荷，通常会根据不同的 dpr 令其下载不同的清晰度的图片
+> 当然前提是该位图自身提供了足够的清晰度，因此为了让高 dpr 的设备享受到高清的图片且不让低 dpr 设备产生格外的流量负荷，通常会根据不同的 dpr 令其下载不同的清晰度的图片
 
 ### Object.prototype.toString.call() , instanceof and Array.isArray()
 
@@ -3290,7 +3297,8 @@ git push -f --all
 
 ### todo
 
-- perf the effect of note modal
+<!-- - perf the effect of note modal -->
+
 - 多线程安全
 
 ### vuex 与 redux 存在的意义
@@ -3545,5 +3553,62 @@ HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 #### JWT 最佳实践是怎样
 
 - 鉴权
-
+  服务端返回 JWT 作为用户登录的凭证
 - 信息交换
+  用户端
+
+### requestAnimationFrame 是最极致的节流
+
+requestAnimationFrame 在每一次设备渲染前(一般为 60hz)才执行，保证更改 DOM 的脚本每一次执行都能在界面生效，也避免了不能生效脚本的执行（若两次执行间隔小于设备的渲染极限则后一次将不会生效）
+
+#### example
+
+```js
+let last_known_scroll_position = 0
+let ticking = false
+
+function doSomething(scroll_pos) {
+  // 根据滚动位置做的事
+}
+
+window.addEventListener("scroll", function(e) {
+  last_known_scroll_position = window.scrollY
+
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      doSomething(last_known_scroll_position)
+      ticking = false
+    })
+
+    ticking = true
+  }
+})
+```
+
+> BTW resize 和 scroll 事件其实自带节流，因为它只在 Event Loop 的渲染阶段（[该阶段涉及对是否绘制的判断)](https://html.spec.whatwg.org/multipage/webappapis.html#update-the-rendering)去派发事件到 EventTarget 上。
+
+### 抽离与冗余
+
+将复用的代码进行抽离毫无疑问是个优秀的习惯，这样可以移除重复的代码，减少了代码的体积，美化了代码结构。所以我们需要任何时候都要对重复的逻辑、代码、资源进行抽离吗？先看看我们做抽离的代价是什么
+
+#### 抽离的代价
+
+- 花时间思考归纳出恰好能复用的逻辑
+
+- 分散复用的代码、资源。通常会把多文件复用的代码分配到一个新建的文件中，可能导致多一个网络请求
+
+- 为了保证提取的代码被高效利用，之后的写代码的逻辑将被抽离的逻辑限制
+
+#### 合理的冗余
+
+我们在决定抽离与冗余需要做出一些权衡，必要时候合理的冗余
+
+- 若抽离的代码复用率低，且影响了代码可读性，不应抽离
+
+- 若抽取的代码涉及到其他逻辑的依赖，并因此在进行复用时影响原本的思路，不应抽离
+
+- 若增加的请求耗时大于减少的体积所加载的时间，不应抽离
+
+### 在绘制之前拿到节点的 Layout
+
+js 脚本执行中若调用了读写 dom 的接口，可能会触发渲染引擎计算当前 dom 的 layout,所以可以在页面渲染（指包括绘制的完整流程）之前获取到最新的 dom 的 layout 信息
