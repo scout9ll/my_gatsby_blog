@@ -97,13 +97,23 @@ ES6 的语法中的 decorator 正是借鉴了 Python 的 decorator。decorator �
 
 #### 基本渲染前流程
 
-html=>dom-|  
-css=>cssom-| =>download+resolve=>renderTree=>begin render=>style  
+html=>dom------|  
+css=>cssom-----| =>download+resolve=>renderTree=>begin render=>style  
 js------------ |
 
-> - renderTree 是渲染树,不包括 DOM 中的 display 为 none 的对象
 > - cssom,css 对象模型
 > - js 的 load 会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,transition 在进入页面时将看不见
+> - renderTree 是渲染树,不包括 DOM 中的 display 为 none 的对象
+
+#### dom 的构建会被阻塞
+
+当解析 html 时，若遇到 css 和 js 的内容或者链接，浏览器会停止 dom 的构建,它必须先停止解析 HTML 并执行该脚本，然后才能继续解析。对于外部脚本，系统还会强制解析器等待相应资源下载完毕（这可能会产生一次或多次网络往返过程并导致网页的首次呈现时间延迟)
+
+> 因此为了加快首屏的渲染，通常有以下手段:
+>
+> 1. 使用内联 css,js。减少网络请求
+> 2. 通过`async`、`defer`、`preload`、`prefetch`等异步加载资源非首屏的所需的资源
+> 3. 通过js控制延迟加载非首屏的所需的资源
 
 #### 渲染(render)路径
 
@@ -815,7 +825,7 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 #### 扩展
 
-给 script 标签设置`defer`和`async`也能延迟 load,两者都能异步 load(在执行 css,html 文件时下载)
+给 script 标签设置`defer`和`async`也能延迟 load,两者都能异步 load(在解析 css,html 文件时下载，不阻塞 dom 的构建)
 
 - `async`*该 JS 文件*load 完后才执行该文件
 - `defer`*页面*加载完后才执行该文件
@@ -3283,7 +3293,8 @@ git push -f --all
 
 也叫设备独立像素(`density-independent pixel`)  
 可以认为是计算机坐标系统中得一个点，这个点代表一个可以由`程序`使用的虚拟像素(比如: css 像素)
-> 调节设备的分辨率其实就是改变其设备独立像素，例如把4K（3840x2160）的物理像素改变其分辨率为1K（1920x1080），其`dpr`将变为2，每1px * 1px 的背后则是4个物理像素的绘制
+
+> 调节设备的分辨率其实就是改变其设备独立像素，例如把 4K（3840x2160）的物理像素改变其分辨率为 1K（1920x1080），其`dpr`将变为 2，每 1px \* 1px 的背后则是 4 个物理像素的绘制
 
 #### dpr 意味着什么
 
