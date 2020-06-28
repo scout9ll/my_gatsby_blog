@@ -65,6 +65,13 @@ const myMovies = [
     img:
       "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p792381411.jpg",
   },
+  {
+    title: "隐秘的角落",
+    src: "https://movie.douban.com/subject/33404425/",
+    img:
+      "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2609064048.jpg",
+    breifComment: "'爱'之花种恶之果",
+  },
 ]
 
 export default myMovies
