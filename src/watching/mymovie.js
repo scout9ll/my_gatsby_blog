@@ -66,6 +66,13 @@ const myMovies = [
       "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p792381411.jpg",
   },
   {
+    title: "Little Women",
+    src: "https://movie.douban.com/subject/26348103/",
+    img:
+      "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2575325937.jpg",
+    breifComment: "若害怕婚姻，那就选择爱情",
+  },
+  {
     title: "隐秘的角落",
     src: "https://movie.douban.com/subject/33404425/",
     img:
