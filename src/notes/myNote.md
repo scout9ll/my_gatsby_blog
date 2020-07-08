@@ -815,7 +815,7 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 #### prefetch
 
-- 预获取，_优先级低_,将在页面加载完成后提前下载但不会加载(transmission)，作为下一页的部分，调取时执行(processing)
+- 预获取，_优先级低_,将在页面加载完成后提前下载但不会加载执行(processing)，作为下一页的部分，调取时执行(processing)
 
 - 用法与 preload 基本一致
 
