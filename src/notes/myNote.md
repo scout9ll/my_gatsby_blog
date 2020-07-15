@@ -113,7 +113,7 @@ js------------ |
 >
 > 1. 使用内联 css,js。减少网络请求
 > 2. 通过`async`、`defer`、`preload`、`prefetch`等异步加载资源非首屏的所需的资源
-> 3. 通过js控制延迟加载非首屏的所需的资源
+> 3. 通过 js 控制延迟加载非首屏的所需的资源
 
 #### 渲染(render)路径
 
@@ -421,7 +421,7 @@ for (const value of normalObj) {
   - .match 只返回断言的内容
 
 | 模式   | 类型         | 匹配                 |
-|--------|--------------|----------------------|
+| ------ | ------------ | -------------------- |
 | x(?=y) | 前瞻肯定断言 | x ，仅当后面跟着 y   |
 | x(?!y) | 前瞻否定断言 | x ，仅当后面不跟 y   |
 | (?=y)x | 后瞻肯定断言 | x ，仅当前面跟着 y   |
@@ -1607,6 +1607,24 @@ $icons: ("home", "movie", "ticket", "cinema");
 
 ## week13
 
+### typescript base concepts
+
+每一个类型声明都会至少创建`namespace`、`type`和`value`中的一个实体。这些实体将作用于 ts
+
+- namespace, 命名空间,用来声明模块,决定被 ts 识别类型的作用域
+- type, 决定类型的具体信息,创建一个类型实体
+- value，有意义的值，将会编译在 js 中执行
+
+| Declaration Type | Namespace | Type | Value |
+| ---------------- | :-------: | :--: | :---: |
+| Namespace        |     √     |      |   √   |
+| Class            |           |  √   |   √   |
+| Enum             |           |  √   |   √   |
+| Interface        |           |  √   |       |
+| Type Alias       |           |  √   |       |
+| Function         |           |      |   √   |
+| Variable         |           |      |   √   |
+
 ### typescript 特殊类型
 
 #### Emun
@@ -2753,15 +2771,17 @@ const date = moment()
 
 ```js
 (function (root, factory) {
-    if (typeof define === "function" && define.amd) {
-        define(["libName"], factory);
+    if (typeof define === "function" && define.amd) { //
+        define(["libName"], factory); // AMD , always in some older browser code
     } else if (typeof module === "object" && module.exports) {
-        module.exports = factory(require("libName"));
-    } else {
-        root.returnExports = factory(root.libName);
+        module.exports = factory(); // CommonJS,always for Node.js
+    } else { // root context,always window
+        root.libName = factory();
     }
 }(this, function (b) {
 ```
+
+> 如今，作为一个完备的库，除上面的几种模块外，一般还需要支持 ESM（ECMA Script Modules，ES6）模块的导入，通常单独用`*.esm.js`文件提供支持（以 export default \* 导出）
 
 ### 处理器架构
 
@@ -2992,7 +3012,7 @@ schema(`ˈskiːmə`)是 database 关系的模式，主要表示*关系*
 - processes 和 threads
 
 | processes                   | threads            |
-|-----------------------------|--------------------|
+| --------------------------- | ------------------ |
 | 顶级执行容器                | 运行在一个进程     |
 | 通过 ipc 相互通信，存在限制 | 容易通信，共享变量 |
 | 分割内存空间                | 分享同一个内存     |
@@ -3183,9 +3203,7 @@ var img = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/
     其 map 中的 module 会被 loader 处理后分别存储并生成 moduleId，通过`__webpack_require__(418)('./a/existent.png')`动态引用
 
   - 若没有满足的文件
-
-
-    其引用返回webpackMissingModule函数
+    其引用返回 webpackMissingModule 函数
 
 ### ArrayBuffer 和 TypedArray 和 DataView 和 Blob
 
@@ -3628,17 +3646,17 @@ js 脚本执行中若调用了读写 dom 的接口，可能会触发渲染引擎
 
 ### 小程序发版记录方案
 
-#### 打包记录log
+#### 打包记录 log
 
-每一次打包都记录其log至小程序的console中
+每一次打包都记录其 log 至小程序的 console 中
 
-#### 上传记录log
+#### 上传记录 log
 
-每次上传需将console中的log记录到版本备注中
+每次上传需将 console 中的 log 记录到版本备注中
 
 #### 后台发版后触发上传
 
-利用扩展程序在发版成功后触发上传log的请求
+利用扩展程序在发版成功后触发上传 log 的请求
 
 ### sha-1 与 hash
 
