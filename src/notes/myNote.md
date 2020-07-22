@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-6-11"
+lastTime: "2020-7-22"
 words: "67634"
 ---
 
@@ -421,7 +421,7 @@ for (const value of normalObj) {
   - .match 只返回断言的内容
 
 | 模式   | 类型         | 匹配                 |
-|--------|--------------|----------------------|
+| ------ | ------------ | -------------------- |
 | x(?=y) | 前瞻肯定断言 | x ，仅当后面跟着 y   |
 | x(?!y) | 前瞻否定断言 | x ，仅当后面不跟 y   |
 | (?=y)x | 后瞻肯定断言 | x ，仅当前面跟着 y   |
@@ -1616,7 +1616,7 @@ $icons: ("home", "movie", "ticket", "cinema");
 - value，有意义的值，将会编译在 js 中执行
 
 | Declaration Type | Namespace | Type | Value |
-|------------------|:---------:|:----:|:-----:|
+| ---------------- | :-------: | :--: | :---: |
 | Namespace        |     √     |      |   √   |
 | Class            |           |  √   |   √   |
 | Enum             |           |  √   |   √   |
@@ -3012,7 +3012,7 @@ schema(`ˈskiːmə`)是 database 关系的模式，主要表示*关系*
 - processes 和 threads
 
 | processes                   | threads            |
-|-----------------------------|--------------------|
+| --------------------------- | ------------------ |
 | 顶级执行容器                | 运行在一个进程     |
 | 通过 ipc 相互通信，存在限制 | 容易通信，共享变量 |
 | 分割内存空间                | 分享同一个内存     |
@@ -3680,31 +3680,78 @@ todo
 
 #### relate
 
-You can use both within the org.  There are times when you normalize data and denormalize data.  Simple example is the user address at the time of shipment.  Sure you keep the current and historical address, but when transaction happens you may benefit from denormalization of the full address instead of doing the joins.  Data is duplicated but it may be more efficient if it is referenced many times in reports or in olap or data marts and you need point in time data.  
-Another best of both worlds is for logging or batches from external sources where it is acceptable to be in a temporary denormalized state during periods of high activity to later run through a process  that will insert, update, delete data.  So for example in a bulk tranfser you validate the data with your business rules and if valid assign an Id and basic data or summary data then offload the remaining to a noSQL DB to be normalized then inserted at a later time so your Normalized OLTP/server app doesn't get a performance hit when it writes a few hundred thousand records of a single transaction that locks all related normalized tables on a insert/update lock.  Let's not forget that this also ties up the database log as well as any related indexes if any that are in the tables that may get hit.  After the records get normalized into sql the nosql data can be archived, kept, moved or deleted after the OLTP and/or replication and data recovery databases have the normalized data or it could be used for related activities like elasticsearch, audits or in cases.
+You can use both within the org. There are times when you normalize data and denormalize data. Simple example is the user address at the time of shipment. Sure you keep the current and historical address, but when transaction happens you may benefit from denormalization of the full address instead of doing the joins. Data is duplicated but it may be more efficient if it is referenced many times in reports or in olap or data marts and you need point in time data.  
+Another best of both worlds is for logging or batches from external sources where it is acceptable to be in a temporary denormalized state during periods of high activity to later run through a process that will insert, update, delete data. So for example in a bulk tranfser you validate the data with your business rules and if valid assign an Id and basic data or summary data then offload the remaining to a noSQL DB to be normalized then inserted at a later time so your Normalized OLTP/server app doesn't get a performance hit when it writes a few hundred thousand records of a single transaction that locks all related normalized tables on a insert/update lock. Let's not forget that this also ties up the database log as well as any related indexes if any that are in the tables that may get hit. After the records get normalized into sql the nosql data can be archived, kept, moved or deleted after the OLTP and/or replication and data recovery databases have the normalized data or it could be used for related activities like elasticsearch, audits or in cases.
 
 ### WeakMap and WeakSet
 
 #### 内存回收
 
+只要堆内存的地址存在引用，无论引用在堆内存还是栈内存都不会被垃圾回收
+
 ```js
-let john = { name: "John" };
+let john = { name: "John" }
 
 // 该对象能被访问，john 是它的引用
 
 // 覆盖引用
-john = null;
+john = null
 
 // 该对象将会被从内存中清除
 ```
 
 ```js
-let john = { name: "John" };
+let john = { name: "John" } // ==> john'value is a RAM_LOCATION
 
-let array = [ john ];
+let array = [john] // ==> {0:RAM_LOCATION}
 
-john = null; // 覆盖引用
+john = null // 覆盖引用
 
 // john 被存储在数组里, 所以它不会被垃圾回收机制回收
 // 我们可以通过 array[0] 来获取它
 ```
+
+## week 30
+
+### typescript 中的 class
+
+typescript 中的 class 是 es6 中的 class 的超集，基于 typescript 新增了一些特性
+
+```ts
+class Greeter {
+  greeting: string
+  private name: string
+  protected age: number
+  readonly id: number
+  constructor(message: string) {
+    this.greeting = message
+  }
+  greet() {
+    return "Hello, " + this.greeting
+  }
+}
+const greeter = new Greeter()
+greeter.name // error
+greeter.age //error
+greeter.id = 911 // error
+```
+
+#### 属性需要类型声明
+
+#### 默认属性、方法和构造器为 public
+
+#### 存在私有与受保护修饰符
+
+被`private`和`protected`修饰的属性、方法无法被外部直接访问。
+
+> 它们的区别是被继承的`protected`属性的实例可以访问，且构造函数也可以被标记成 protected，故构造器被 portect 的类自身不能实例化，但是继承它的类可以实例化
+
+#### readonly 修饰符
+
+#### 参数属性
+
+参数属性可以通过一个访问限定符(`public`,`protected`,`private`,`readonly`)方便地让我们在构造器的形参上初始话属性
+
+#### 存储器
+
+只带有 get 不带有 set 的存取器自动被推断为 readonly
