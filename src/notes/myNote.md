@@ -3715,7 +3715,14 @@ john = null // 覆盖引用
 
 ### typescript 中的 class
 
-typescript 中的 class 是 es6 中的 class 的超集，基于 typescript 新增了一些特性
+typescript 中的 class 是 es6 中的 class 的超集，基于 typescript 新增了一些特性,我们声明的一个 ts class，会创建一个实例类型(`type`)和一个构造函数(`value`)
+
+> ts class 创建的类型是实例的类型，若想使用其构造函数的类型，可用`typeof`
+>
+> ```ts
+> let GreeterOne: typeof Greeter = Greeter
+> let greeter: Greeter = new GreeterOne()
+> ```
 
 ```ts
 class Greeter {
@@ -3748,10 +3755,198 @@ greeter.id = 911 // error
 
 #### readonly 修饰符
 
+被 `readonly`修饰的，只读不能赋值
+
 #### 参数属性
 
-参数属性可以通过一个访问限定符(`public`,`protected`,`private`,`readonly`)方便地让我们在构造器的形参上初始话属性
+参数属性可以通过一个访问限定符(`public`,`protected`,`private`,`readonly`)方便地让我们在构造器的形参上初始化属性
 
 #### 存储器
 
 只带有 get 不带有 set 的存取器自动被推断为 readonly
+
+#### 抽象类
+
+抽象类可以作为某种类的基类，其定义这种类的所有方法，通过`abstract`修饰符可以不用编写具体实现，但需要在继承的类中实现，且继承其的类不能使用未在抽象类中的方法
+
+```ts
+abstract class Memory {
+  private longTermMemory: string
+  constructor(public shortTermMemory: string) {}
+  abstract encode(): string // 抽象方法必须有 abstract 关键字 ，且必须在派生类中实现
+  store(someShortTermMemory): void {
+    this.longtermMemory += someShortTermMemory
+    // ...storing encoded memory data
+  }
+  retrieve(): string {
+    // ...retrieving  memory from long-term memory
+  }
+}
+
+class CleverMemory extends Memory {
+  constructor(shortTermMemory) {
+    super(shortTermMemory) // 在派生类的构造函数中必须调用 super()
+  }
+  encode(): string {
+    // encoding memory meta data with quickly strategy
+  }
+  anotherEncode(): string {
+    // encoding memory meta data with another way
+  }
+}
+
+const memory = new Memory() // error , 抽象类不能直接创建实例
+const cleverMemory = new cleverMemory()
+cleverMemory.encode() // right
+cleverMemory.retrieve() // right
+cleverMemory.anotherEncode() // ☹ 方法在声明的抽象类中不存在
+```
+
+### ts 中 decorator
+
+decorator 提供了对 class 自身及其成员（属性、方法）的注解（`annotate`）和修改（`modify`)
+
+#### 使用写法
+
+在被装饰的对象上面使用`@` + 装饰器函数
+
+```ts
+@decorator
+someClassMethod
+```
+
+> 若想动态使用装饰器函数，可以创建装饰器工程函数
+
+```ts
+function decoratorFactory(someparams){
+  return decorator(){
+    //  dynamiclly use decorator by import custom params from decoratorFactory
+  }
+}
+
+@decoratorFactory(`someparams`)
+someClassMethod
+```
+
+#### 装饰机制
+
+会在 runtime 时通过`_decorate`执行装饰器函数，对被装饰的对象进行注解和改造
+
+> 内部实现
+
+```js
+let Greeter = /** @class */ (() => {
+  let Greeter = class Greeter {
+    constructor(message) {
+      this.greeting = message
+    }
+    greet() {
+      return "Hello, " + this.greeting
+    }
+  }
+  Greeter = __decorate([decorator], target, key, desc)
+  return Greeter
+})()
+
+var __decorate =
+  (this && this.__decorate) ||
+  function(decorators, target, key, desc) {
+    var c = arguments.length,
+      r =
+        c < 3
+          ? target
+          : desc === null
+          ? (desc = Object.getOwnPropertyDescriptor(target, key))
+          : desc,
+      d
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+      r = Reflect.decorate(decorators, target, key, desc)
+    else
+      for (var i = decorators.length - 1; i >= 0; i--)
+        if ((d = decorators[i]))
+          r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r
+    return c > 3 && r && Object.defineProperty(target, key, r), r
+  }
+```
+
+#### 五种装饰器
+
+ts 根据被装饰的对象不同，其装饰器接受的目标参数不同
+
+##### 类装饰器
+
+目标参数为 `constructor`
+
+```ts
+classDecorator(constructor){
+  constructor.staticMethod = ()=>{
+    // add a static method
+  }
+}
+
+__decorate([
+      classDecorator
+    ],classSelfConstructor);
+```
+
+##### 方法装饰器
+
+目标参数为
+
+- `target`,被装饰的方法为静态方法`target`为`constructor`，否则为`prototype`
+- `key`,被装饰的方法名
+- `Property Descriptor`,`key`的属性描述，若装饰器有返回，则会将返回值作为`descriptor`
+
+> ```ts
+> interface PropertyDescriptor {
+>   getter: Function //get 语法为属性绑定一个函数,每当查询该属性时便调用对应的函数,查询的结构为该函数的返回值
+>   setter: Function //如果试着改变一个属性的值，那么对应的 setter 函数将被执行
+>   value: any //描述指定属性的值 , 可以是任何有效的 Javascript 值(函数 , 对象 , 字符串 ...).
+>   configurable: boolean //当且仅当该属性的 configurable 为 true 时，该属性 描述符 才能够被改变, 同时该属性也能从对应的对象>上被删除.
+>   enumerable: boolean //描述指定的属性是否是 可枚举 的.
+>   writable: boolean //当且仅当该属性的 writable 为 true 时, value 才能被赋值运算符改变
+> }
+> ```
+
+```ts
+methodDecorator(target,key,descriptor){
+  descriptor.enumerable = false
+}
+
+__decorate([
+      methodDecorator
+    ],target,key,descriptor);
+```
+
+##### 访问器装饰器
+
+和方法装饰器一毛一样 😶
+
+##### 属性装饰器
+
+目标参数为
+
+- `target`,被装饰的方法为静态方法`target`为`constructor`，否则为`prototype`
+- `key`,被装饰的属性名
+
+> 在实例未被实例化之前，我们无法获得实例属性的 descriptor
+
+```ts
+propertyDecorator(target){
+  target.staticMethod = ()=>{
+    // add a static method
+  }
+}
+
+__decorate([
+      propertyDecorator
+    ],target,key);
+```
+
+##### 参数装饰器
+
+目标参数为
+
+- `target`,被装饰的方法为静态方法`target`为`constructor`，否则为`prototype`
+- `key`,被装饰的属性名
+- `index`, 参数的index
