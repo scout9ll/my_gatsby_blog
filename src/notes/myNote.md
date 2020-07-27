@@ -3949,4 +3949,46 @@ __decorate([
 
 - `target`,被装饰的方法为静态方法`target`为`constructor`，否则为`prototype`
 - `key`,被装饰的属性名
-- `index`, 参数的index
+- `index`, 参数的 index
+
+### ts 中的 Reflect Metadata
+
+#### what's Metadata
+
+Metadata is data which can describe other data,In other words, it is "data about data.",Many distinct types of metadata exist, including descriptive metadata, structural metadata, administrative metadata, reference metadata and statistical metadata.
+
+#### why Metadata
+
+Metadata allows users to access resources allowing resources to be found by relevant criteria, identifying resources, bringing similar resources together, distinguishing dissimilar resources, and giving location information.
+
+#### metadata in typescript
+
+to use metadata , we need the package named `Reflect-Metadata`, the module provides the ability to add additional metadata to a class and their membesr,it also provides a reflective API to retrieve metadata.
+
+##### basic usage
+
+- define metadata on class and thier members
+
+```ts
+function defineMetadata(
+  metadataKey: any,
+  metadataValue: any,
+  target: Object, // the target where you defined
+  propertyKey?: string | symbol // depending on whether it is static or not
+): void
+```
+
+- get metadata
+
+```ts
+function getMetadata(
+  metadataKey: any,
+  target: Object,
+  propertyKey?: string | symbol
+): any
+```
+
+### ICO
+
+// TODO
+
