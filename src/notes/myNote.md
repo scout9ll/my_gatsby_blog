@@ -2709,6 +2709,9 @@ console.log("done")
 #### 相同点
 
 都是属于协商缓存,都属于后端生成，需要请求服务端判断。
+> 协商缓存请求经过服务端判断，若满足缓存条件返回`304`；  
+> 强缓存则是不发送请求直接采用本地的cache，响应码为`200(from disk cache || from memory cache)`,强缓存通过设置两种 HTTP Header 实现：`Expires`（HTTP/1 ） 和 `Cache-Control`(HTTP/1.1)。
+>
 
 #### 不同点
 
