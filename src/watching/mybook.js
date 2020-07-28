@@ -44,12 +44,12 @@ const mybooks = [
     src: "https://book.douban.com/subject/3171735/",
     img: "https://img9.doubanio.com/view/subject/m/public/s3226976.jpg",
   },
-  {    
+  {
     title: "非暴力沟通",
     src: "https://book.douban.com/subject/3533221/",
     img: "https://img1.doubanio.com/view/subject/l/public/s9346487.jpg",
   },
-  {    
+  {
     title: "陈舜臣说十八史略",
     src: "https://book.douban.com/subject/34450750/",
     img: "https://img3.doubanio.com/view/subject/l/public/s33314540.jpg",
@@ -58,7 +58,7 @@ const mybooks = [
     title: "深入浅出RxJs",
     src: "https://book.douban.com/subject/30217949/",
     img: "https://img9.doubanio.com/view/subject/s/public/s29764075.jpg",
-  },  
+  },
   {
     title: "SVG动画",
     src: "https://book.douban.com/subject/30239781/",
@@ -68,7 +68,12 @@ const mybooks = [
     title: "叙事经济学",
     src: "https://book.douban.com/subject/34976597/",
     img: "https://img9.doubanio.com/view/subject/s/public/s33625535.jpg",
-  }    
+  },
+  {
+    title: "TypeScript Deep Dive",
+    src: "https://basarat.gitbook.io/typescript/getting-started",
+    img: "https://img3.doubanio.com/view/subject/s/public/s29527800.jpg",
+  },
 ]
 
 export default mybooks
