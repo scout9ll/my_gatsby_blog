@@ -1976,7 +1976,7 @@ js 语言的代码检测插件,可以检测出代码中出现的语法问题,同
 BEM ==`block` `element` `modified` ,
 是 css 的一种以`block_element--modified`的方式命名的命名规范
 
-#### BEM 的主要原则
+#### BEM 的主要 ��� 则
 
 - 一个单独的组件为一个块
 - 每个快内的元素都是同一个块前缀
@@ -2709,9 +2709,9 @@ console.log("done")
 #### 相同点
 
 都是属于协商缓存,都属于后端生成，需要请求服务端判断。
+
 > 协商缓存请求经过服务端判断，若满足缓存条件返回`304`；  
-> 强缓存则是不发送请求直接采用本地的cache，响应码为`200(from disk cache || from memory cache)`,强缓存通过设置两种 HTTP Header 实现：`Expires`（HTTP/1 ） 和 `Cache-Control`(HTTP/1.1)。
->
+> 强缓存则是不发送请求直接采用本地的 cache，响应码为`200(from disk cache || from memory cache)`,强缓存通过设置两种 HTTP Header 实现：`Expires`（HTTP/1 ） 和 `Cache-Control`(HTTP/1.1)。
 
 #### 不同点
 
@@ -3995,3 +3995,27 @@ function getMetadata(
 
 // TODO
 
+## week 31
+
+### 换行 与 回车
+
+换行和回车傻傻分不清楚,难道不是一个作用吗。直到看到它们的符号才发现不是一个东西。  
+换行是`\n`,回车是`\r`
+
+#### 换行
+
+换行(`line feed`),在打字机时代指的是打字头向下移一行,符号为`\n`
+
+#### 回车
+
+回车(`carriage return`),在打字机时代指的是打字头移到最左端,符号为`\r`
+
+#### 换行+回车=换行符
+
+根据换行与回车含义，可以知道换行符就是键盘上的`enter`键
+
+#### 不同系统换行符不同
+
+- Unix => `\r`
+- Windows=> `\n\r`
+- Mac OS => `\n`
