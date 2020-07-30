@@ -3671,6 +3671,15 @@ todo
 
 ### reflect and annotation
 
+#### reflect
+
+反射，动态实例化
+
+```java
+
+Class cls = Class.forName(classStr);
+```
+
 ## week 29
 
 ### SQL vs NoSQL
@@ -4019,3 +4028,81 @@ function getMetadata(
 - Unix => `\r`
 - Windows=> `\n\r`
 - Mac OS => `\n`
+
+### Vue Class Component
+
+//TODO
+
+#### what is it
+
+提供了用class形式写vue组件
+
+#### why should we use it in vue-typescript
+
+#### how does it work
+
+通过装饰器
+> main source code
+
+```ts
+export function componentFactory(Component, options = {}) {
+    options.name = options.name || Component._componentTag || Component.name;
+    // prototype props.
+    const proto = Component.prototype;
+    Object.getOwnPropertyNames(proto).forEach(function (key) {
+        if (key === 'constructor') {
+            return;
+        }
+        // hooks
+        if ($internalHooks.indexOf(key) > -1) {
+            options[key] = proto[key];
+            return;
+        }
+        const descriptor = Object.getOwnPropertyDescriptor(proto, key);
+        if (descriptor.value !== void 0) {
+            // methods
+            if (typeof descriptor.value === 'function') {
+                (options.methods || (options.methods = {}))[key] = descriptor.value;
+            }
+            else {
+                // typescript decorated data
+                (options.mixins || (options.mixins = [])).push({
+                    data() {
+                        return { [key]: descriptor.value };
+                    }
+                });
+            }
+        }
+        else if (descriptor.get || descriptor.set) {
+            // computed properties
+            (options.computed || (options.computed = {}))[key] = {
+                get: descriptor.get,
+                set: descriptor.set
+            };
+        }
+    });
+    (options.mixins || (options.mixins = [])).push({
+        data() {
+            return collectDataFromConstructor(this, Component);
+        }
+    });
+    // decorate options
+    const decorators = Component.__decorators__;
+    if (decorators) {
+        decorators.forEach(fn => fn(options));
+        delete Component.__decorators__;
+    }
+    // find super
+    const superProto = Object.getPrototypeOf(Component.prototype);
+    const Super = superProto instanceof Vue
+        ? superProto.constructor
+        : Vue;
+    const Extended = Super.extend(options);
+    forwardStaticMembers(Extended, Component, Super);
+    if (reflectionIsSupported()) {
+        copyReflectionMetadata(Extended, Component);
+    }
+    //If the class decorator returns a value, it will replace the class declaration with the provided constructor function.
+    return Extended;
+}
+```
