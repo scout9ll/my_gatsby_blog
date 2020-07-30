@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-7-22"
-words: "67634"
+lastTime: "2020-7-30"
+words: "87694"
 ---
 
 ## week 1
@@ -3977,7 +3977,7 @@ Metadata allows users to access resources allowing resources to be found by rele
 
 to use metadata , we need the package named `Reflect-Metadata`, the module provides the ability to add additional metadata to a class and their membesr,it also provides a reflective API to retrieve metadata.
 
-##### basic usage
+#### basic usage
 
 - define metadata on class and thier members
 
