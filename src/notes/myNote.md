@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-7-30"
+lastTime: "2020-8-3"
 words: "87694"
 ---
 
@@ -1816,7 +1816,7 @@ HTTP 请求报文由 3 部分组成（请求行+请求头+请求体）：
 
 ### tec-interview-tips
 
-#### first job is import ,keeping angel in the way
+#### first job is import ,keeping angle in the way
 
 #### be humor
 
@@ -3697,7 +3697,11 @@ Another best of both worlds is for logging or batches from external sources wher
 
 ### WeakMap and WeakSet
 
-#### 内存回收
+#### why do we need weak
+
+because of the values of Map and Set store in a array,reference type value can not be garbage collected immediately,it will lead to memory leak.
+
+#### Garbage Collection in javascript
 
 只要堆内存的地址存在引用，无论引用在堆内存还是栈内存都不会被垃圾回收
 
@@ -3722,6 +3726,12 @@ john = null // 覆盖引用
 // john 被存储在数组里, 所以它不会被垃圾回收机制回收
 // 我们可以通过 array[0] 来获取它
 ```
+
+#### how does weakMap work
+
+> 1.key only be object
+> 2.key cannot be enumerated
+weakMap doesn't use two arrays to store key and value , it set key as a property likes a object,so when key is deleted,the value is no longer referenced
 
 ## week 30
 
@@ -4035,9 +4045,12 @@ function getMetadata(
 
 #### what is it
 
-提供了用class形式写vue组件
+提供了用class形式写vue组件的能力
 
 #### why should we use it in vue-typescript
+
+class写法能更好的被typescript类型检查,结合各种decorator可以非常直观且简洁的编写vue组件
+> 通常使用`vue-property-decorator`里面封装好的decorator
 
 #### how does it work
 
