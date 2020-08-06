@@ -3006,9 +3006,9 @@ schema(`ˈskiːmə`)是 database 关系的模式，主要表示*关系*
 
 > 参考：[https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/](https://nodejs.org/zh-cn/docs/guides/event-loop-timers-and-nexttick/)
 
-#### node 真的是单线程吗？
+#### node 真的是单线程吗
 
-可以说是，但也不是。node 被称为单线程，是因为以`v8`引擎的`js`为主线程（main thread）调度所有运行，但是其真正运行`I/O`时会调用由`c++`执行的线程池，该线程池默认设置 4 个线程(线程由物理 cpu 核心决定，但是一个 cpu 核心可以通过竞争)。
+可以说是，但也不是。node 被称为单线程，是因为以`v8`引擎的`js`为主线程（main thread）调度所有运行，但是其真正运行`I/O`时会调用由`c++`执行的线程池，该线程池默认设置 4 个线程
 
 > 线程由物理 cpu 核心决定，但是一个 cpu 核心可以通过抢占式多任务模式(preemptive multitasking,暂停一个，开启另一个)同时分配几个线程
 
@@ -3062,7 +3062,7 @@ https://www.jb51.net/article/148997.html
 
 ### 响应式
 
-一般在函数式的基础上，已数据驱动(数据流)动作(函数)
+一般在函数式的基础上，以数据驱动(数据流)动作(函数)
 
 ### 面对对象
 
