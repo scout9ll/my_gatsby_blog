@@ -3323,7 +3323,20 @@ git push -f --all
 
 > 当然前提是该位图自身提供了足够的清晰度，因此为了让高 dpr 的设备享受到高清的图片且不让低 dpr 设备产生格外的流量负荷，通常会根据不同的 dpr 令其下载不同的清晰度的图片
 
-### Object.prototype.toString.call() , instanceof and Array.isArray()
+### Object.prototype.toString.call() 与 instanceof
+
+两种都是用来检测类型的方法，但他们的应用范围、精确度不一样
+
+#### Object.prototype.toString
+
+在原型上直接挂载的方法,返回`[object Type]`,`Type`为其构造函数的名称。  
+应用范围最广、最精确,故判断类型时应首选该方法
+
+#### instanceof
+
+a instanceof A,判断A的`prototype`是否在a的`_proto_`上  
+依赖于双方的`prototype`和`_proto_`,故在不同的`globals`（例如在iframe中）创建的实例不能被共用`instanceof`，且只能判断引用类型。
+> 因为`globals`导致`instanceof`不能判断`iframe`上的`Array`问题，于是有了Array.isArray的方法，其不被`globals`影响
 
 ## week 25
 
