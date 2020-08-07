@@ -4132,3 +4132,9 @@ export function componentFactory(Component, options = {}) {
     return Extended;
 }
 ```
+
+## week 32
+
+### `namespace` 和 `module` 的导出
+
+//TODO
