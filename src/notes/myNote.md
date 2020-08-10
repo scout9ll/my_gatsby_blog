@@ -4135,6 +4135,15 @@ export function componentFactory(Component, options = {}) {
 
 ## week 32
 
-### `namespace` 和 `module` 的导出
+### ts 中 `namespace` 和 `module`
 
-//TODO
+无论是`namespace`还是`module`,都是用来防止变量、类型混乱，更好的组织代码的方式
+
+#### namespace
+
+命名空间是位于全局命名空间下的一个普通的带有名字的JavaScript对象，创建后可以作为全局类型使用  
+通过引用标签`/// <reference path='*.ts'>` 来让编译器识别关联
+
+#### module
+
+像命名空间一样，模块可以包含代码和声明。 不同的是模块可以通过`import`声明导入的依赖
