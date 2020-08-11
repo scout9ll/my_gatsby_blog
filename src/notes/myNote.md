@@ -4142,8 +4142,35 @@ export function componentFactory(Component, options = {}) {
 #### namespace
 
 命名空间是位于全局命名空间下的一个普通的带有名字的JavaScript对象，创建后可以作为全局类型使用  
-通过引用标签`/// <reference path='*.ts'>` 来让编译器识别关联
+通过引用标签`/// <reference path='*.ts'>` 来让编译器识别其关联
 
 #### module
 
 像命名空间一样，模块可以包含代码和声明。 不同的是模块可以通过`import`声明导入的依赖
+
+#### `declare namespace` 与 `declare module`
+
+通过 declare 关键字，来告诉 TypeScript，你正在试图表述一个其他地方已经*存在的代码*（如：写在 JavaScript、CoffeeScript 或者是像浏览器和 Node.js 运行环境里的代码）  
+`declare namespace` 与 `declare module` 都可以为外部的库提供一个类型。  
+
+```ts
+declare module '*.vue' {
+  import Vue from 'vue';
+
+  export default Vue;
+}
+```
+
+```ts
+declare global {
+  namespace JSX {
+    // tslint:disable no-empty-interface
+    interface Element extends VNode {}
+    // tslint:disable no-empty-interface
+    interface ElementClass extends Vue {}
+    interface IntrinsicElements {
+      [elem: string]: any;
+    }
+  }
+}
+```
