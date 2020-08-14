@@ -207,3 +207,35 @@ query {
 的 query 问题————通常解决这个问题的想法是：对所有`resolver`统一批处理一次，相同结果的`resolver`只会调用一次
 
 > 想了解更多有关于`DataLoader`? 可以观看 Lee Byron 的 video - [Source code walkthrough (~35 min)](https://www.youtube.com/watch?v=OQTnXNCDywA)
+
+## GraphQL.js vs graphql-tools
+
+现在让我们开始讨论 GraphQL.js 和 graphql-tools 这两个帮助我们实现 GraphQL 服务 js 库 的主要区别。
+
+### GraphQL.js 为 graphql-tools 提供了基础
+
+首先我们要知道的是 GraphQL.js 是 graphql-tools 的基础。它定义了要求的`type`,实现了`schema`、查询校验与解析。`grahpql-tools`则在`GraphQL.js`上提供了一个轻薄便捷的接入层
+
+来快速过一遍`GrapQL.js`所提供的功能，注意这些都是围绕着`GraphQLSchema`的功能
+
+- `parse`和`buildASTSchema`:将`Graphql SDL`的字符串创建成一个`GraphQLSchema`实例
+
+```js
+const schema = buildASTSchema(parse(sdlString))
+```
+
+- `validate`:通过给定的`GraphQLSchema`与`query`，`validate`确保`query`符合其`schema`定义的 API
+
+- `execute`:通过给定的`GraphQLSchema`与`query`，`execute`触发`query`字段对应的`resolver`并且生成 GraphQL 响应数据
+
+- `printSchema`: 通过给定的`GraphQLSchema`实例，返回其`SDL`语法的字符串
+
+请注意在 GraphQL.js 中最重要的函数是`graphql`,它接受一个`GraphQLSchema`实例和`query`，然后调用`validate`与`execute`
+
+```js
+graphql(schema, query).then(result => console.log(result))
+```
+
+> 看看原作者用原生 graphQL 直接写的[例子](https://github.com/nikolasburk/plain-graphql/blob/graphql-js/src/index.js)，你会更好的理解这些函数
+
+<!-- `graphql`函数正对包含`structure`和`behaviour`的schema 处理请求的G query 。其中 -->
