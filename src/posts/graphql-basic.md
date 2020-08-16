@@ -238,4 +238,58 @@ graphql(schema, query).then(result => console.log(result))
 
 > 看看原作者用原生 graphQL 直接写的[例子](https://github.com/nikolasburk/plain-graphql/blob/graphql-js/src/index.js)，你会更好的理解这些函数
 
-<!-- `graphql`函数正对包含`structure`和`behaviour`的schema 处理请求的G query 。其中 -->
+`graphql`函数正对包含`structure`和`behaviour`的 schema 处理请求的 GraphQLquery 。其中最主要的是根据所提供的`query`，完成了`resolver`的触发与对响应数据的装配。就此而言，这些功能可以说是`GraphQL`的引擎
+
+### graphql-tools: Bridging interface and implementation
+
+使用 GraphQL 的第一个好处就是的你开发将是已`schema`为第一位，这意味着你构建的每个功能都会首先在 GraphQL`schema`中体现出来，然后通过相应的解析器实现。这会带来很多好处，例如，这允许前端在`resolver`的具体实现之前就可以根据`type`对着 mock API 开发
+
+> G.js 最大的缺点就是它不允许你通过写 SDL 去简单的生成一个可执行的`GraphQLSchema`.
+
+正如上面提到的，你可以通过 SDL 字符串创建一个`GraphQLSchema`实例，但是这个缺少`resolve`函数，我们只能手动给`schema`的字段添加`resolver`才能让`GraphQLSchema`可执行
+
+graphql-tools fills this gap with one important piece of functionality: addResolveFunctionsToSchema. This is very useful as it can be used to provide a nicer, SDL-based API for creating your schema. And that’s precisely what graphql-tools does with makeExecutableSchema:
+
+而`graphql-tools`则存在`addResolveFunctionsToSchema`这一函数填补了这个缺陷。这非常有用，因为它提供了更好的已 SDL 创建`schema`的接口形式，而这正是 `graphql-tools` 在 `makeExecutableSchema` 中所做的
+
+```graphql
+const { makeExecutableSchema } = require('graphql-tools')
+
+const typeDefs = `
+type Query {
+  user(id: ID!): User
+}
+type User {
+  id: ID!
+  name: String
+}`
+
+const resolvers = {
+  Query: {
+    user: (root, args, context, info) => {
+      return fetchUserById(args.id)
+    },
+  },
+}
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+})
+```
+
+所以使用`graphql-tools`最棒的地方就是它提供了将`schema`与其`resolver`连接起来的接口
+
+### 什么时候不用`graphql-tools`
+
+我们刚刚了解到`graphql-tools`的核心是在 G.js 上提供了便利的一层，那么存在不适合用它的情况吗
+
+和大多数的抽象一样。`graphql-tools`让事情变得更简单，提供了开箱即用的入门体验，但这是以牺牲了开发的灵活性为代价的。如果你的后端需要的很多自定义的要求，比如你想有更灵活的结构和改造你的 schema，那么这个时候`graphql-tools`可能就会限制你了。
+
+## 总结
+
+在这篇文章中，我们探索了 GraphQL 执行引擎内部工作与机制： 首先是解释了定义了服务 API、决定了那些请求（`query`）和动作（`mutation`）与响应数据的`GraphQL schema`,然后我们深入 resolve 函数，略述了 GraphQLengine 解析 请求 `query`时的执行模型。最后介概述了一些可以帮助 GraphQL 服务开发的 js 库
+
+> 如果你想看到我们上面讨论的更实际的内容 ,看看这个[仓库](https://github.com/nikolasburk/plain-graphql)。注意这里面有两个分支，分别对应了用`graphql-js`与`graphql-tools`的实现
+
+通常， 很要必要明白的是 GraphQL.js 已经提供了所有需要用来构建 GraphQL 服务的功能，`graphql-tools`让我们在多数情况下更便捷的开发。只有在对构建 GraphQL 模式有更高级的需求时，你需要放下`graphql-tools`,使用原生的 GraphQL.js。
