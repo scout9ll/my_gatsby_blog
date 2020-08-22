@@ -10,7 +10,7 @@ weather: ☁️
 
 **原文**：[_GraphQL Server Basics: GraphQL Schemas, TypeDefs & Resolvers Explained_](https://www.prisma.io/blog/graphql-server-basics-the-schema-ac5e2950214e) ——Nikolas Burk
 
-# GraphQL 服务基础: GraphQL Schemas, TypeDefs & Resolvers 的解释
+# GraphQL 服务基础: GraphQL Schemas, TypeDefs & Resolvers
 
 当我们谈到 graphQL 时，第一个问题就是我们如何建立一个 GraphQL 的服务，GraphQL 已经作为一个规范发布，你的 GraphQL 服务可以真正的用你青睐的语言来实现。
 在开始搭建一个服务之前,GraphQL 要求你设计一个用来定义你的服务 API 的 schema。我们希望这篇文章能够帮助理解 schema 主要的组成部分，揭示其实际应用的机制，并了解像 GraphQL.js、G-tools 和 graphe-js 这些库如何帮助你搭建 GraphQL 服务。
