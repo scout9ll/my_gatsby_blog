@@ -544,7 +544,7 @@ for (const value of normalObj) {
 - static 的意义:用来处理不需要访问实例属性的专属方法,例如 Array.spice ,Promise.race
 - static 的原生写法: `Array.slice = (array,start,end)=>array[start,end]`
 
-## week6
+## week 6
 
 ### 偏函数(partial function)&&纯函数(Pure Functions)
 
@@ -614,7 +614,7 @@ for (const value of normalObj) {
 - 写在 JS 文件中,`const headingStyle={fontSize:"60px"}`
 - 使用 css.module(higher "react-scripts" 2.0),`import style from ".module.css" style={style.class}` 与普通 CSS 全局变量不同,存在本地文件作用域
 
-## week7
+## week 7
 
 ### 事件循环和消息列队
 
@@ -791,7 +791,7 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 - transform
 - generater
 
-## week10
+## week 10
 
 ### preload 和 prefetch
 
@@ -1109,7 +1109,7 @@ const nodeList = document.querySelectorAll("div")
 const array = [...nodeList]
 ```
 
-## week11
+## week 11
 
 ### webGL
 
@@ -1421,7 +1421,7 @@ foo()
 2. 顺序调用
    _holding_
 
-## week12
+## week 12
 
 ### WAN/LAN
 
@@ -1605,7 +1605,7 @@ $icons: ("home", "movie", "ticket", "cinema");
 
 切换时,同时出现 content-mask,和 transform3d content 的大小
 
-## week13
+## week 13
 
 ### typescript base concepts
 
@@ -1777,7 +1777,7 @@ const exampleFn = (h, data) => (
 )
 ```
 
-## week14
+## week 14
 
 ### HTTP 报文
 
@@ -2223,7 +2223,7 @@ new axios.get("/async-component").then(asyncComponet => {
 })
 ```
 
-## week15
+## week 16
 
 ### webpack-loader 执行顺序
 
@@ -2297,7 +2297,7 @@ class Example {
 - 请求线程,处理异步请求
   - 其中为了防止二次回流,CSS 和初次未设置异步的 JS 文件会阻塞 dom 加载
 
-## week16
+## week 17
 
 ### process
 
@@ -2431,7 +2431,7 @@ Person.world = mars # person2.world ==mars
 
 #### andriod studio
 
-## week17
+## week 18
 
 ### \_\_dirname 和 ./
 
@@ -2542,7 +2542,7 @@ const downloadFile = async (src, localFilePath, data) => {
 
 > pipenv install \*\*
 
-## week 18
+## week 19
 
 ### CallExpression||MemberExpression
 
@@ -2788,7 +2788,7 @@ const date = moment()
 
 ### 处理器架构
 
-## week18
+## week 20
 
 ### js 中数字类型
 
@@ -2807,7 +2807,7 @@ const date = moment()
   - fraction: 有效数字位，占 52 位。
     共 64 位，最左位为符号，
 
-## week19
+## week 21
 
 ### 多客户的版本管理
 
@@ -2831,7 +2831,7 @@ const date = moment()
 
 - 统计发版的功能信息(业务代码)与客户信息(用户配置)
 
-## week20
+## week 22
 
 ### package 中的~与^
 
@@ -2907,7 +2907,7 @@ all in react-native
 > TouchableOpacity
 > opacity wrapper
 
-## week21
+## week 23
 
 ### monogdb 迁移
 
@@ -3038,7 +3038,7 @@ node 内核每次进行一次以下的轮询：
 - 关闭的回调函数：一些关闭的回调函数，如：socket.on('close', ...)。  
   _其余的 close 回调由`process.nextTick()`执行，`process.nextTick`在脚本运行完毕,事件循环开始前执行。因此`process.nextTick()`快于`setImmediate()`的执行_
 
-## week 22
+## week 24
 
 ### 点聚合
 
@@ -3114,7 +3114,7 @@ alert(b)
 
 > 返回 10，使用括号,令其优先执行
 
-## week23
+## week 25
 
 ### 当 webpack 加载到含有变量的引用
 
@@ -3271,7 +3271,7 @@ var blob = new Blob([JSON.stringify(debug, null, 2)], {type : 'application/json'
 
 - DataView 可自定义字节序，默认为大端序，在用于序列化和反序列化二进制数据以用于传输
 
-## week 24
+## week 26
 
 ### 删除 git 大文件记录
 
@@ -3338,7 +3338,7 @@ a instanceof A,判断A的`prototype`是否在a的`_proto_`上
 依赖于双方的`prototype`和`_proto_`,故在不同的`globals`（例如在iframe中）创建的实例不能被共用`instanceof`，且只能判断引用类型。
 > 因为`globals`导致`instanceof`不能判断`iframe`上的`Array`问题，于是有了Array.isArray的方法，其不被`globals`影响
 
-## week 25
+## week 27
 
 ### todo
 
@@ -3489,7 +3489,7 @@ db.publish_snapshot.aggregate([
 
 todo
 
-## week 26
+## week 28
 
 ### CORS
 
@@ -3581,7 +3581,7 @@ XHR,fetch
 
 下载返回的数据
 
-## week 27
+## week 29
 
 ### 关于 JWT
 
@@ -3658,7 +3658,7 @@ window.addEventListener("scroll", function(e) {
 
 js 脚本执行中若调用了读写 dom 的接口，可能会触发渲染引擎计算当前 dom 的 layout,所以可以在页面渲染（指包括绘制的完整流程）之前获取到最新的 dom 的 layout 信息
 
-## week28
+## week 30
 
 ### 小程序发版记录方案
 
@@ -3693,7 +3693,7 @@ todo
 Class cls = Class.forName(classStr);
 ```
 
-## week 29
+## week 31
 
 ### SQL vs NoSQL
 
@@ -3746,7 +3746,7 @@ john = null // 覆盖引用
 > 2.key cannot be enumerated
 weakMap doesn't use two arrays to store key and value , it set key as a property likes a object,so when key is deleted,the value is no longer referenced
 
-## week 30
+## week 32
 
 ### typescript 中的 class
 
@@ -4027,7 +4027,7 @@ function getMetadata(
 
 // TODO
 
-## week 31
+## week 33
 
 ### 换行 与 回车
 
@@ -4133,11 +4133,11 @@ export function componentFactory(Component, options = {}) {
 }
 ```
 
-## week 32
+## week 34
 
-### ts 中 `namespace` 和 `module`
+### ts中的namespace和module
 
-无论是`namespace`还是`module`,都是用来防止变量、类型混乱，更好的组织代码的方式
+无论是`namespace`还是`module`,都是用来防止变量、类型混乱来更好的组织代码
 
 #### namespace
 
