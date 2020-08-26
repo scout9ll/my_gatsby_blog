@@ -1261,8 +1261,8 @@ token 一般指 http 协议中请求头中`authorization`中设置的一个`key-
 #### 区别
 
 - 发送方式
-  cookie 自动对相同域名发送 (异步请求和浏览器地址栏求中)
-  token 需要手动发送(只有在异步请求中)
+  cookie *自动*对相同域名发送
+  token 需要手动发送(只有在异步脚本请求中)
 
   > 因此类似表达对安全要求高的提交用 token  
   > 例如一个购买请求`www.buybuybuy.com/buy?game1=1`,若用 cookie 验证,极易遭遇`CSRF`（Cross-site request forgery,跨站请求伪造）,他人发来一个这样的地址(一个伪装极好的 url 链接),若不小心点击则会中招
@@ -1476,7 +1476,7 @@ foo()
   - 注意: -m'xxx'不能忘掉,否则会进入 git 的 vim 编辑器
   - 退出：esc => :wq
 - git log 查看历史版本
-- git reflog 查看所有历史版本
+- git reflog 查看所有操作记录，包括Reset操作
 - git reset --hard '哈希' 时光机,回到某一次记录
 
 #### 分支系统
@@ -1611,7 +1611,7 @@ $icons: ("home", "movie", "ticket", "cinema");
 
 每一个类型声明都会至少创建`namespace`、`type`和`value`中的一个实体。这些实体将作用于 ts
 
-- namespace, 命名空间,用来声明模块,决定被 ts 识别类型的作用域
+- namespace, 命名空间,用来声明一个模块,决定被 ts 识别类型的作用域
 - type, 决定类型的具体信息,创建一个类型实体
 - value，有意义的值，将会编译在 js 中执行
 
@@ -1976,10 +1976,10 @@ js 语言的代码检测插件,可以检测出代码中出现的语法问题,同
 BEM ==`block` `element` `modified` ,
 是 css 的一种以`block_element--modified`的方式命名的命名规范
 
-#### BEM 的主要 ��� 则
+#### BEM 的主要法则
 
 - 一个单独的组件为一个块
-- 每个快内的元素都是同一个块前缀
+- 每个块内的元素都是同一个块前缀
 - 只能存在一个 element
 - 多词名称用`-`连接
 
