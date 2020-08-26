@@ -1,20 +1,8 @@
-在上一篇文章中, 通过学习 G schema 和在执行`query`和`mutation`时的基础角色，我们涵盖了很多有关于
-G 的内部机制
-
-While we learned how a GraphQL server is executing these operations using a GraphQL engine, we haven’t touched on the aspect of actual client-server communication: the question how queries and their responses are transported over the network. That’s what this article is about!
+在上一篇文章中, 通过学习 G schema 和在执行`query`和`mutation`时的基础角色，我们涵盖了很多有关于 G 的内部机制
 
 虽然我们现在知道 G server 是如何利用 G engine 来执行这些操作的，但是我们还没有涉及到实际的客户端-服务端之间的通讯： 请求和响应的数据是如何在网络中被传输的。 这正是这篇文章将讲的
 
-GraphQL servers can be implemented in any of your preferred programming languages. This article is focussing on JavaScript and the available libraries helping you to build your server, most notably: express-graphql, apollo-server and graphql-yoga.
-
 Graphql 服务能够用任何你青睐的语言实现,在这篇文章中我们将聚焦于 JavaScript 和用来帮助你构建服务的库，主要有 express-graphql, apollo-server and graphql-yoga.
-
-Serving GraphQL over HTTP
-GraphQL is transport-layer agnostic
-A key thing to understand about GraphQL is that it’s actually agnostic to the way how data is transferred over the network. This means a GraphQL server potentially could work based on protocols other than HTTP, like WebSockets or the lower-level TCP. However, this article focusses on the most common way to implement GraphQL servers today, which is indeed based on HTTP.
-
-Express.js is used as a strong & flexible foundation
-The following section is mainly about Express.js and its concept of middleware that’s used for GraphQL libraries like express-graphql and apollo-server. If you’re already familiar with Express, you can skip ahead to the next section.
 
 ## 在 http 上搭建 G 服务
 
@@ -26,20 +14,72 @@ The following section is mainly about Express.js and its concept of middleware t
 
 > 下面的部分主要是关于`Express.js`和用来使用 G 的中间件(像`express-graphql`和`apollo-server`)。如果你已经熟悉`Express`，你可以跳过这一部分
 
-Express.js is by far the most popular JavaScript web framework. It shines thanks to its simplicity, flexibility and performance.
-
-All you need to get started with your own web server is code looking as follows:
-
 `express.js`是到目前为止最流行的 JS 框架，它的简单性，灵活性和性能使其光芒四射。
 
-###
+所有你需要用来开始搭建 web 服务的代码就像下面:
 
-apollo-server: Better compatibility outside the Express ecosystem
-At its essence, apollo-server is very similar to express-graphql, with a few minor differences. The main difference between the two is that apollo-server also allows for integrations with lots of other frameworks, like koa and hapi as well as for FaaS provides like AWS Lambda or Azure Functions. Each integration can be installed by appending the corresponding suffix for the package name, e.g. apollo-server-express, apollo-server-koa or apollo-server-lambda.
+```js
+const express = require("express")
+const app = express()
 
-However, at the core it also simply is a middleware bridging the HTTP layer with the GraphQL engine provided by GraphQL.js. Here is what an equivalent implementation of the above express-graphql-based example looks like with apollo-server-express:
+// respond with "hello world" when a GET request is received
+app.get("/", function(req, res) {
+  res.send("<h1>Hello World</h1>")
+})
+app.listen(3000)
+```
 
-是`express`之外更好兼容性的生态系统。  
+在用`node.js`执行该脚本后，你可以在浏览器中访问http://localhost:3000
+
+你可以简单的给你的服务 API 添加更多的端口(也称路由)
+
+```js
+app.get("/goodbye", function(req, res) {
+  res.send("<h1>Goodbye</h1>")
+})
+```
+
+或者使用其它的 HTTP 方法,例如用 POST 而不是 GET
+Or use another HTTP method, for example POST instead of GET:
+
+```js
+app.post("/", function(req, res) {
+  res.send("<h1>You just made a POST request</h1>")
+})
+```
+
+Express 提供了非常大的灵活性,使用中间件的概念可以让你很简单的添加功能
+
+Express 中灵活性和模块化的关键：中间件(Middleware)
+中间件允许在请求处理时或在响应返回之前，拦截传入的请求并执行专门的任务。
+
+本质上，中间件不过只是一个带三个参数的函数：
+req: 从客户端传入的请求
+res: 返回给客户端的响应
+next: 调用下一个中间件的函数
+
+由于中间件函数可以访问的请求和返回的响应，因此这是一个非常强大的概念，我们可以按特定的需求去改造这些请求和响应
+中间件可以在很多情况里使用，例如鉴权、缓存、数据转化、校验以及自定义业务逻辑等等。这里有一个简单的例子：记录请求接收时间的日志
+
+```js
+function loggingMiddleware(req, res, next) {
+  console.log(`Received a request at: ${Date.now()}`)
+  next()
+}
+app.use(loggingMiddleware)
+```
+
+中间件带来的灵活性被 `graphql-express`, `apollo-server` or `graphql-yoga`这些基于`Express`的框架所利用
+
+### Express & GraphQL
+
+加上在上篇文章中我们已经学习到的关于 G 函数 和 G 执行引擎，我想我们已经可以猜到基于`Express`的 G 服务是如何工作的
+
+Express 提供了处理 HTTP 请求所需的一切，而 GraphQL.js 提供了解决`query`的功能，现在我们只要一个可以粘合它们的东西。
+
+这个粘合剂就是由像 `express-graphql` and `apollo-server`这些仅仅是一个函数的中间件的库
+
+apollo-server: `express`之外更好兼容性的生态系统。  
 按它的本质来说,AS 非常类似于 EG ，但有一些小不同。其中最主要的区别是 AS 允许集成其他的框架，像`koa`, `hapi`以及 AWS 和 Azure 之类的云函数。添加对应后缀就是我们要的各种集成的包名。e.g. apollo-server-express, apollo-server-koa 或 apollo-server-lambda.
 
 然后，从核心上它也是一个将 HTTP 层与 G 引擎桥接起来的中间件。这里是用`apollo-server-express`实现像上面`express-graphql`的例子
@@ -71,18 +111,6 @@ app.get("/graphiql", graphiqlExpress({ endpointURL: "/graphql" })) // enable Gra
 
 app.listen(4000)
 ```
-
-graphql-yoga: The easiest way to build a GraphQL server
-
-Removing friction when building GraphQL servers
-Even when using express-graphql or apollo-server, there are various points of friction:
-
-Requires installation of multiple dependencies
-Assumes prior knowledge of Express
-Complicated setup for using GraphQL subscriptions
-This friction is removed by graphql-yoga, a simple library for building GraphQL servers. It essentially is a convenience layer on top of Express, apollo-server and a few other libraries to provide a quick way for creating GraphQL servers. (Think of it like create-react-app for GraphQL servers.)
-
-Here is what the same GraphQL server we already saw with express-graphql and apollo-server looks like:
 
 ### graphql-yoga: 搭建 G 服务 最简单的方式
 
