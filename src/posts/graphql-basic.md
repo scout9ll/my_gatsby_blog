@@ -1,7 +1,7 @@
 ---
 path: "/blog/GraphQL-basic"
 date: "2020-08-13"
-title: "GraphQL基础"
+title: "GraphQL基础-Schema"
 tags: ["翻译", "GraphQL", "schema"]
 weather: ☁️
 ---

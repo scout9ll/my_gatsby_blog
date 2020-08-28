@@ -1,7 +1,7 @@
 ---
 path: "/blog/GraphQL-network-layer"
 date: "2020-08-28"
-title: "GraphQL基础"
+title: "GraphQL基础-网络层"
 tags: ["翻译", "GraphQL", "Middleware", "network layer"]
 weather: ☁️
 ---
