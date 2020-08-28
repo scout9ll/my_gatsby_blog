@@ -2,7 +2,7 @@
 path: "/blog/GraphQL-basic"
 date: "2020-08-13"
 title: "GraphQL基础"
-tags: ["翻译", "GraphQL"]
+tags: ["翻译", "GraphQL", "schema"]
 weather: ☁️
 ---
 
@@ -292,4 +292,4 @@ const schema = makeExecutableSchema({
 
 > 如果你想看到我们上面讨论的更实际的内容 ,看看这个[仓库](https://github.com/nikolasburk/plain-graphql)。注意这里面有两个分支，分别对应了用`graphql-js`与`graphql-tools`的实现
 
-通常，很有必要明白的是 GraphQL.js 已经提供了所有被需要用来构建 GraphQL 服务的功能，`graphql-tools`则是让我们在多数情况下可以更便捷的开发。只有在对构建的 GraphQL schema有更高级的需求时，你需要放下`graphql-tools`,使用原生的 GraphQL.js。
+通常，很有必要明白的是 GraphQL.js 已经提供了所有被需要用来构建 GraphQL 服务的功能，`graphql-tools`则是让我们在多数情况下可以更便捷的开发。只有在对构建的 GraphQL schema 有更高级的需求时，你需要放下`graphql-tools`,使用原生的 GraphQL.js。
