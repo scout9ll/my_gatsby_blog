@@ -1476,7 +1476,7 @@ foo()
   - 注意: -m'xxx'不能忘掉,否则会进入 git 的 vim 编辑器
   - 退出：esc => :wq
 - git log 查看历史版本
-- git reflog 查看所有操作记录，包括Reset操作
+- git reflog 查看所有操作记录，包括 Reset 操作
 - git reset --hard '哈希' 时光机,回到某一次记录
 
 #### 分支系统
@@ -3334,9 +3334,10 @@ git push -f --all
 
 #### instanceof
 
-a instanceof A,判断A的`prototype`是否在a的`_proto_`上  
-依赖于双方的`prototype`和`_proto_`,故在不同的`globals`（例如在iframe中）创建的实例不能被共用`instanceof`，且只能判断引用类型。
-> 因为`globals`导致`instanceof`不能判断`iframe`上的`Array`问题，于是有了Array.isArray的方法，其不被`globals`影响
+a instanceof A,判断 A 的`prototype`是否在 a 的`_proto_`上  
+依赖于双方的`prototype`和`_proto_`,故在不同的`globals`（例如在 iframe 中）创建的实例不能被共用`instanceof`，且只能判断引用类型。
+
+> 因为`globals`导致`instanceof`不能判断`iframe`上的`Array`问题，于是有了 Array.isArray 的方法，其不被`globals`影响
 
 ## week 27
 
@@ -3716,7 +3717,9 @@ because of the values of Map and Set store in a array,reference type value can n
 
 #### Garbage Collection in javascript
 
-只要堆内存的地址存在引用，无论引用在堆内存还是栈内存都不会被垃圾回收
+在 V8 中，每次 GC 时，是根据 root 对象 (浏览器环境下的 window，Node.js 环境下的 global ) 依次梳理对象的引用，如果能从 root 的引用链到达访问，V8 就会将其标记为可到达对象，反之为不可到达对象。被标记为不可到达对象（即无引用的对象）后就会被 V8 回收
+
+> 只要堆内存的地址存在引用，无论引用在堆内存还是栈内存都不会被垃圾回收
 
 ```js
 let john = { name: "John" }
@@ -3740,11 +3743,17 @@ john = null // 覆盖引用
 // 我们可以通过 array[0] 来获取它
 ```
 
+> 常导致内存泄漏的情况：
+>
+> - root 上挂载过多对象。直接在全局声明的对象，不会被 GC，导致内存泄漏
+> - 闭包过多。闭包会引用到父级函数中的变量，如果闭包未释放，就会导致内存泄漏
+
 #### how does weakMap work
 
-> 1.key only be object
-> 2.key cannot be enumerated
-weakMap doesn't use two arrays to store key and value , it set key as a property likes a object,so when key is deleted,the value is no longer referenced
+1. key only be object
+2. key cannot be enumerated
+
+> weakMap doesn't use two arrays to store key and value , it set key as a property likes a object,so when key is deleted,the value is no longer referenced
 
 ## week 32
 
@@ -4058,90 +4067,88 @@ function getMetadata(
 
 #### what is it
 
-提供了用class形式写vue组件的能力
+提供了用 class 形式写 vue 组件的能力
 
 #### why should we use it in vue-typescript
 
-class写法能更好的被typescript类型检查,结合各种decorator可以非常直观且简洁的编写vue组件
-> 通常使用`vue-property-decorator`里面封装好的decorator
+class 写法能更好的被 typescript 类型检查,结合各种 decorator 可以非常直观且简洁的编写 vue 组件
+
+> 通常使用`vue-property-decorator`里面封装好的 decorator
 
 #### how does it work
 
 通过装饰器
+
 > main source code
 
 ```ts
 export function componentFactory(Component, options = {}) {
-    options.name = options.name || Component._componentTag || Component.name;
-    // prototype props.
-    const proto = Component.prototype;
-    Object.getOwnPropertyNames(proto).forEach(function (key) {
-        if (key === 'constructor') {
-            return;
-        }
-        // hooks
-        if ($internalHooks.indexOf(key) > -1) {
-            options[key] = proto[key];
-            return;
-        }
-        const descriptor = Object.getOwnPropertyDescriptor(proto, key);
-        if (descriptor.value !== void 0) {
-            // methods
-            if (typeof descriptor.value === 'function') {
-                (options.methods || (options.methods = {}))[key] = descriptor.value;
-            }
-            else {
-                // typescript decorated data
-                (options.mixins || (options.mixins = [])).push({
-                    data() {
-                        return { [key]: descriptor.value };
-                    }
-                });
-            }
-        }
-        else if (descriptor.get || descriptor.set) {
-            // computed properties
-            (options.computed || (options.computed = {}))[key] = {
-                get: descriptor.get,
-                set: descriptor.set
-            };
-        }
-    });
-    (options.mixins || (options.mixins = [])).push({
-        data() {
-            return collectDataFromConstructor(this, Component);
-        }
-    });
-    // decorate options
-    const decorators = Component.__decorators__;
-    if (decorators) {
-        decorators.forEach(fn => fn(options));
-        delete Component.__decorators__;
+  options.name = options.name || Component._componentTag || Component.name
+  // prototype props.
+  const proto = Component.prototype
+  Object.getOwnPropertyNames(proto).forEach(function(key) {
+    if (key === "constructor") {
+      return
     }
-    // find super
-    const superProto = Object.getPrototypeOf(Component.prototype);
-    const Super = superProto instanceof Vue
-        ? superProto.constructor
-        : Vue;
-    const Extended = Super.extend(options);
-    forwardStaticMembers(Extended, Component, Super);
-    if (reflectionIsSupported()) {
-        copyReflectionMetadata(Extended, Component);
+    // hooks
+    if ($internalHooks.indexOf(key) > -1) {
+      options[key] = proto[key]
+      return
     }
-    //If the class decorator returns a value, it will replace the class declaration with the provided constructor function.
-    return Extended;
+    const descriptor = Object.getOwnPropertyDescriptor(proto, key)
+    if (descriptor.value !== void 0) {
+      // methods
+      if (typeof descriptor.value === "function") {
+        ;(options.methods || (options.methods = {}))[key] = descriptor.value
+      } else {
+        // typescript decorated data
+        ;(options.mixins || (options.mixins = [])).push({
+          data() {
+            return { [key]: descriptor.value }
+          },
+        })
+      }
+    } else if (descriptor.get || descriptor.set) {
+      // computed properties
+      ;(options.computed || (options.computed = {}))[key] = {
+        get: descriptor.get,
+        set: descriptor.set,
+      }
+    }
+  })
+  ;(options.mixins || (options.mixins = [])).push({
+    data() {
+      return collectDataFromConstructor(this, Component)
+    },
+  })
+  // decorate options
+  const decorators = Component.__decorators__
+  if (decorators) {
+    decorators.forEach(fn => fn(options))
+    delete Component.__decorators__
+  }
+  // find super
+  const superProto = Object.getPrototypeOf(Component.prototype)
+  const Super = superProto instanceof Vue ? superProto.constructor : Vue
+  const Extended = Super.extend(options)
+  forwardStaticMembers(Extended, Component, Super)
+  if (reflectionIsSupported()) {
+    copyReflectionMetadata(Extended, Component)
+  }
+  //If the class decorator returns a value, it will replace the class declaration with the provided constructor function.
+  return Extended
 }
 ```
 
 ## week 34
 
-### ts中的namespace和module
+### ts 中的 namespace 和 module
 
 无论是`namespace`还是`module`,都是用来防止变量、类型混乱来更好的组织代码
 
 #### namespace
 
-命名空间是位于全局命名空间下的一个普通的带有名字的JavaScript对象，创建后可以作为全局类型使用  
+命名空间是位于全局命名空间下的一个普通的带有名字的 JavaScript 对象，创建后可以作为全局类型使用  
 通过引用标签`/// <reference path='*.ts'>` 来让编译器识别其关联
 
 #### module
@@ -4151,13 +4158,13 @@ export function componentFactory(Component, options = {}) {
 #### `declare namespace` 与 `declare module`
 
 通过 declare 关键字，来告诉 TypeScript，你正在试图表述一个其他地方已经*存在的代码*（如：写在 JavaScript、CoffeeScript 或者是像浏览器和 Node.js 运行环境里的代码）  
-`declare namespace` 与 `declare module` 都可以为外部的库提供一个类型。  
+`declare namespace` 与 `declare module` 都可以为外部的库提供一个类型。
 
 ```ts
-declare module '*.vue' {
-  import Vue from 'vue';
+declare module "*.vue" {
+  import Vue from "vue"
 
-  export default Vue;
+  export default Vue
 }
 ```
 
@@ -4169,7 +4176,7 @@ declare global {
     // tslint:disable no-empty-interface
     interface ElementClass extends Vue {}
     interface IntrinsicElements {
-      [elem: string]: any;
+      [elem: string]: any
     }
   }
 }
