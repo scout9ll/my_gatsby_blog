@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-8-3"
-words: "87694"
+lastTime: "2020-8-31"
+words: "88694"
 ---
 
 ## week 1
@@ -1808,6 +1808,9 @@ HTTP 请求报文由 3 部分组成（请求行+请求头+请求体）：
 #### 相同点
 
 都是遍历对象的可枚举属性
+
+> Object.getOwnPropertyNames() 会把 enumerable: false 的属性名也加进来。  
+> Reflect.ownKeys() 在此基础上还会加上 Symbol 类型的键
 
 #### 不同点
 
