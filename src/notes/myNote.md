@@ -4184,3 +4184,37 @@ declare global {
   }
 }
 ```
+
+### ?? 和 ||
+
+`??`又称空位合并符 是 ES2020 的新特性，如下面代码，似乎与`||`相似，那么它们有什么异同点呢
+
+```js
+let valueA ;
+let valueB = 1 ;
+valueA ?? valueB == valueA || valueB
+
+```
+
+#### 都是非 A 则 B
+
+#### 运算优先级都比较低
+
+参照[运算优先级表](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table)，
+`||`的优先级为 6，`??`的优先级为 5。都仅仅高于`?`(三元运算符)和`=`(赋值运算符)
+
+#### ??只排除 undefined 与 null
+
+```js
+x = a ?? b
+// 等同于
+x = a !== null && a !== undefined ? a : b
+```
+
+```js
+let a = 0
+a || 10 //  10
+a ?? 10 // 0
+```
+
+所以在`0`也是有意义的值的情况下，我们就可以直接使用`??`
