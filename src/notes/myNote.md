@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-8-31"
+lastTime: "2020-9-2"
 words: "88694"
 ---
 
