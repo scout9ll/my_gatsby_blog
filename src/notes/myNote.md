@@ -4218,3 +4218,26 @@ a ?? 10 // 0
 ```
 
 所以在`0`也是有意义的值的情况下，我们就可以直接使用`??`
+
+## week 35
+
+### SVG 中的 viewBox
+
+#### what is viewBox
+
+it specify a rectangle in svg coordinate, which will be mapped to the bounds of the svg element viewport
+
+#### why do we need viewBox
+
+svg can scale infinitely by use Vector coordinate system, hence we should decide how much we scale that can fit the size of svg element.
+the way to scale graphics in given size svg element is specify its viewport region,it is what viewBox does
+
+#### how do we use it
+
+The value of the viewBox attribute is a list of four numbers: min-x, min-y, width and height.
+
+```html
+<svg width="200" height="100" viewBox="0 0 100 100"></svg>
+```
+
+it means we cut off the size of 100\*100(`100 100`) vector graphics from the top left corner(`0 0`) in svg coordinate ,and scale it fill to svg element container which is 200 pixels(`width="200"`) width and 100 pixels height(`height="100"`)
