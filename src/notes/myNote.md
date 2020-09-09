@@ -654,6 +654,72 @@ console.log("4")
 请注意箭头函数有些特别：它们没有 `this`。  
 箭头函数的`this`在创建时确定,由于创建时的环境属于其函数本身外部,也可说=>在箭头函数内部访问`this`的都是来自外部的 `this` 值,_?_
 
+### Vue 中的核心类: Watcher
+
+如果你是一个 Vue API 调用员，你一定会好奇为什么 Vue 的每一个组件实例上都会存在多种 watcher 属性，并且它里面还会有一个其属性中装满`watcher`的`dep`  
+那么 watcher 的作用是什么呢？
+
+> 这里为了更直观的表述，我将所有`依赖`函数都称作`mutation`函数，表示是用户主动编写期待带来`视图变化`的函数
+
+#### watcher 是装载 mutation 函数的容器
+
+Watcher 将接受`mutation`作为参数，将`mutation`函数保存在实例中
+
+#### watcher 将管理 mutation 函数的使用
+
+`watcher`为了保证`mutation`能够即时有效的利用，设置了很多参数
+
+```ts
+interface WatcherProperty{
+  vm: Component;
+  expression: string;
+  cb: Function;
+  id: number;
+  deep: boolean;
+  user: boolean;
+  lazy: boolean;
+  sync: boolean;
+  dirty: boolean;
+  active: boolean;
+  deps: Array<Dep>;
+  newDeps: Array<Dep>;
+  depIds: SimpleSet;
+  newDepIds: SimpleSet;
+  before: ?Function;
+  getter: Function;
+  value: any;
+}
+```
+
+根据`mutation`函数的不同来源，它们会被分别封装到使用上有些区别 watcher
+
+- Render 函数，其`mutation`就是组件的渲染函数
+
+- computed 属性, 其 watcher 为 lazy update，挂载在vm上的`_computedWatchers`属性里
+
+```ts
+  update () {
+    /* istanbul ignore else */
+    if (this.lazy) {
+      this.dirty = true
+    } else if (this.sync) {
+      this.run() //立即触发mutation
+    } else {
+      queueWatcher(this) //队列批处理mutation
+    }
+  }
+```
+
+- watch 属性
+
+每个拿到`mutation`的`watcher`都会给自己添加一个标记，
+
+#### watcher 被收集在每个响应式属性的 Dep 中
+
+> 这里只专注于 watcher,不涉及 Dep 在 Data 中收集的细节
+
+每个响应式属性都有一个`Dep`实例，dep 用来收集存放(`depend`)和通知(`notify`)依赖其属性的`watcher`
+
 ## week 8
 
 ### null 和 undefined
