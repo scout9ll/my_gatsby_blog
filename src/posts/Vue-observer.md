@@ -91,11 +91,11 @@ function autorun(update) {
 
 ```js
 depend() {
-        if (activeUpdate) {
-          // register the current active update as a subscriber
-          this.subscribers.add(activeUpdate)
-        }
-      }
+  if (activeUpdate) {
+    // register the current active update as a subscriber
+    this.subscribers.add(activeUpdate)
+  }
+}
 ```
 
 ### Vue mini Observer 的最终实现
@@ -127,14 +127,14 @@ function observe(obj) {
         const isChanged = internalValue !== newValue
         if (isChanged) {
           internalValue = newValue
-          console.log("test")
           dep.notify()
-          dep.subscriber()
         }
       },
     })
   })
 }
+
+//收集器
 class Dep {
   constructor() {
     this.subscribers = new Set()
@@ -147,13 +147,10 @@ class Dep {
   notify() {
     this.subscribers.forEach(subscriber => subscriber())
   }
-  subscriber() {
-    this.subscribers.forEach(subscriber1 => console.log(subscriber1))
-  }
 }
 const dep = new Dep()
 
-// 注册监听的函数
+// 注册监听的函数 Watcher
 let activeUpdate
 
 function autorun(update) {
@@ -180,4 +177,4 @@ state.test++
 document.body.addEventListener("click", () => state.test++)
 ```
 
-这里只是简单的绑定了原生 DOM 渲染,真正的 VUE 上是绑定被编译后的渲染函数,该函数创建`virtual dom`，然后智能地计算出最少需要重新渲染多少组件(`更新列队`,`diff比对`)，最后生成 DOM,这样能够把 DOM 操作次数减到最少,从而实现性能优化.
+这里只是简单的绑定了原生 DOM 渲染,真正的 VUE 上是绑定被编译后的渲染函数,该函数创建`virtual dom`，然后智能地计算出最少需要重新渲染多少组件(`更新队列`,`diff比对`)，最后生成 DOM,这样能够把 DOM 操作次数减到最少,从而实现性能优化.
