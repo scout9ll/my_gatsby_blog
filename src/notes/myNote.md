@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-9-2"
-words: "88694"
+lastTime: "2020-9-10"
+words: "91694"
 ---
 
 ## week 1
@@ -599,7 +599,7 @@ for (const value of normalObj) {
 
 - 通过在父子间中创建函数(绑定对象后)传递给子组件,则子组件变化运行函数后则父子间变化.
 - 通过 context (redux)等全局变量
-- 利用 pub/sub 模式,例如创建使用 Node.js EventEmitter 进行发射,接受,子组件发射(emit),父子间接受(onEmit)
+- 利用 pub/sub 模式,例如创建使用 Node.js EventEmitter 的模式 进行发射、接受。子组件发射(emit),父子间接受(onEmit)
 
 #### vue
 
@@ -695,7 +695,7 @@ interface WatcherProperty{
 
 - Render 函数，其`mutation`就是组件的渲染函数
 
-- computed 属性, 其 watcher 为 lazy update，挂载在vm上的`_computedWatchers`属性里
+- computed 属性, 其 watcher 为 lazy update，挂载在 vm 上的`_computedWatchers`属性里
 
 ```ts
   update () {
@@ -711,6 +711,8 @@ interface WatcherProperty{
 ```
 
 - watch 属性
+
+> todo:以上三种 watcher 的执行顺序是怎样的?
 
 每个拿到`mutation`的`watcher`都会给自己添加一个标记，
 
