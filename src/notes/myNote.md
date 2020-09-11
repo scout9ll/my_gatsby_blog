@@ -712,7 +712,7 @@ interface WatcherProperty{
 
 - watch 属性
 
-> todo:以上三种 watcher 的执行顺序是怎样的?
+> 三种 watcher 直接调用的顺序为 `watch` => `render` => `computed` 。但是`watch`和`render`会被`queueWatcher`,其会`nextTick`调用 `run`。所以最终的`mutation`函数调用顺序为`computed`=>`watch` => `render`
 
 每个拿到`mutation`的`watcher`都会给自己添加一个标记，
 
