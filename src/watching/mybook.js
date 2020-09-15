@@ -74,6 +74,11 @@ const mybooks = [
     src: "https://basarat.gitbook.io/typescript/getting-started",
     img: "https://img3.doubanio.com/view/subject/s/public/s29527800.jpg",
   },
+  {
+    title: "世界边缘的秘密",
+    src: "https://book.douban.com/subject/34429935/",
+    img: "https://img3.doubanio.com/view/subject/s/public/s33309492.jpg",
+  },
 ]
 
 export default mybooks
