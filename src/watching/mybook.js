@@ -78,6 +78,7 @@ const mybooks = [
     title: "世界边缘的秘密",
     src: "https://book.douban.com/subject/34429935/",
     img: "https://img3.doubanio.com/view/subject/s/public/s33309492.jpg",
+    shortComment: "从夸父逐日到量子力学，无边无际的宇宙大到无法想象"
   },
 ]
 
