@@ -4309,3 +4309,25 @@ The value of the viewBox attribute is a list of four numbers: min-x, min-y, widt
 ```
 
 it means we cut off the size of 100\*100(`100 100`) vector graphics from the top left corner(`0 0`) in svg coordinate ,and scale it fill to svg element container which is 200 pixels(`width="200"`) width and 100 pixels height(`height="100"`)
+
+## week 36
+
+### Golang
+
+#### 谷歌为什么创造了GO
+
+- python easy to use,but slow
+- jave has increasingly complex type system
+- c/c++ has complex type system and low compile speed
+
+#### Go的特点
+
+- 强静态类型
+- 良好的生态
+- 关键特性
+  - simplicity
+  - fast compile times
+  - Garbage collected
+  - built-in concurrency
+  - compile to standalone binaries
+  
