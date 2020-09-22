@@ -3623,7 +3623,7 @@ XHR,fetch
 
 #### stalled
 
-请求等待列队
+请求等待队列
 
 #### DNS Lookup
 
