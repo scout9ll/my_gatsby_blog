@@ -4314,13 +4314,13 @@ it means we cut off the size of 100\*100(`100 100`) vector graphics from the top
 
 ### Golang
 
-#### 谷歌为什么创造了GO
+#### 谷歌为什么创造了 GO
 
 - python easy to use,but slow
 - jave has increasingly complex type system
 - c/c++ has complex type system and low compile speed
 
-#### Go的特点
+#### Go 的特点
 
 - 强静态类型
 - 良好的生态
@@ -4330,4 +4330,70 @@ it means we cut off the size of 100\*100(`100 100`) vector graphics from the top
   - Garbage collected
   - built-in concurrency
   - compile to standalone binaries
-  
+
+#### Go 基本类型
+
+- 数值类型
+
+```go
+int  int8  int16  int32  int64
+uint uint8 uint16 uint32 uint64 uintptr
+
+byte // uint8 的别名
+
+rune // int32 的别名
+    // 表示一个 Unicode 码点
+
+float32 float64
+
+complex64 complex128
+```
+
+- 布尔类型
+
+```go
+bool
+```
+
+- 字符串类型
+
+```go
+string
+```
+
+#### 流程控制语句
+
+- Go的流程控制语句包括 `for`、`if`、`else`、`switch` 和 `defer`。  
+- Go的控制语句后面一般都可以有声明表达式，且此表达式不需要`(``)`,但后面`{}`是必须的  
+- Go控制语句后面的声明表达式的变量属于局部变量，只可以在控制流程中使用
+
+##### 循环
+
+Go 只有`for`循环,用法与 js 一致
+
+基本的 for 循环由三部分组成，它们用分号隔开：
+
+初始化语句：在第一次迭代前执行 _可选_
+条件表达式：在每次迭代前求值   _可选_
+后置语句：在每次迭代的结尾执行 _可选_
+初始化语句通常为一句短变量声明，该变量声明仅在 for 语句的作用域中可见。
+
+一旦条件表达式的布尔值为 false，循环迭代就会终止。
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+ sum := 0
+ for i := 0; i < 10; i++ {
+ sum += i
+ }
+ fmt.Println(sum)
+}
+```
+
+- 不写初始话语句和后置语句，`for`就成了`while`。
+
+- 不写循环条件，就是无限循环
