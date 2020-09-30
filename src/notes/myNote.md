@@ -4492,7 +4492,7 @@ func append(s []T, vs ...T) []T
 
 - 循环切片
 
->数组也可以这样循环
+> 数组也可以这样循环
 
 ```go
 type Dom struct {
@@ -4510,3 +4510,98 @@ func main() {
 ```
 
 ##### 映射
+
+- 创建
+
+```go
+
+
+```
+
+##### 闭包
+
+same with javascript
+
+```go
+// fibonacci
+func getFibonacci(i int) int {
+  if i == 1 {
+    return 0
+  }
+  if i == 2 {
+    return 1
+  }
+  return getFibonacci(i-1) + getFibonacci(i-2)
+}
+
+// 返回一个“返回int的函数”
+
+func fibonacci() func() int {
+
+  i := 0
+  // 函数里面似乎不能声明命名函数？
+  return func() int {
+    i++
+    return getFibonacci(i)
+  }
+}
+
+func main() {
+  f := fibonacci()
+  for i := 0; i < 10; i++ {
+    fmt.Println(f())
+  }
+}
+```
+
+#### 方法
+
+- 方法就是一类带特殊的 接收者 参数的函数
+
+```go
+type MyFloat float64
+
+func (f MyFloat) Abs() float64 {
+  if f < 0 {
+    return float64(-f)
+  }
+  return float64(f)
+}
+```
+
+- 接收者可以是类也可以是类指针
+
+> 不能直接把内建类作为接收者
+
+指针接收者的方法可以修改接收者指向的值
+
+若使用值接收者，那么方法会对原始值的副本进行操作
+
+若方法节接收者为指针，则 Go 会将该方法的调用默认转为指针的调用
+
+```go
+v := Vertex{3, 4}
+func (v *Vertex) Scale(f float64) {
+  v.X = v.X * f
+  v.Y = v.Y * f
+}
+
+v.Scale(5) // 实际执行(&v).Scale(5)
+
+```
+
+若方法节接收者为值，则 Go 会将该方法的调用默认转为值的调用
+
+```go
+p :=&Vertex{3, 4}
+func AbsFunc(v Vertex) float64 {
+  return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+p.Scale(5) // 实际执行(*v).Scale(5)
+
+```
+
+> 一般都使用指针接收者，原因有二：
+> 首先，方法能够修改其接收者指向的值。  
+> 其次，这样可以避免在每次调用方法时复制该值。若值的类型为大型结构体时，这样做会更加高效。
