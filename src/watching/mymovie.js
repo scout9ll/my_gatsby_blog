@@ -86,6 +86,13 @@ const myMovies = [
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p449897379.jpg",
     shortComment: "情书承载的青春似乎可以跨越时空，永不消逝",
   },
+  {
+    title: "fleabag",
+    src: "https://movie.douban.com/subject/27053768/",
+    img:
+      "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2549814120.jpg",
+    shortComment: "",
+  },
 ]
 
 export default myMovies
