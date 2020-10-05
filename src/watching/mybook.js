@@ -80,6 +80,12 @@ const mybooks = [
     img: "https://img3.doubanio.com/view/subject/s/public/s33309492.jpg",
     shortComment: "从夸父逐日到量子力学，大到无边无际的宇宙可能只是一种概率波，‘我’所经历的世界或许只是‘镜中影’，每个人都存在一个属于自己的世界边缘"
   },
+  {
+    title: "回归故里",
+    src: "https://book.douban.com/subject/34942789/",
+    img: "https://img2.doubanio.com/view/subject/s/public/s33659613.jpg",
+    shortComment: "To avoid the journey back is to avoid the Self, to avoid Life"
+  },
 ]
 
 export default mybooks
