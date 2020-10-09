@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-9-10"
+lastTime: "2020-10-10"
 words: "91694"
 ---
 
@@ -102,7 +102,7 @@ css=>cssom-----| =>download+resolve=>renderTree=>begin render=>style
 js------------ |
 
 > - cssom,css 对象模型
-> - js 的 load 会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,transition 在进入页面时将看不见
+> - js 的 load 会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,在阻塞渲染的js中的transition 在进入页面时将看不见
 > - renderTree 是渲染树,不包括 DOM 中的 display 为 none 的对象
 
 #### dom 的构建会被阻塞
@@ -131,6 +131,7 @@ style>layout>paint>composite
 #### 渲染在什么时候执行
 
 当宏任务执行之前,或者说一个 eventloop 的最后(marco 和 mircao 之后)
+>浏览器的html，css，js加载都属于宏任务
 例如:
 
 ```js
@@ -1875,7 +1876,7 @@ HTTP 请求报文由 3 部分组成（请求行+请求头+请求体）：
 
 #### 相同点
 
-都是遍历对象的可枚举属性
+都是遍历对象的*可枚举*属性
 
 > Object.getOwnPropertyNames() 会把 enumerable: false 的属性名也加进来。  
 > Reflect.ownKeys() 在此基础上还会加上 Symbol 类型的键
@@ -1984,7 +1985,7 @@ methodsToPatch.forEach(function(method) {
 - `command --help`
 - `man command`
 - `b`回退,`f`,`space`前进,`q`退出
-- `tab`自动补全,双击显示可选项
+- `tab`自动补全,双击显示可选���
 
 > tee
 > 读取标准输入的数据,并将其内容输出成文件
