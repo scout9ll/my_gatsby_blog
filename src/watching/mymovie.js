@@ -93,6 +93,13 @@ const myMovies = [
       "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2549814120.jpg",
     shortComment: "",
   },
+  {
+    title: "marriage story",
+    src: "https://movie.douban.com/subject/27202818/",
+    img:
+      "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2571760178.jpg",
+    shortComment: "一段真实而直白的婚姻故事背后是全世界夫妻都存在的困境————婚姻保存不了爱情",
+  },
 ]
 
 export default myMovies
