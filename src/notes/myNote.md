@@ -857,6 +857,8 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 #### 机制
 
 - parse to AST
+  1. 词法分析
+  2. 语法分析
 - transform
 - generater
 
@@ -2358,12 +2360,17 @@ class Example {
 
 #### 浏览器的线程
 
+渲染进程中有多个线程：
+
 - js 线程,处理 js
 - GUI 渲染线程,处理 dom 和 css 树,绘制渲染树
   - 解析代码：HTML 代码解析为 DOM，CSS 代码解析为 CSSOM（CSS Object Model）
   - 对象合成：将 DOM 和 CSSOM 合成一棵渲染树（render tree）
   - 布局：计算出渲染树的布局（layout）
   - 绘制：将渲染树绘制到屏幕 （painting）
+
+> js线程 和GUI线程虽然可以独立运行，但为了保证性能浪费，它们直接相互阻塞，所以过多的`layout`修改（重排）会大量的调用渲染线程计算渲染树，阻塞主线程执行
+
 - 事件触发线程,事件列队,处理事件循环
 - 定时器线程,处理定时
 - 请求线程,处理异步请求
@@ -4606,3 +4613,39 @@ p.Scale(5) // 实际执行(*v).Scale(5)
 > 一般都使用指针接收者，原因有二：
 > 首先，方法能够修改其接收者指向的值。  
 > 其次，这样可以避免在每次调用方法时复制该值。若值的类型为大型结构体时，这样做会更加高效。
+
+## week 37
+
+### How to compare MVVM framework
+
+#### code
+
+react：  
+jsx
+
+vue:  
+template(_regular_,jsx available)
+
+#### compile
+
+react：  
+compile jsx to js
+
+vue:  
+compile  template to js,involving optimize  
+step:  
+
+online compile  : compiling in runtime on browser  
+
+1. parse() HTML==>AST
+
+2. 
+
+offline : compiling with webpack in  building
+
+#### runtime
+
+react：  
+coroutine fiber
+
+vue:  
