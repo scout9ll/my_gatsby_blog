@@ -2361,9 +2361,10 @@ class Example {
 #### 浏览器的线程
 
 渲染进程中有多个线程：
-
-- js 线程,处理 js
-- GUI 渲染线程,处理 dom 和 css 树,绘制渲染树
+<!--todo  loading? -->
+- js 线程,处理 js(_scripting_)
+- GUI 渲染线程,处理 dom 和 css 树(_rendering_),绘制渲染树(_painting_)
+  >_rendering_与_painting_ 不一定连续进行（应用：提前获取height）
   - 解析代码：HTML 代码解析为 DOM，CSS 代码解析为 CSSOM（CSS Object Model）
   - 对象合成：将 DOM 和 CSSOM 合成一棵渲染树（render tree）
   - 布局：计算出渲染树的布局（layout）
