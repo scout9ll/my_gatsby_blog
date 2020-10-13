@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-10-10"
-words: "91694"
+lastTime: "2020-10-13"
+words: "96694"
 ---
 
 ## week 1
@@ -102,7 +102,7 @@ css=>cssom-----| =>download+resolve=>renderTree=>begin render=>style
 js------------ |
 
 > - cssom,css 对象模型
-> - js 的 load 会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,在阻塞渲染的js中的transition 在进入页面时将看不见
+> - js 的 load 会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,在阻塞渲染的js中的对样式的transition 在进入页面时将看不见
 > - renderTree 是渲染树,不包括 DOM 中的 display 为 none 的对象
 
 #### dom 的构建会被阻塞
@@ -126,7 +126,7 @@ style>layout>paint>composite
 - Repaint（重绘）：改变了某个元素的背景颜色，文字颜色等，不影响元素周围或内部布局的属性，将只会引起浏览器的 repaint，根据元素的新属性重新绘制，使元素呈现新的外观。重绘不会带来重新布局，并不一定伴随重排；
   Reflow 要比 Repaint 更花费时间，也就更影响性能。所以在写代码的时候，要尽量避免过多的 Reflow。
 
-> 故应该尽量用 transform 这样的不改变布局的属性,既不会 repaint 也不会 reflow；
+> 故应该尽量用 transform 这样的不改变布局的属性,既不会 repaint 也不会 reflow；且由于每个图层独立渲染，我们可以尽可能的多图层，避免一个地方样式改动牵动全局渲染
 
 #### 渲染在什么时候执行
 
@@ -2361,9 +2361,9 @@ class Example {
 #### 浏览器的线程
 
 渲染进程中有多个线程：
-<!--todo  loading? -->
+
 - js 线程,处理 js(_scripting_)
-- GUI 渲染线程,处理 dom 和 css 树(_rendering_),绘制渲染树(_painting_)
+- GUI 渲染线程,解析HTML(_loading_) ,构建 dom 和 css 树(_rendering_),绘制渲染树(_painting_)
   >_rendering_与_painting_ 不一定连续进行（应用：提前获取height）
   - 解析代码：HTML 代码解析为 DOM，CSS 代码解析为 CSSOM（CSS Object Model）
   - 对象合成：将 DOM 和 CSSOM 合成一棵渲染树（render tree）
@@ -4456,7 +4456,7 @@ slice := array[0 : 3] // slice的取值前闭后开 [1,2]
 ```
 
 - 切片就像数组的引用  
-  切片并不存储任何数据，它只是描述了底层数组中的一段。
+  切片并不存储任何数据，它只是描述了底层数组中的一段。(_与python和js中复制值独立存储的切片不同_)
   更改切片的元素会修改其底层数组中对应的元素。
   与它共享底层数组的切片都会观测到这些修改。
 
