@@ -773,9 +773,13 @@ Object.prototype.toString.call(null) //"[object null]"
 
 #### 微服务
 
-服务端设计思想,后端应用组件化,API 分离,去中心化,每个 API 独立部署
+一种设计思想,将一个大项目分解成一个个独立的小项目，使其可以分而治之，能够已最小的成本管理、开发、部署。该思想在前后端都有所应用。
 
-> ![micrpService](https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2766950049,2173529202&fm=173&app=25&f=JPEG?w=640&h=375&s=4586FD1203067CEA104990C00200D0B3)
+后端应用组件化,API 分离,去中心化,每个 API 独立部署
+
+前端模块、页面组件化,
+
+> ![microService](https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2766950049,2173529202&fm=173&app=25&f=JPEG?w=640&h=375&s=4586FD1203067CEA104990C00200D0B3)
 
 #### serverless
 
@@ -1307,10 +1311,13 @@ svg 是属于 XML 的可扩展的矢量图形(scalable vector graphic),本质上
 
 #### cookie
 
-http 协议中`浏览器中的一种缓存类型,是服务器或脚本可以维护客户工作站上信息的一种方式
+http 协议中`浏览器中的一种存储类型,是服务器或脚本可以维护客户工作站上信息的一种方式
 
 - 大小  
   一个浏览器能创建的 Cookie 数量最多为 300 个，并且每个不能超过 4KB，每个 Web 站点能设置的 Cookie 总数不能超过 20 个
+- 属性
+每个cookie除了最基本的`Name`,`Value`之外，还有一些控制属性。
+![cookie-properties](../images/cookie-properties.png)
 - 存储位置  
   Cookie 是个存储在浏览器目录的*文本文件*，当浏览器运行时，存储在 RAM 中。一旦你从该网站或网络服务器退出，Cookie 也可存储在计算机的硬驱上。当访客结束其浏览器对话时，即终止的所有 Cookie。
 - 存储时间  
@@ -2788,10 +2795,10 @@ console.log("done")
 
 #### 相同点
 
-都是属于协商缓存,都属于后端生成，需要请求服务端判断。
+都是属于协商缓存的验证器,都属于后端生成，需要请求服务端判断。
 
 > 协商缓存请求经过服务端判断，若满足缓存条件返回`304`；  
-> 强缓存则是不发送请求直接采用本地的 cache，响应码为`200(from disk cache || from memory cache)`,强缓存通过设置两种 HTTP Header 实现：`Expires`（HTTP/1 ） 和 `Cache-Control`(HTTP/1.1)。
+> 强缓存则是不发送请求直接采用本地的 cache，响应码为`200(from disk cache || from memory cache)`,强缓存通过设置两种 HTTP Header 实现：`Expires`（HTTP/1，无法确定客户端的时间是否与服务端的时间同步） 和 `Cache-Control`(HTTP/1.1)。
 
 #### 不同点
 
@@ -4650,3 +4657,26 @@ react：
 coroutine fiber
 
 vue:  
+
+### 缓存过程及设置策略
+
+#### Service Worker 独立线程优先调度请求
+
+Service Worker旨在实现浏览器*离线本地应用*，通过在*前端*自行注册、监听，可以让我们自由控制缓存哪些文件、如何匹配缓存、如何读取缓存，并且缓存是持续性的。
+
+该线程优先于浏览器其它的所有缓存应用方式
+
+#### `cache-control`决定浏览器请求的缓存规则
+
+在Service Worker之后，若该请求在本地存在缓存，则读取其缓存标识，将其补充在请求头中（是补充，不是覆盖）；若第一次请求，则保存响应以及缓存标识。
+
+浏览器首先会根据其缓存标识中的`cache-control`来执行缓存.(具体规则见[https://developers.goo...](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control))
+
+>若标识中没有`cache-control`，会根据浏览器自身的规则默认给其设置一个`max-age`的时间
+
+根据`cache-control`的规则，我们应该以下面的策略设置``cache-control``
+![http-cache-decision-tre](../images/http-cache-decision-tree.png)
+
+#### `ETag`和`Last-Modified`验证缓存的响应
+
+若`cache-control`不为`no-store`时，浏览器会根据`ETag`或`Last-Modified`发送请求，向服务器验证是否需要重新下载响应
