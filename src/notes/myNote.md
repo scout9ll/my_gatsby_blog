@@ -102,7 +102,7 @@ css=>cssom-----| =>download+resolve=>renderTree=>begin render=>style
 js------------ |
 
 > - cssom,css 对象模型
-> - js 的 load 会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,在阻塞渲染的js中的对样式的transition 在进入页面时将看不见
+> - js 的 load 会阻塞页面第一次渲染,这是浏览器策略(chrome),在第一次会加载完 js 再渲染防止重复渲染.因此若页面存在 js 时,由于需要顺序等待加载 js 的缘故,在阻塞渲染的 js 中的对样式的 transition 在进入页面时将看不见
 > - renderTree 是渲染树,不包括 DOM 中的 display 为 none 的对象
 
 #### dom 的构建会被阻塞
@@ -127,12 +127,14 @@ style>layout>paint>composite
   Reflow 要比 Repaint 更花费时间，也就更影响性能。所以在写代码的时候，要尽量避免过多的 Reflow。
 
 > 故应该尽量用 transform 这样的不改变布局的属性,既不会 repaint 也不会 reflow；且由于每个图层独立渲染，我们可以尽可能的多图层，避免一个地方样式改动牵动全局渲染
+> 何时重排，如何减少重排，看看[https://developers.google.com/spe...](https://developers.google.com/speed/docs/insights/browser-reflow)
 
 #### 渲染在什么时候执行
 
 当宏任务执行之前,或者说一个 eventloop 的最后(marco 和 mircao 之后)
->浏览器的html，css，js加载都属于宏任务
-例如:
+
+> 浏览器的 html，css，js 加载都属于宏任务
+> 例如:
 
 ```js
 function heavy() {
@@ -1316,8 +1318,8 @@ http 协议中`浏览器中的一种存储类型,是服务器或脚本可以维�
 - 大小  
   一个浏览器能创建的 Cookie 数量最多为 300 个，并且每个不能超过 4KB，每个 Web 站点能设置的 Cookie 总数不能超过 20 个
 - 属性
-每个cookie除了最基本的`Name`,`Value`之外，还有一些控制属性。
-![cookie-properties](../images/cookie-properties.png)
+  每个 cookie 除了最基本的`Name`,`Value`之外，还有一些控制属性。
+  ![cookie-properties](../images/cookie-properties.png)
 - 存储位置  
   Cookie 是个存储在浏览器目录的*文本文件*，当浏览器运行时，存储在 RAM 中。一旦你从该网站或网络服务器退出，Cookie 也可存储在计算机的硬驱上。当访客结束其浏览器对话时，即终止的所有 Cookie。
 - 存储时间  
@@ -1994,7 +1996,7 @@ methodsToPatch.forEach(function(method) {
 - `command --help`
 - `man command`
 - `b`回退,`f`,`space`前进,`q`退出
-- `tab`自动补全,双击显示可选���
+- `tab`自动补全,双击显示可选 ���
 
 > tee
 > 读取标准输入的数据,并将其内容输出成文件
@@ -2370,14 +2372,14 @@ class Example {
 渲染进程中有多个线程：
 
 - js 线程,处理 js(_scripting_)
-- GUI 渲染线程,解析HTML(_loading_) ,构建 dom 和 css 树(_rendering_),绘制渲染树(_painting_)
-  >_rendering_与_painting_ 不一定连续进行（应用：提前获取height）
+- GUI 渲染线程,解析 HTML(_loading_) ,构建 dom 和 css 树(_rendering_),绘制渲染树(_painting_)
+  > *rendering*与*painting* 不一定连续进行（应用：提前获取 height）
   - 解析代码：HTML 代码解析为 DOM，CSS 代码解析为 CSSOM（CSS Object Model）
   - 对象合成：将 DOM 和 CSSOM 合成一棵渲染树（render tree）
   - 布局：计算出渲染树的布局（layout）
   - 绘制：将渲染树绘制到屏幕 （painting）
 
-> js线程 和GUI线程虽然可以独立运行，但为了保证性能浪费，它们直接相互阻塞，所以过多的`layout`修改（重排）会大量的调用渲染线程计算渲染树，阻塞主线程执行
+> js 线程 和 GUI 线程虽然可以独立运行，但为了保证性能浪费，它们直接相互阻塞，所以过多的`layout`修改（重排）会大量的调用渲染线程计算渲染树，阻塞主线程执行
 
 - 事件触发线程,事件列队,处理事件循环
 - 定时器线程,处理定时
@@ -4463,7 +4465,7 @@ slice := array[0 : 3] // slice的取值前闭后开 [1,2]
 ```
 
 - 切片就像数组的引用  
-  切片并不存储任何数据，它只是描述了底层数组中的一段。(_与python和js中复制值独立存储的切片不同_)
+  切片并不存储任何数据，它只是描述了底层数组中的一段。(_与 python 和 js 中复制值独立存储的切片不同_)
   更改切片的元素会修改其底层数组中对应的元素。
   与它共享底层数组的切片都会观测到这些修改。
 
@@ -4640,43 +4642,60 @@ react：
 compile jsx to js
 
 vue:  
-compile  template to js,involving optimize  
-step:  
+compile template to js,involving optimize  
+step:
 
-online compile  : compiling in runtime on browser  
+online compile : compiling in runtime on browser
 
 1. parse() HTML==>AST
 
-2. 
+2.
 
-offline : compiling with webpack in  building
+offline : compiling with webpack in building
 
 #### runtime
 
 react：  
 coroutine fiber
 
-vue:  
+vue:
 
 ### 缓存过程及设置策略
 
 #### Service Worker 独立线程优先调度请求
 
-Service Worker旨在实现浏览器*离线本地应用*，通过在*前端*自行注册、监听，可以让我们自由控制缓存哪些文件、如何匹配缓存、如何读取缓存，并且缓存是持续性的。
+Service Worker 旨在实现浏览器*离线本地应用*，通过在*前端*自行注册、监听，可以让我们自由控制缓存哪些文件、如何匹配缓存、如何读取缓存，并且缓存是持续性的。
 
 该线程优先于浏览器其它的所有缓存应用方式
 
 #### `cache-control`决定浏览器请求的缓存规则
 
-在Service Worker之后，若该请求在本地存在缓存，则读取其缓存标识，将其补充在请求头中（是补充，不是覆盖）；若第一次请求，则保存响应以及缓存标识。
+在 Service Worker 之后，若该请求在本地存在缓存，则读取其缓存标识，将其补充在请求头中（是补充，不是覆盖）；若第一次请求，则保存响应以及缓存标识。
 
-浏览器首先会根据其缓存标识中的`cache-control`来执行缓存.(具体规则见[https://developers.goo...](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control))
+浏览器首先会根据其缓存标识中的`cache-control`来执行缓存，请求/响应链中的所有缓存机制都必须遵循`cache-control`的指令.(具体规则见[https://developers.goo...](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control))
 
->若标识中没有`cache-control`，会根据浏览器自身的规则默认给其设置一个`max-age`的时间
+> 若标识中没有`cache-control`，会根据浏览器自身的规则默认给其设置一个`max-age`的时间
 
-根据`cache-control`的规则，我们应该以下面的策略设置``cache-control``
+根据`cache-control`的规则，我们应该以下面的策略设置`cache-control`
 ![http-cache-decision-tre](../images/http-cache-decision-tree.png)
 
 #### `ETag`和`Last-Modified`验证缓存的响应
 
 若`cache-control`不为`no-store`时，浏览器会根据`ETag`或`Last-Modified`发送请求，向服务器验证是否需要重新下载响应
+
+> `ETag`和`Last-Modified`可以同时使用，如果服务端对两者的验证结果不一致，例如通过一个条件判断资源发生了更改，而另一个判定资源没有发生更改，则不允许返回 304 状态。但话说回来，是否返回还是通过服务端编写的实际代码决定的。所以仍然有操纵的空间
+
+#### 根据资源需求合理配置缓存
+
+不存在什么最佳缓存策略。根据通信模式、提供的数据类型以及应用特定的数据更新要求，为每个资源定义和配置合适的设置，以及整体的“缓存层次结构”。
+
+在制定缓存策略时，牢记下面这些技巧和方法：
+
+- _使用一致的网址_：如果您在不同的网址上提供相同的内容，将会多次提取和存储这些内容。 提示：请注意，网址区分大小写。
+- _确保服务器提供验证令牌 (ETag)_：有了验证令牌，当服务器上的资源未发生变化时，就不需要传送相同的字节。
+- _确定中间缓存可以缓存哪些资源_：对所有用户的响应完全相同的资源非常适合由 CDN 以及其他中间缓存（代理服务器中的缓存）进行缓存。
+- _为每个资源确定最佳缓存周期_：不同的资源可能有不同的更新要求。 为每个资源审核并确定合适的 max-age。
+- _确定最适合您的网站的缓存层次结构_：您可以通过为 HTML 文档组合使用包含内容指纹的资源网址和短时间或 no-cache 周期，来控制客户端获取更新的速度。
+- _最大限度减少搅动_：某些资源的更新比其他资源频繁。 如果资源的特定部分（例如 JavaScript 函数或 CSS 样式集）会经常更新，可以考虑将其代码作为单独的文件提供。 这样一来，每次提取更新时，其余内容（例如变化不是很频繁的内容库代码）可以从缓存提取，从而最大限度减少下载的内容大小。
+
+通过组合使用 ETag、Cache-Control 和唯一网址来实现一举多得：较长的过期时间、控制可以缓存响应的位置以及随需更新。
