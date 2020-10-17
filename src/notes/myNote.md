@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-10-13"
+lastTime: "2020-10-17"
 words: "96694"
 ---
 
@@ -3801,6 +3801,7 @@ IOC是一种设计思想,将服务的依赖的控制权放在外部
 - 准备好的依赖。其实例会被注入到服务中
 - 存储依赖的容器。确保存储的依赖都是可以被注入到服务中
 
+<!-- TODO TS实现DEMO -->
 ## week 31
 
 ### SQL vs NoSQL
@@ -4140,7 +4141,6 @@ function getMetadata(
 ): any
 ```
 
-### ICO
 
 // TODO
 
