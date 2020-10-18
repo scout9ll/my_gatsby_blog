@@ -1705,6 +1705,9 @@ $icons: ("home", "movie", "ticket", "cinema");
 | Function         |           |      |   √   |
 | Variable         |           |      |   √   |
 
+>可以发现，Interface和Type Alias都是创建一个类型实体，那么它们直接的区别是什么呢。  
+> Interface是独立创建了一个对象类型接口，可以参与其他类型的创建（通过`extends` 和 `implement`）。而Type Alias则是根据已有的类型中获取成一个类型并命名（通过`&`和`type of`及基本变量）
+
 ### typescript 特殊类型
 
 #### Emun
