@@ -43,8 +43,8 @@ const Note = ({ noteContent, title, subTitle }) => {
           <div className="note-card-front">{title[1]}</div>
           <div className="note-card-back">
             {subTitle.map((st, index) => (
-              <span key={st}>
-                {index + 1 + "." + st.match(/<h3>([^<]+)<\/h3>/)[1]}{" "}
+              <span className="note-index" key={st}>
+                {index + 1 + ". " + st.match(/<h3>([^<]+)<\/h3>/)[1]}{" "}
               </span>
             ))}
           </div>
