@@ -100,6 +100,13 @@ const myMovies = [
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2571760178.jpg",
     shortComment: "一段真实而直白的婚姻故事背后是全世界夫妻都存在的困境————婚姻保存不了爱情",
   },
+  {
+    title: "出租车 تاکسی",
+    src: "https://movie.douban.com/subject/26304167/",
+    img:
+      "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2236812017.jpg",
+    shortComment: "帕纳西的叛逆",
+  },
 ]
 
 export default myMovies
