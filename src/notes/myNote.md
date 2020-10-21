@@ -4723,3 +4723,30 @@ Service Worker 旨在实现浏览器*离线本地应用*，通过在*前端*自�
 通过组合使用 ETag、Cache-Control 和唯一网址来实现一举多得：较长的过期时间、控制可以缓存响应的位置以及随需更新。
 
 <!-- todo  vue的是默认深度遍历来响应化data吗 -->
+### vue是默认深度遍历
+
+```js
+//core/observer/index.js
+export function defineReactive (
+  obj: Object,
+  key: string,
+  val: any,
+  customSetter?: ?Function,
+  shallow?: boolean //shallow 判断是否深度遍历
+) {
+  const dep = new Dep()
+
+  const property = Object.getOwnPropertyDescriptor(obj, key)
+  if (property && property.configurable === false) {
+    return
+  }
+
+  // cater for pre-defined getter/setters
+  const getter = property && property.get
+  const setter = property && property.set
+  if ((!getter || setter) && arguments.length === 2) {
+    val = obj[key]
+  }
+  // 深度递归响应化对象
+  let childOb = !shallow && observe(val)
+```
