@@ -1475,6 +1475,7 @@ js 在执行时创建在调用栈的环境,决定可访问的变量和函数
 
 1. 扫描=>注册当前词法环境的函数声明=>注册变量声明
 
+>词法环境有三种：1.全局环境 2.函数作用域 3.块级作用域
 ![register-step](../images/register-step-1.png)
 
 ```js
@@ -1494,12 +1495,15 @@ foo()
 // register args
 // regist a  in functionFoo
 // begin execute
-// find b in foo environment,can't find
-// to find b in foo[[environment]]
+// engine will find b from foo environment in advance,then to find b in foo[[environment]] if b not in foo
 ```
 
 2. 顺序调用
-   _holding_
+   执行中遇到标识符（变量）=> 在当前作用域中注册的标识符中寻找 => (if not)在当前作用域标识符所注册的环境中寻找
+
+#### 函数上下文
+
+执行上下文,即是this
 
 ## week 12
 
@@ -2384,7 +2388,7 @@ class Example {
 
 > js 线程 和 GUI 线程虽然可以独立运行，但为了保证性能浪费，它们直接相互阻塞，所以过多的`layout`修改（重排）会大量的调用渲染线程计算渲染树，阻塞主线程执行
 
-- 事件触发线程,事件列队,处理事件循环
+- 事件触发线程,事件列队,处理*事件循环*
 - 定时器线程,处理定时
 - 请求线程,处理异步请求
   - 其中为了防止二次回流,CSS 和初次未设置异步的 JS 文件会阻塞 dom 加载
@@ -3646,13 +3650,13 @@ XHR,fetch
 
 请求等待队列
 
-#### DNS Lookup
-
-浏览器去 DNS 服务器解析到域名 ip 地址
-
 #### Proxy negotiation
 
 调用代理 _(if necessary)_
+
+#### DNS Lookup
+
+浏览器去 DNS 服务器解析到域名 ip 地址
 
 #### Request sent
 
@@ -4440,7 +4444,7 @@ func main() {
 
 #### 指针
 
-Go 和 C 一样，可以直接拿到变量值的指针
+Go 和 C 一样，可以直接拿到值的变量指针(存储值的地址)
 
 类型 \*T 是指向 T 类型值的指针。其零值为 nil
 
@@ -4618,6 +4622,8 @@ func (f MyFloat) Abs() float64 {
 若使用值接收者，那么方法会对原始值的副本进行操作
 
 若方法节接收者为指针，则 Go 会将该方法的调用默认转为指针的调用
+
+>与JavaScript不同的是，Go的对象是直接存储的值，Go只有slices, maps 和 channels直接存储的是地址。
 
 ```go
 v := Vertex{3, 4}
