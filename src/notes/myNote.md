@@ -4035,7 +4035,7 @@ ts 根据被装饰的对象不同，其装饰器接受的目标参数不同
 
 ##### 类装饰器
 
-目标参数为 `constructor`
+目标参数为 `constructor`,若装饰器有返回，则会将返回值作为该类
 
 ```ts
 classDecorator(constructor){
@@ -4086,16 +4086,17 @@ __decorate([
 
 目标参数为
 
-- `target`,被装饰的方法为静态方法`target`为`constructor`，否则为`prototype`
+- `target`,被装饰的方法为静态属性`target`为`constructor`，否则为`prototype`
 - `key`,被装饰的属性名
 
 > 在实例未被实例化之前，我们无法获得实例属性的 descriptor
 
 ```ts
-propertyDecorator(target){
-  target.staticMethod = ()=>{
-    // add a static method
+propertyDecorator(target,key){
+  target.normalMethod = ()=>{
+    // add a normal method
   }
+  target[key] = "this is prototype's property"
 }
 
 __decorate([
