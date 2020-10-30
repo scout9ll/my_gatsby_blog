@@ -52,3 +52,20 @@ weather: ⛅
 
 - 脚本执行环境的设置  
 
+当他们的文档为空或完全活跃（加载完毕）时则称该task为可执行的
+
+根据其源字段，每个任务被定义为来自特定的任务源。对于每个事件循环，每个任务源必须与特定的任务队列相关联。
+
+本质上，标准中使用任务源来分离逻辑上不同的任务类型，用户代理可能希望区分这些任务。 用户代理使用任务队列在给定的事件循环中合并任务源
+
+>例如，用户代理可能具有一个用于鼠标和按键事件的任务队列（与用户交互任务源相关联），而另一个则与所有其他任务源相关联。 然后，使用在事件循环处理模型的初始步骤中授予的自由度，它可以使键盘和鼠标事件在其他任务上有四分之三的时间优先于其他任务，从而使界面具有响应能力，但不会使其他任务队列饿死。 请注意，在此设置中，处理模型仍会强制用户代理永远不会处理任何任务源中的事件。
+
+Each event loop has a currently running task, which is either a task or null. Initially, this is null. It is used to handle reentrancy.
+每个事件循环有一个当前运行的任务，可以是空。初始话时，它是空的，被用来处理再入
+
+Each event loop has a microtask queue, which is a queue of microtasks, initially empty. A microtask is a colloquial way of referring to a task that was created via the queue a microtask algorithm.
+每个事件循环有一个宏任务队列，用来存入一组宏任务，初始话事为空。一个宏任务是指通过宏任务算法创建的任务
+
+Each event loop has a performing a microtask checkpoint boolean, which is initially false. It is used to prevent reentrant invocation of the perform a microtask checkpoint algorithm.
+每个事件循环都有一个执行微任务检查点的布尔值，它用于防止执行微任务检查点算法的可重入调用。
+
