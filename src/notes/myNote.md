@@ -3689,11 +3689,15 @@ XHR,fetch
 
 #### JWT 可以被用于信息加密吗
 
-不行。JWT 虽然涉及到算法加密，但这个加密只单独生成 Signature，jwt 的`payload`部分只用了 base64 编码压缩,Signature 的作用只是为了通过能否正确的解密来保证数据的完整性。所以就想 jwt 定义一样，只保证信息安全可靠不被更改，其中不宜传输隐私信息。
+不行。JWT 虽然涉及到算法加密，但这个算法只单独生成 Signature，jwt 的`payload`部分只用了 base64 编码压缩,Signature 的作用只是为了通过能否正确的解密来保证数据的完整性。所以就像 jwt 定义一样，只保证信息安全可靠不被更改，其中不宜传输隐私信息。
 
 ```js
 HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 ```
+
+>可以使用`secret`（使用HMAC算法）或使用RSA或ECDSA的公用/专用密钥对对JWT进行签名
+>HMAC（Hash message authentication codes）的签名是通过把返回的`header`与`payload`用同一`secret`生成hash值，再与返回的`signature`对比，来验证数据是否被修改。  
+>RSA或ECDSA的签名则是通过公钥解密来验证来源
 
 #### JWT 最佳实践是怎样
 
