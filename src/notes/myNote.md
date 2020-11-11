@@ -1111,6 +1111,9 @@ export default function shallowEqual(objA, objB) {
 
 #### webpack 简单理解
 
+目的：实现模块化开发  
+实现结果：函数实现模块，装配进modules数组。  
+实现方式：Tapable 钩子的订阅发布  
 > webpack 整体是一个插件架构，所有的功能都以插件的方式集成在构建流程中，通过发布订阅事件来触发各个插件执行。webpack 核心使用 Tapable 来实现插件(plugins)的 binding 和 applying.
 
 #### 打包过程
