@@ -524,7 +524,7 @@ for (const value of normalObj) {
 
 ### event.target 和 event.currentTarget
 
-- 主要区别:event.target 是触发事件开始的元素,event.currentTarge 是*当前触发事件执行*的元素(被监听该事件的元素
+- 主要区别:event.target 是触发事件开始的元素,event.currentTarget 是*当前触发事件执行*的元素(被监听该事件的元素
   )
 
 ### ES6 destruction
