@@ -527,6 +527,10 @@ for (const value of normalObj) {
 - 主要区别:event.target 是触发事件开始的元素,event.currentTarget 是*当前触发事件执行*的元素(被监听该事件的元素
   )
 
+### 事件捕获的场景
+<!-- todo -->
+事件捕获是在事件冒泡之前。
+
 ### ES6 destruction
 
 - 解构的意义: 更快的将变量赋值为对象中的属性.
@@ -2395,6 +2399,27 @@ class Example {
 - 定时器线程,处理定时
 - 请求线程,处理异步请求
   - 其中为了防止二次回流,CSS 和初次未设置异步的 JS 文件会阻塞 dom 加载
+
+### 前端工具链
+
+- JS 开发环境: 有 V8、Node 甚至是 Deno 等；
+- JS 前端框架: 有 Angular、React、Vue、React Native、jQuery 等；
+- JS 后端框架: 有 Nest、Express、Koa 等；
+- JS 脚手架: 有 Vue CLI、Angular CLI、Create React App、Yeoman 等；
+- JS 转译工具: 有 Babel 等；
+- JS 测试工具: 围绕单元测试、集成测试，有 Mocha、Jasmine、Jest、Karma 等；
+- JS 调试工具: 有 Chrome DevTools/Firebug/Webkit inspector 等各大主流浏览器、VS Code/WebStorm 等各大编辑器/IDE 等；
+- JS 格式规范工具: 有 JSLint、JSHint、ESLint、TSLint 等；
+- JS 接口联调工具: 有 Axios、Fetch 等；
+- JS 包管理器: 有 NPM、Yarn、Bower、PNPM 等；
+- JS 模块加载器: 有 RequireJS、SystemJS、StealJS、ES Module Loader 等；
+- JS 任务管理工具: Grunt、Gulp、Webpack 监听文件变化，自动执行任务；
+- JS 静态化支持: 有 TypeScript、CoffeeScript、Flow、LiveScript 等；
+- JS 代码后处理工具: 围绕混淆器、缩小器、优化器诸多领域有各种各样的 loader 等；
+- JS 打包工具: Webpack、Rollup、Parcel、Browserify 等；
+- JS 模板引擎: 有 handlebarsjs、etpl、templatejs 甚至各大前端框架内置的模板语法等；
+- JS 非 Web 框架: 在物联网、区块链、大数据等领域均有相关库支持，本文不涉及。
+- JS 进程管理: 有 Forever、PM2、StrongLoop Process Manager 等；
 
 ## week 17
 
