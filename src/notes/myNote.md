@@ -527,11 +527,21 @@ for (const value of normalObj) {
 - 主要区别:event.target 是触发事件开始的元素,event.currentTarget 是*当前触发事件执行*的元素(被监听该事件的元素
   )
 
-### 事件捕获的场景
-
+### 事件捕获的应用场景
 <!-- todo -->
 
 事件捕获是在事件冒泡之前。
+
+### attribute 和 property
+
+#### attribute是HTML节点底层天生的特性
+
+#### property是节点映射为DOM后为其创建的属性
+
+attribute会映射在DOM的property中，其以`NamedNodeMap`的形式存储key为`attributes`的property里  
+一个元素节点会由多个属性节点(`attributeNode`)组成，它们都属于`Attr`类  
+
+一些attribute同时也会直接映射在property根部，例如`value`
 
 ### ES6 destruction
 
