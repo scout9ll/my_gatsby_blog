@@ -528,7 +528,9 @@ for (const value of normalObj) {
   )
 
 ### 事件捕获的场景
+
 <!-- todo -->
+
 事件捕获是在事件冒泡之前。
 
 ### ES6 destruction
@@ -1116,9 +1118,26 @@ export default function shallowEqual(objA, objB) {
 #### webpack 简单理解
 
 目的：实现模块化开发  
-实现结果：函数实现模块，装配进modules数组。  
+实现结果：函数实现模块，装配进 modules 数组。  
 实现方式：Tapable 钩子的订阅发布  
+使用 Tapable new 出 webpack 构建周期中各个阶段的钩子对象，每个钩子会在对应的阶段发布其订阅的函数
+
 > webpack 整体是一个插件架构，所有的功能都以插件的方式集成在构建流程中，通过发布订阅事件来触发各个插件执行。webpack 核心使用 Tapable 来实现插件(plugins)的 binding 和 applying.
+
+```js
+this.hooks = {
+  buildModule: new SyncHook(),
+  rebuildModule: new SyncHook(),
+  finishModule: new SyncHook(),
+  compilation: new SyncHook(),
+}
+
+//SingleEntryPlugin函数订阅compilation
+this.hooks.compilation.tap("SingleEntryPlugin", option => {})
+
+//发布compilation钩子
+this。hooks.compilation.call(option)
+```
 
 #### 打包过程
 
@@ -3720,9 +3739,9 @@ XHR,fetch
 HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 ```
 
->可以使用`secret`（使用HMAC算法）或使用RSA或ECDSA的公用/专用密钥对对JWT进行签名
->HMAC（Hash message authentication codes）的签名是通过把返回的`header`与`payload`用同一`secret`生成hash值，再与返回的`signature`对比，来验证数据是否被修改。  
->RSA或ECDSA的签名则是通过公钥解密来验证来源
+> 可以使用`secret`（使用 HMAC 算法）或使用 RSA 或 ECDSA 的公用/专用密钥对对 JWT 进行签名
+> HMAC（Hash message authentication codes）的签名是通过把返回的`header`与`payload`用同一`secret`生成 hash 值，再与返回的`signature`对比，来验证数据是否被修改。  
+> RSA 或 ECDSA 的签名则是通过公钥解密来验证来源
 
 #### JWT 最佳实践是怎样
 
