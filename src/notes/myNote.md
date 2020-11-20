@@ -1118,7 +1118,7 @@ export default function shallowEqual(objA, objB) {
 #### webpack 简单理解
 
 目的：实现模块化开发  
-实现结果：函数实现模块，装配进 modules 数组。  
+实现结果：函数实现模块，装配进 modules 数组，组织代码编译。  
 实现方式：Tapable 钩子的订阅发布  
 使用 Tapable new 出 webpack 构建周期中各个阶段的钩子对象，每个钩子会在对应的阶段发布其订阅的函数
 
@@ -1136,16 +1136,28 @@ this.hooks = {
 this.hooks.compilation.tap("SingleEntryPlugin", option => {})
 
 //发布compilation钩子
-this。hooks.compilation.call(option)
+this.hooks.compilation.call(option)
 ```
 
 #### 打包过程
-
+<!-- todo -->
 - 读取文件分析模块依赖
 - 对模块进行解析执行(深度遍历)
-- 针对不同的模块使用相应的 loader
-- 编译模块，生成抽象语法树 AST。
-- 循环遍历 AST 树，拼接输出 js
+<!-- (compilation) -->
+- 针对不同的模块使用相应的 loader `runLoader`后返回被处理后的js code
+- 编译模块,(利用状态机`tokenizer`生成 token),生成抽象语法树 AST。
+  >为什么不使用正则，正则贪心匹配会产生很多不必要的回溯。
+  - 词法分析
+  - 语法分析
+- 循环遍历 AST 树(`traverse`)，模块组装，拼接输出 js
+
+  - 修改对应 AST 节点,不同的节点`type`用不同的`traverser`
+
+  ```typescript
+  function traverse(ast, vistors)
+  ```
+
+  - AST 转为 JS code
 
 #### loader 和 plugin
 
