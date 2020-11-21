@@ -107,6 +107,13 @@ const myMovies = [
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2236812017.jpg",
     shortComment: "帕纳西的叛逆",
   },
+  {
+    title: "He's Just Not That Into You",
+    src: "https://movie.douban.com/subject/2161696/",
+    img:
+      "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p477821688.jpg",
+    shortComment: "和喜欢的人在一起与被喜欢的人喜欢，似乎后者才是更多人追求的爱情",
+  }, 
 ]
 
 export default myMovies
