@@ -4848,3 +4848,7 @@ export function defineReactive (
   // 深度递归响应化对象
   let childOb = !shallow && observe(val)
 ```
+
+## week 38
+<!-- TODO -->
+### canvas热区
