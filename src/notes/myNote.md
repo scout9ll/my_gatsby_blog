@@ -1610,6 +1610,11 @@ foo()
 - git log 查看历史版本
 - git reflog 查看所有操作记录，包括 Reset 操作
 - git reset --hard '哈希' 时光机,回到某一次记录
+  - hard：清空工作区（working tree）
+  - mixed(default) : 回到工作区
+  - soft:回到暂存区（index）
+
+> ![git-reset_mode](../images/git-reset_mode.jpg)
 
 #### 分支系统
 
