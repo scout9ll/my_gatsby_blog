@@ -714,15 +714,15 @@ interface WatcherProperty{
 
 - Render 函数，其`mutation`就是组件的渲染函数
 
-- computed 属性, 其 watcher 为 lazy update，挂载在 vm 上的`_computedWatchers`属性里
+- computed 属性, 其会创建 lazy update的watcher ，挂载在 vm 上的`_computedWatchers`属性里
 
 ```ts
   update () {
     /* istanbul ignore else */
     if (this.lazy) {
-      this.dirty = true
+      this.dirty = true //computed属性的get访问属性会判断dirty来是否调用
     } else if (this.sync) {
-      this.run() //立即触发mutation
+      this.run() //立即触发mutation 
     } else {
       queueWatcher(this) //队列批处理mutation
     }
