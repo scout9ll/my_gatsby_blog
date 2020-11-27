@@ -528,20 +528,21 @@ for (const value of normalObj) {
   )
 
 ### 事件捕获的应用场景
+
 <!-- todo -->
 
 事件捕获是在事件冒泡之前。
 
 ### attribute 和 property
 
-#### attribute是HTML节点底层天生的特性
+#### attribute 是 HTML 节点底层天生的特性
 
-#### property是节点映射为DOM后为其创建的属性
+#### property 是节点映射为 DOM 后为其创建的属性
 
-attribute会映射在DOM的property中，其以`NamedNodeMap`的形式存储key为`attributes`的property里  
-一个元素节点会由多个属性节点(`attributeNode`)组成，它们都属于`Attr`类  
+attribute 会映射在 DOM 的 property 中，其以`NamedNodeMap`的形式存储 key 为`attributes`的 property 里  
+一个元素节点会由多个属性节点(`attributeNode`)组成，它们都属于`Attr`类
 
-一些attribute同时也会直接映射在property根部，例如`value`
+一些 attribute 同时也会直接映射在 property 根部，例如`value`
 
 ### ES6 destruction
 
@@ -714,7 +715,7 @@ interface WatcherProperty{
 
 - Render 函数，其`mutation`就是组件的渲染函数
 
-- computed 属性, 其会创建 lazy update的watcher ，挂载在 vm 上的`_computedWatchers`属性里
+- computed 属性, 其会创建 lazy update 的 watcher ，挂载在 vm 上的`_computedWatchers`属性里
 
 ```ts
   update () {
@@ -722,7 +723,7 @@ interface WatcherProperty{
     if (this.lazy) {
       this.dirty = true //computed属性的get访问属性会判断dirty来是否调用
     } else if (this.sync) {
-      this.run() //立即触发mutation 
+      this.run() //立即触发mutation
     } else {
       queueWatcher(this) //队列批处理mutation
     }
@@ -1150,13 +1151,15 @@ this.hooks.compilation.call(option)
 ```
 
 #### 打包过程
+
 <!-- todo -->
+
 - 读取文件分析模块依赖
 - 对模块进行解析执行(深度遍历)
-<!-- (compilation) -->
-- 针对不同的模块使用相应的 loader `runLoader`后返回被处理后的js code
+  <!-- (compilation) -->
+- 针对不同的模块使用相应的 loader `runLoader`后返回被处理后的 js code
 - 编译模块,(利用状态机`tokenizer`生成 token),生成抽象语法树 AST。
-  >为什么不使用正则，正则贪心匹配会产生很多不必要的回溯。
+  > 为什么不使用正则，正则贪心匹配会产生很多不必要的回溯。
   - 词法分析
   - 语法分析
 - 循环遍历 AST 树(`traverse`)，模块组装，拼接输出 js
@@ -4855,5 +4858,82 @@ export function defineReactive (
 ```
 
 ## week 38
+
 <!-- TODO -->
-### canvas热区
+
+### canvas 热区
+
+### vue-router 中的几个核心思想
+
+-_install_
+
+```js
+Vue.mixin({
+  beforeCreate: function beforeCreate() {
+    if (isDef(this.$options.router)) {
+      //routerView 根节点
+      this._routerRoot = this
+      this._router = this.$options.router //将全局VueRouter实例挂载
+      this._router.init(this) //将_route绑定history change
+      Vue.util.defineReactive(this, "_route", this._router.history.current) //将_route设为响应式
+    } else {
+      this._routerRoot = (this.$parent && this.$parent._routerRoot) || this // 每个实例都获取到根routerRoot实例
+    }
+    registerInstance(this, this)
+  },
+  destroyed: function destroyed() {
+    registerInstance(this)
+  },
+})
+
+Object.defineProperty(Vue.prototype, "$router", {
+  get: function get() {
+    return this._routerRoot._router
+  },
+})
+
+Object.defineProperty(Vue.prototype, "$route", {
+  get: function get() {
+    return this._routerRoot._route
+  },
+})
+
+Vue.component("RouterView", View)
+Vue.component("RouterLink", Link)
+```
+
+-_example_
+
+```js
+Vue.use(Router)
+
+const router = new Router({
+  mode: "hash",
+  base: process.env.BASE_URL,
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRouterMap,
+})
+
+new Vue({
+  router,
+  store,
+  created() {
+    bootstrap()
+  },
+  render: h => h(App),
+}).$mount("#app")
+```
+
+#### 把全局 router 绑定在每个实例中
+
+每个实例都能通过\_routerRoot 访问`router`与`route`
+
+#### 将 url 的变化绑定实例的 route,并将 route 设为响应式
+
+```js
+history.listen(function(route) {
+  this$1.apps.forEach(function(app) {
+    app._route = route
+  })
+})
+```
