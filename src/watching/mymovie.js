@@ -114,6 +114,13 @@ const myMovies = [
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p477821688.jpg",
     shortComment: "和喜欢的人在一起与被喜欢的人喜欢，似乎后者才是更多人追求的爱情",
   }, 
+  {
+    title: "Pride & Prejudice",
+    src: "https://movie.douban.com/subject/1418200/",
+    img:
+      "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2016401659.jpg",
+    shortComment: "在地位与财富的不平等的土壤上，灰姑娘的故事将一直上演",
+  }, 
 ]
 
 export default myMovies
