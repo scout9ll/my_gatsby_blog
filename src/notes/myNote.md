@@ -4937,3 +4937,13 @@ history.listen(function(route) {
   })
 })
 ```
+
+### 前端攻击的主要方式
+
+#### XXS(Cross-Site Scripting)
+
+主要是通过主动对页面注入脚本来实现攻击
+
+#### CSRF(Cross—Site Request Forgery)
+
+主要是通过诱导用户点击后端的某个接口来实现攻击
