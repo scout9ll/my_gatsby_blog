@@ -783,8 +783,8 @@ Object.prototype.toString.call(null) //"[object null]"
 
 #### 用法
 
-- 若 package.json 发生更新后,`npm install`将根据`package.json` install(注意，`npm ci` 在安装前会自动清除现存的 `node_modules`，所以 npm ci 天然规避了增量安装可能带来的不一致性等问题)
-- 若希望使用最初的锁定版本,则使用 `npm ci`下载`package-lock.json`中的依赖
+- 若 package.json 发生更新后,`npm install`将根据`package.json` install
+- 若希望使用最初的锁定版本,则使用 `npm ci`下载`package-lock.json`中的依赖(注意，`npm ci` 在安装前会自动清除现存的 `node_modules`，所以 npm ci 天然规避了增量安装可能带来的不一致性等问题)
 
 ## week 9
 
