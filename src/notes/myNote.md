@@ -2019,7 +2019,7 @@ methodsToPatch.forEach(function(method) {
     var result = original.apply(this, args)
     var ob = this.__ob__
     var inserted
-    switch (method) {
+    switch (method) {    // 对插入的数据进行响应式化
       case "push":
       case "unshift":
         inserted = args
@@ -2040,7 +2040,7 @@ methodsToPatch.forEach(function(method) {
 /*  */
 ```
 
-原来,vue 对数组的一些方法进行了拦截,当遇到`pop`,`push`等时,执行 dep.notify
+原来,vue 对数组的一些方法进行了重写,对插入的数据进行响应式化，并对这些方面都会执行 dep.notify,触发watcher
 
 ### linux 命令
 
