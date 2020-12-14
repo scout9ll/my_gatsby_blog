@@ -121,6 +121,13 @@ const myMovies = [
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2016401659.jpg",
     shortComment: "在地位与财富的不平等的土壤上，灰姑娘的故事将一直上演",
   }, 
+  {
+    title: "Portrait de la jeune fille en feu",
+    src: "https://movie.douban.com/subject/30257175/",
+    img:
+      "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2568318727.jpg",
+    shortComment: "俄耳普斯的回头是真爱也是无奈",
+  }, 
 ]
 
 export default myMovies
