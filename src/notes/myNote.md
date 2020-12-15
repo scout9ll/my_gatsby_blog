@@ -1266,6 +1266,31 @@ Redis 是一个使用 ANSI C 语言编写、支持网络、可基于内存亦可
 
 - redis 会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了 master-slave(主从)同步。
 
+#### redis 应用场景
+
+- 缓存中间件
+
+用做服务器缓存，耗时操作得到数据后存入 redis，此后的请求都可以直接从 redis 取数据
+
+```js
+const heavyCompute= ()=>{
+//...
+}
+
+function (req,res){
+  try{
+    const reply = redis.get('key')
+    if(reply){
+      res.send(reply)
+    }else{
+      const newReply = heavyCompute()
+      redis.set('key',newReply)
+      res.send(newReply)
+    }
+  }
+}
+```
+
 ### AI 为什么用 python
 
 python 作为一个运行效率在所有语言中倒数的语言为什么成为了 AI 这种主要是计算数据的任务的主流语言?
@@ -1890,18 +1915,11 @@ const exampleCp = new Vue({
   functional: true,
   props: ["tags"],
   render(h) {
-    return h(
-      "div",
-      this.tags.map((e, i) => h(e, i))
-    )
+    return h("div", this.tags.map((e, i) => h(e, i)))
   },
 })
 
-const exampleFn = (h, data) =>
-  h(
-    "div",
-    data.props.tags.map((e, i) => h(e, i))
-  )
+const exampleFn = (h, data) => h("div", data.props.tags.map((e, i) => h(e, i)))
 ```
 
 #### 在 jsx 中
@@ -2019,7 +2037,9 @@ methodsToPatch.forEach(function(method) {
     var result = original.apply(this, args)
     var ob = this.__ob__
     var inserted
-    switch (method) {    // 对插入的数据进行响应式化
+    switch (
+      method // 对插入的数据进行响应式化
+    ) {
       case "push":
       case "unshift":
         inserted = args
@@ -2040,7 +2060,7 @@ methodsToPatch.forEach(function(method) {
 /*  */
 ```
 
-原来,vue 对数组的一些方法进行了重写,对插入的数据进行响应式化，并对这些方面都会执行 dep.notify,触发watcher
+原来,vue 对数组的一些方法进行了重写,对插入的数据进行响应式化，并对这些方面都会执行 dep.notify,触发 watcher
 
 ### linux 命令
 
@@ -4401,10 +4421,9 @@ declare global {
 `??`又称空位合并符 是 ES2020 的新特性，如下面代码，似乎与`||`相似，那么它们有什么异同点呢
 
 ```js
-let valueA ;
-let valueB = 1 ;
+let valueA
+let valueB = 1
 valueA ?? valueB == valueA || valueB
-
 ```
 
 #### 都是非 A 则 B
