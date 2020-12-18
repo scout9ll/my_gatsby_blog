@@ -4966,3 +4966,27 @@ history.listen(function(route) {
 #### CSRF(Cross—Site Request Forgery)
 
 主要是通过诱导用户点击后端的某个接口来实现攻击
+
+### react 中的可变与不可变
+
+#### mutable
+
+- component
+
+  - this
+
+- hooks
+  - useRef
+  - useReducer
+
+#### immutable
+
+- component
+
+  - props
+  - state
+
+- hooks
+  - useState
+
+> both these immutables are shallow,it means that preProps.prop != props.prop ,but maybe preProps.prop.arrayData == props.prop.arrayData
