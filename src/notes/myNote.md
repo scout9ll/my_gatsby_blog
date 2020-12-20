@@ -5019,7 +5019,6 @@ history.listen(function(route) {
 #### mutable
 
 - component
-
   - this
 
 - hooks
@@ -5029,7 +5028,6 @@ history.listen(function(route) {
 #### immutable
 
 - component
-
   - props
   - state
 
@@ -5041,3 +5039,7 @@ history.listen(function(route) {
 ### express 与 koa 中间件的实现区别
 
 <!-- todo -->
+### BFF
+
+Back-end For Front-end 服务于前端的后端，`Graphql`可以被认为是其的一种实现
+<!-- TODO -->
