@@ -248,8 +248,6 @@ graphql(schema, query).then(result => console.log(result))
 
 正如上面提到的，你可以通过 SDL 字符串创建一个`GraphQLSchema`实例，但是这个缺少`resolve`函数，我们只能手动给`schema`的字段添加`resolver`才能让`GraphQLSchema`可执行
 
-graphql-tools fills this gap with one important piece of functionality: addResolveFunctionsToSchema. This is very useful as it can be used to provide a nicer, SDL-based API for creating your schema. And that’s precisely what graphql-tools does with makeExecutableSchema:
-
 而`graphql-tools`则存在`addResolveFunctionsToSchema`这一函数填补了这个缺陷。这非常有用，因为它提供了更好的已 SDL 创建`schema`的接口形式，而这正是 `graphql-tools` 在 `makeExecutableSchema` 中所做的
 
 ```graphql

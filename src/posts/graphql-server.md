@@ -39,7 +39,7 @@ app.get("/", function(req, res) {
 app.listen(3000)
 ```
 
-在用`node.js`执行该脚本后，你可以在浏览器中访问http://localhost:3000
+在用`node.js`执行该脚本后，你可以在浏览器中访问[http://localhost:3000](http://localhost:3000)
 
 你可以简单的给你的服务 API 添加更多的端口(也称路由)
 
@@ -96,9 +96,7 @@ Express 提供了处理 HTTP 请求所需的一切，而 GraphQL.js 提供了解
 ### `express-graphql` : FaceBook 推出的 GraphQL 中间件
 
 `express-graphql` 是 Facebook 推出在 Express 和 GraphQL 上使用的中间件。如果你看一下它的源码，你会发现它的核心功能的实现只用了几行代码
-express-graphql is Facebook’s version for GraphQL middleware that can be used with Express and GraphQL.js. If you take a look at its source code, you’ll notice that its core functionality is implemented in only a few lines of code.
 
-Really, its main responsibility is twofold:
 实际上，它主要的责任有两个：
 
 - 保证在 POST 请求体中的`query`或者`mutation`可以被 GraphQL.js 执行。所以它需要解析到`query`并将其转发给 graphql 的执行函数
@@ -137,8 +135,6 @@ app.listen(4000)
 > 用 node 执行这段代码，G 服务将开启在`http://localhost:4000/graphql`
 
 如果你有看过上篇文章中的 GraphQL schema,你会非常清楚上面第 7 行到第 18 行代码的作用：我们构建了一个可以执行下面`query`的 `GraphQLSchema`
-
-If you’ve read the previous article on the GraphQL schema, you’ll have a pretty good understanding what the lines 7 to 18 are being used for: We build a GraphQLSchema that can execute the following query:
 
 ```graphql
 query {
