@@ -4519,7 +4519,7 @@ it means we cut off the size of 100\*100(`100 100`) vector graphics from the top
 #### 谷歌为什么创造了 GO
 
 - python easy to use,but slow
-- jave has increasingly complex type system
+- java has increasingly complex type system
 - c/c++ has complex type system and low compile speed
 
 #### Go 的特点
