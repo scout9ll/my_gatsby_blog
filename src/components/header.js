@@ -16,9 +16,8 @@ const Header = ({ siteTitle }) => {
     <header
       style={
         acNav ||
-        (href.split("/") &&
-          (href.split("/").includes("about") ||
-            href.split("/").includes("essay")))
+          (href.split("/")?.includes("about") ||
+            href.split("/")?.includes("essay"))
           ? {
               background: "#fecd0ee3",
 
@@ -31,7 +30,7 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/blog"
           className={
-            href.split("/") && href.split("/").includes("blog")
+            href.split("/")?.includes("blog")
               ? "nav-active"
               : ""
           }
@@ -41,7 +40,7 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/notes"
           className={
-            href.split("/") && href.split("/").includes("notes")
+            href.split("/")?.includes("notes")
               ? "nav-active"
               : ""
           }
@@ -54,7 +53,7 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/essay"
           className={
-            href.split("/") && href.split("/").includes("essay")
+            href.split("/")?.includes("essay")
               ? "nav-active"
               : ""
           }
@@ -64,7 +63,7 @@ const Header = ({ siteTitle }) => {
         <Link
           to="/about"
           className={
-            href.split("/") && href.split("/").includes("about")
+            href.split("/")?.includes("about")
               ? "nav-active"
               : ""
           }
