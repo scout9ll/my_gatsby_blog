@@ -2550,7 +2550,7 @@ cross-env NODE_ENV=production node build.js #adapt all apply by `cross-env`
 ```
 
 - 在 npm 中声明时
-  > 表示`process.env.env.npm_config_project=testProject`
+  > 表示`process.env.npm_config_project=testProject`
 
 ```bash
 npm run serve --project=testProject
