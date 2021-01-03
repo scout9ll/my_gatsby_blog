@@ -922,6 +922,7 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 ### preload 和 prefetch
 
+_!!!wrong_
 明白预加载和预获取需要首先清楚浏览器使用资源的流程  
 其流程基本可以分为两个部分 Network Transmisson(资源的网络传输) | Resource Processing (资源处理、加工、执行)
 
@@ -930,10 +931,14 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 ![webGL](../images/resource-load.jpg)
 
+_right_
+`preload`和`prefetch`都不会自动执行，`preload`只是会提前针对`as`解析,在下次使用时直接从内存中调用执行。`prefetch`不会提前解析，在下次使用时从`prefetch`缓存中 load 数据再执行。  
+[https://w3c.github.io/preload](https://w3c.github.io/preload/#early-fetch-and-application-defined-executio)
+
 #### preload
 
 - 定义
-  优先预加载，_优先级高_，可以在 render tree 时候异步下载(transmission)，但不会执行导致 render 阻塞，在 render 完后执行(processing)
+  优先预加载，_优先级高_，可以在 render tree 时候异步下载(transmission)，但不会执行导致 render 阻塞，在 render 完后执行可以执行`onload`方法
 
 - 用法  
   `<link rel="preload" href="..." as="..." type="..." onload="preloadFinished()">`
@@ -942,7 +947,7 @@ axios.`get/post...`中设置 authorization 没用,需要用`axios({ method:"", u
 
 #### prefetch
 
-- 预获取，_优先级低_,将在页面加载完成后提前下载但不会加载执行(processing)，作为下一页的部分，调取时执行(processing)
+- 预获取，_优先级低_,将在页面加载完成后提前下载
 
 - 用法与 preload 基本一致
 
@@ -5009,7 +5014,9 @@ history.listen(function(route) {
 
 ### react 中的可变对象与不可变对象
 
-可变对象指在创建后可以进行修改，不可变对象则不可修改。react 遵循每个元素都是不可变的原则，保证每次的试图更新都是全新的一帧，所以在`state`和`prop`的设计上都是不可变的。
+可变对象指在创建后的内容可以进行修改，不可变对象则不可修改。react 遵循每个元素都是不可变的原则，保证每次的试图更新都是全新的一帧，所以在`state`和`prop`的设计上都是不可变的。
+
+> 在 js 中除引用类型外的数据类型都是不可变的
 
 #### mutable
 
@@ -5042,3 +5049,5 @@ history.listen(function(route) {
 Back-end For Front-end 服务于前端的后端，`Graphql`可以被认为是其的一种实现
 
 <!-- TODO -->
+
+<!-- service worker -->
