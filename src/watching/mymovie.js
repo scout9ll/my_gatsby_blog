@@ -119,7 +119,7 @@ const myMovies = [
     src: "https://movie.douban.com/subject/1418200/",
     img:
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2016401659.jpg",
-    shortComment: "在地位与财富的不平等的土壤上，灰姑娘的故事将一直上演",
+    shortComment: "在地位与财富不平等的土壤上，灰姑娘的故事将一直上演",
   }, 
   {
     title: "Portrait de la jeune fille en feu",
@@ -127,6 +127,13 @@ const myMovies = [
     img:
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2568318727.jpg",
     shortComment: "俄耳普斯的回头是真爱也是无奈",
+  }, 
+  {
+    title: "The Kite Runner",
+    src: "https://movie.douban.com/subject/1937502/",
+    img:
+      "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p956325412.jpg",
+    shortComment: "一部为阿富汗战争提供正当性的政治片,不过无法不动容于导演镜头下那对少年的友情",
   }, 
 ]
 
