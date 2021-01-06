@@ -753,8 +753,8 @@ interface WatcherProperty{
 ```ts
   update () {
     /* istanbul ignore else */
-    if (this.lazy) {
-      this.dirty = true //computed属性的get访问属性会判断dirty来是否调用
+    if (this.lazy) { // computedWatchers专属
+      this.dirty = true //   computed属性的get访问属性会判断dirty来是否调用
     } else if (this.sync) {
       this.run() //立即触发mutation
     } else {
@@ -1960,11 +1960,18 @@ const exampleCp = new Vue({
   functional: true,
   props: ["tags"],
   render(h) {
-    return h("div", this.tags.map((e, i) => h(e, i)))
+    return h(
+      "div",
+      this.tags.map((e, i) => h(e, i))
+    )
   },
 })
 
-const exampleFn = (h, data) => h("div", data.props.tags.map((e, i) => h(e, i)))
+const exampleFn = (h, data) =>
+  h(
+    "div",
+    data.props.tags.map((e, i) => h(e, i))
+  )
 ```
 
 #### 在 jsx 中
@@ -5040,9 +5047,163 @@ history.listen(function(route) {
 
 > both these immutables are shallow,it means that preProps.prop != props.prop ,but maybe preProps.prop.arrayData == props.prop.arrayData
 
-### express 与 koa 中间件的实现区别
+### some differences between express and koa
 
-<!-- todo -->
+这里根据`express`和`koa`的执行流程这一维度，针对各个环节来看看它们之间的区别
+
+先放关键的源码
+
+```js
+// 收集中间件的实现
+proto.use = function use(fn) {
+  var offset = 0
+  var path = "/"
+
+  // default path to '/'
+  // disambiguate router.use([fn])
+  if (typeof fn !== "function") {
+    var arg = fn
+
+    while (Array.isArray(arg) && arg.length !== 0) {
+      arg = arg[0]
+    }
+
+    // first arg is the path
+    if (typeof arg !== "function") {
+      offset = 1
+      path = fn
+    }
+  }
+
+  var callbacks = flatten(slice.call(arguments, offset))
+
+  for (var i = 0; i < callbacks.length; i++) {
+    var fn = callbacks[i]
+
+    // add the middleware
+    var layer = new Layer(
+      path,
+      {
+        sensitive: this.caseSensitive,
+        strict: false,
+        end: false,
+      },
+      fn
+    )
+
+    layer.route = undefined
+
+    this.stack.push(layer)
+  }
+
+  return this
+}
+
+// 请求的handler实现
+proto.handle = function handle(req, res, out) {
+  var self = this
+  var idx = 0
+
+  // middleware and routes
+  var stack = self.stack
+
+  next()
+
+  function next(err) {
+    // find next matching layer
+    var layer
+    var match
+    var route
+    //....
+    while (match !== true && idx < stack.length) {
+      layer = stack[idx++] //通过闭包维持stack的唯一引用
+      match = matchLayer(layer, path)
+      route = layer.route
+      var method = req.method
+      var has_method = route._handles_method(method)
+
+      // build up automatic options response
+      if (!has_method && method === "OPTIONS") {
+        appendMethods(options, route._options())
+      }
+
+      // don't even bother matching route
+      if (!has_method && method !== "HEAD") {
+        match = false
+        continue
+      }
+    }
+
+    // no match
+    if (match !== true) {
+      return done(layerError)
+    }
+
+    // store route for dispatch on change
+    if (route) {
+      req.route = route
+    }
+
+    // Capture one-time layer values
+    req.params = self.mergeParams
+      ? mergeParams(layer.params, parentParams)
+      : layer.params
+    var layerPath = layer.path
+
+    // this should be done for the layer
+    self.process_params(layer, paramcalled, req, res, function(err) {
+      if (err) {
+        return next(layerError || err)
+      }
+
+      if (route) {
+        return layer.handle_request(req, res, next)
+      }
+
+      trim_prefix(layer, layerError, layerPath, path)
+    })
+  }
+
+  function trim_prefix(layer, layerError, layerPath, path) {
+    // ....
+    if (layerError) {
+      layer.handle_error(layerError, req, res, next)
+    } else {
+      layer.handle_request(req, res, next)
+    }
+  }
+}
+
+// handle_request实现
+Layer.prototype.handle_request = function handle(req, res, next) {
+  var fn = this.handle
+
+  if (fn.length > 3) {
+    // not a standard request handler
+    return next()
+  }
+
+  try {
+    fn(req, res, next) // callback
+  } catch (err) {
+    next(err)
+  }
+}
+```
+
+#### collect middleware
+
+_express_  
+`express`通过`use`和`route`收集所有的`middleware`,`middleware`都会被封装成`layer`存入 router 实例的`stack`中
+
+#### handle request
+
+_express_  
+`express`通过`handle`闭包`stack`,递归执行`next`:升序遍历`stack`中的`layer`，若路由匹配(`layer.match`)则`handle_request`。
+
+#### dispatch response
+
+`express`通过`res.send`等在中间件中调用后直接返回`response`至客户端
 
 ### BFF
 
