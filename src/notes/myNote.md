@@ -3272,7 +3272,7 @@ schema(`ˈskiːmə`)是 database 关系的模式，主要表示*关系*
 > 事件循环是 Node.js 处理非阻塞 I/O 操作的机制——尽管 JavaScript 是单线程处理的——当有可能的时候，它们会把操作转移到系统内核中去。  
 > 既然目前大多数内核都是多线程的，它们可在后台处理多种操作。当其中的一个操作完成的时候，内核通知 Node.js 将适合的回调函数添加到*轮询队列*中等待时机执行。
 
-node 内核每次进行一次以下的轮询：
+node 内核每次进行一次以下的阶段循环：
 
 - 定时器：本阶段执行已经被 setTimeout() 和 setInterval() 的调度回调函数。
 - 待定回调：执行延迟到下一个循环迭代的 I/O 回调。
@@ -3281,7 +3281,9 @@ node 内核每次进行一次以下的轮询：
 - 检测：setImmediate() 回调函数在这里执行。  
   _使用 setImmediate() 相对于 setTimeout() 的主要优势是，如果 setImmediate()是在 `I/O` 周期内被调度的，那它将会在其中任何的定时器之前执行，跟这里存在多少个定时器无关_
 - 关闭的回调函数：一些关闭的回调函数，如：socket.on('close', ...)。  
-  _其余的 close 回调由`process.nextTick()`执行，`process.nextTick`在脚本运行完毕,事件循环开始前执行。因此`process.nextTick()`快于`setImmediate()`的执行_
+  ~~_其余的 close 回调由`process.nextTick()`执行，`process.nextTick`在脚本运行完毕,事件循环开始前执行。因此`process.nextTick()`快于`setImmediate()`的执行_~~
+
+>`process.nextTick`也经常在node事件循环中提到，但它实际上并不属于事件循环的任一阶段，它会在所处的任一阶段结束后立即执行，甚至比`I/O`事件中的`setImmediate`还要先执行。
 
 ## week 24
 
