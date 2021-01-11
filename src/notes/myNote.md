@@ -4349,8 +4349,6 @@ function getMetadata(
 
 ### Vue Class Component
 
-//TODO
-
 #### what is it
 
 提供了用 class 形式写 vue 组件的能力
