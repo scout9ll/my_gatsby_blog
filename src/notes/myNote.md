@@ -2,8 +2,8 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2020-10-17"
-words: "96694"
+lastTime: "2021-1-13"
+words: "116694"
 ---
 
 ## week 1
@@ -960,7 +960,7 @@ _right_
 给 script 标签设置`defer`和`async`也能延迟 load,两者都能异步 load(在解析 css,html 文件时下载，不阻塞 dom 的构建)
 
 - `async`*该 JS 文件*load 完后才执行该文件，`DCL(DomContentLoaded)`不涉及该文件的执行
-- `defer`*页面解析parsing*完后才执行该文件，但在`DCL`之前需执行(详见[whatwg](https://html.spec.whatwg.org/#the-end))
+- `defer`*页面解析 parsing*完后才执行该文件，但在`DCL`之前需执行(详见[whatwg](https://html.spec.whatwg.org/#the-end))
 
 ### lazy-load
 
@@ -3278,13 +3278,13 @@ node 内核每次进行一次以下的阶段循环：
 - 待定回调：执行延迟到下一个循环迭代的 I/O 回调。
 - idle, prepare：仅系统内部使用。
 - 轮询：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，那些由计时器和 setImmediate() 调度的之外），其余情况 node 将在适当的时候在此阻塞。
-  > 轮询的时间由最近的`timer`决定，例如有一个`setTimeout(fn,1000)`，那么轮询阶段持续的时间至少有1000ms
+  > 轮询的时间由最近的`timer`决定，例如有一个`setTimeout(fn,1000)`，那么轮询阶段持续的时间至少有 1000ms
 - 检测：setImmediate() 回调函数在这里执行。  
   _使用 setImmediate() 相对于 setTimeout() 的主要优势是，如果 setImmediate()是在 `I/O` 周期内被调度的，那它将会在其中任何的定时器之前执行，跟这里存在多少个定时器无关_
 - 关闭的回调函数：一些关闭的回调函数，如：socket.on('close', ...)。  
   ~~_其余的 close 回调由`process.nextTick()`执行，`process.nextTick`在脚本运行完毕,事件循环开始前执行。因此`process.nextTick()`快于`setImmediate()`的执行_~~
 
->`process.nextTick`也经常在node事件循环中提到，但它实际上并不属于事件循环的任一阶段，它会在所处的任一阶段结束后立即执行，所以比`I/O`事件中的`setImmediate`还要先执行。
+> `process.nextTick`也经常在 node 事件循环中提到，但它实际上并不属于事件循环的任一阶段，它会在所处的任一阶段结束后立即执行，所以比`I/O`事件中的`setImmediate`还要先执行。
 
 ## week 24
 
@@ -5110,6 +5110,7 @@ proto.handle = function handle(req, res, out) {
 
   next()
 
+  // next 是同步函数
   function next(err) {
     // find next matching layer
     var layer
@@ -5204,7 +5205,11 @@ _express_
 
 #### dispatch response
 
-`express`通过`res.send`等在中间件中调用后直接返回`response`至客户端
+_express_  
+`express`通过`res.send`等在中间件中调用后*立即*返回`response`至客户端
+
+_koa_  
+`koa`会在执行完所有中间件后拿到`ctx`，分析`ctx`中的内容分发响应
 
 ### BFF
 
@@ -5221,4 +5226,5 @@ Back-end For Front-end 服务于前端的后端，`Graphql`可以被认为是其
 对于微信小程序这样不开放不开源的端，我们可以先把用 React/vue 代码分析成一颗抽象语法树，根据这颗树生成小程序支持的模板代码，再做一个小程序运行时框架处理事件和生命周期与小程序框架兼容，然后把业务代码跑在运行时框架就完成了小程序端的适配。
 
 ### 浏览器性能指标
+
 <!-- todo -->
