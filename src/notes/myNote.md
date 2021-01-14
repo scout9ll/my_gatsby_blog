@@ -5227,4 +5227,57 @@ Back-end For Front-end 服务于前端的后端，`Graphql`可以被认为是其
 
 ### 浏览器性能指标
 
-<!-- todo -->
+根据浏览器开始访问一个 url 到页面完全渲染经历的所有阶段，我们可以取其中几个关键的阶段作为需要关注的指标，这些阶段的数据都可以通过浏览器提供的`perfermance`接口拿到。
+
+通过观察各个指标的数据，我们可以针对性的做一些优化。
+
+#### Redirect
+
+网页重定向的耗时
+
+#### AppCache
+
+检查本地缓存的耗时
+
+#### DNS lookup
+
+DNS 查询的耗时
+
+#### TCP connect
+
+TCP 连接的耗时
+
+#### Waiting(TTFB)
+
+从客户端发起请求到接收到响应的时间 / [Time to First Byte (TTFB)](https://web.dev/time-to-first-byte/)，
+
+#### Content Download
+
+下载服务端返回数据的时间
+
+#### DOMContentLoaded(DCL)
+
+HTML parsing 完成、dom 及`will-excute-script`加载完成的时间，此时页面完成一个交互（可交互状态？好像不是有专门的[TTI](https://web.dev/tti/)指标）
+
+#### Loaded
+
+页面所有`subsource`（图片，异步脚本等）加载完毕，页面处于`complete`状态。
+
+> _以上都是涉及资源加载的指标，除此之外页面的绘制及交互也是特别关键的指标，我们可以参考[web-vitals](https://github.com/GoogleChrome/web-vitals)判断的指标_
+
+#### Cumulative Layout Shift (CLS)
+
+累积的 layout 位移（CLS）是衡量用户视觉稳定性的一项重要的以用户为中心的度量标准，因为它有助于量化用户经历意外的 Layout 移位的频率-较低的 CLS 有助于确保页面令人愉悦。
+
+#### First Input Delay (FID)
+
+首次输入延迟（FID）是衡量用户负载响应能力的一项重要的以用户为中心的度量标准，因为它可以量化用户在尝试与无响应的页面进行交互时的体验，低的 FID 有助于确保页面可用。
+
+#### First Contentful Paint (FCP)
+
+First Contentful Paint（FCP）是一项重要的以用户为中心的指标，用于衡量感知的加载速度，因为它标记了页面加载时间轴中用户可以在屏幕上看到的任何内容的第一点–快速的 FCP 可以帮助用户确定是否有东西 发生。  
+FCP 度量标准衡量从页面开始加载到屏幕上呈现页面内容的任何部分的时间。 对于此度量标准，“内容”是指文本，图像（包括背景图像），<svg>元素或非白色<canvas>元素。
+
+#### Largest Contentful Paint (LCP)
+
+最大内容绘制（LCP）是衡量用户感知加载速度的重要，以用户为中心的度量标准，因为它标记了页面主要内容可能已加载时页面加载时间线中的时间点-快速的 LCP 有助于使用户确信页面`useful` .
