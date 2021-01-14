@@ -98,7 +98,8 @@ const myMovies = [
     src: "https://movie.douban.com/subject/27202818/",
     img:
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2571760178.jpg",
-    shortComment: "一段真实而直白的婚姻故事背后是全世界夫妻都存在的困境————婚姻保存不了爱情",
+    shortComment:
+      "一段真实而直白的婚姻故事背后是全世界夫妻都存在的困境————婚姻保存不了爱情",
   },
   {
     title: "出租车 تاکسی",
@@ -112,29 +113,38 @@ const myMovies = [
     src: "https://movie.douban.com/subject/2161696/",
     img:
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p477821688.jpg",
-    shortComment: "和喜欢的人在一起与被喜欢的人喜欢，似乎后者才是更多人追求的爱情",
-  }, 
+    shortComment:
+      "和喜欢的人在一起与被喜欢的人喜欢，似乎后者才是更多人追求的爱情",
+  },
   {
     title: "Pride & Prejudice",
     src: "https://movie.douban.com/subject/1418200/",
     img:
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2016401659.jpg",
     shortComment: "在地位与财富不平等的土壤上，灰姑娘的故事将一直上演",
-  }, 
+  },
   {
     title: "Portrait de la jeune fille en feu",
     src: "https://movie.douban.com/subject/30257175/",
     img:
       "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2568318727.jpg",
     shortComment: "俄耳普斯的回头是真爱也是无奈",
-  }, 
+  },
   {
     title: "The Kite Runner",
     src: "https://movie.douban.com/subject/1937502/",
     img:
       "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p956325412.jpg",
-    shortComment: "一部为阿富汗战争提供正当性的政治片,不过无法不动容于导演镜头下那对少年的友情",
-  }, 
+    shortComment:
+      "一部为阿富汗战争提供正当性的政治片,不过无法不动容于导演镜头下那对少年的友情",
+  },
+  {
+    title: "Lord Of War",
+    src: "https://movie.douban.com/subject/1419936/",
+    img:
+      "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p792282381.jpg",
+    shortComment: "敌人的敌人是朋友，你的天使可能是别人的恶魔",
+  },
 ]
 
 export default myMovies
