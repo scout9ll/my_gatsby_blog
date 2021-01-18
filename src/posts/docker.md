@@ -40,7 +40,7 @@ Docker 镜像仓库存储 Docker 镜像。Docker Hub 是一个任何人都可以
 
 镜像是一个只读的模板，带有创建 Docker 容器的指令。通常，一个镜像基于另一个镜像，并带有一些额外的定制。例如，您可以构建一个基于 ubuntu 镜像的镜像，但要安装 Apache web 服务器和您的应用程序，以及运行应用程序所需的配置细节。
 
-您可以创建自己的镜像，也可以仅使用其他人创建并在`docker hub`上发布的镜像。 要构建自己的镜像，您可以使用简单的语法创建一个 `Dockerfile`，以定义创建镜像并运行它所需的步骤。 `Dockerfile` 中的每条指令都会在镜像中创建一个层。 当你更改 `Dockerfile` 并重建镜像时，_仅重建那些已更改的层_。 与其他虚拟化技术相比，这是使镜像如此轻巧，小型和快速的部分原因。
+您可以创建自己的镜像，也可以仅使用其他人在`docker hub`上发布的镜像。 要构建自己的镜像，您可以使用简单的语法创建一个 `Dockerfile`，以定义创建镜像并运行它所需的步骤。 `Dockerfile` 中的每条指令都会在镜像中创建一个层。 当你更改 `Dockerfile` 并重建镜像时，_仅重建那些已更改的层_。 与其他虚拟化技术相比，这是使镜像如此轻巧，小型和快速的部分原因。
 
 #### 容器(`container`)
 
@@ -64,7 +64,7 @@ Docker 镜像仓库存储 Docker 镜像。Docker Hub 是一个任何人都可以
 ![docker-volume-share](https://docs.docker.com/storage/images/volumes-shared-storage.svg)
 ![docker-volume](https://steve911.oss-cn-shanghai.aliyuncs.com/image/docker-volume.png)
 
-## run docker
+## 使用 docker 的关键步骤
 
 ### Installation & Tooling
 
@@ -72,7 +72,7 @@ Docker 镜像仓库存储 Docker 镜像。Docker Hub 是一个任何人都可以
 
 ### Build an Image
 
-- 创建 dockerFile,其决定如何构建镜像
+- 创建 Dockerfile,其决定如何构建镜像
 - 执行 docker build
 
   ```sh
@@ -102,6 +102,42 @@ inspect
 
 ### 统一环境开发
 
-将业务代码作为`volume`，完美实现以容器替换过去本地系统服务开发的方式
+将业务代码作为`volume`，使运行在容器内的前端应用根据主机的业务代码进行编译运行及监听，保证开发时的热加载，完美替换过去的开发模式。
+
+这里使用以 vite 构建（`npm init vite-app vite-docker`）的 vue3 为模板项目
+
+然后我们`cd vite-docker`进入项目文件，极速搭建一个 docker 容器的开发环境
+
+- step1:创建`Dockerfile`
+
+```Dockerfile
+FROM node:12
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+```
+
+- step2:构建镜像
+
+```sh
+ docker build -t scout911/vite-vue:1.0 .
+```
+
+这里构建了一个名为scout911/vite-vue:1.0的镜像
+
+- step3:生成开发环境的容器
+
+```sh
+ docker run -v /home/practice/docker/docker-test/vite-docker/src:/app/src  -p 3000:3000  scout911/vite-vue:1.0  npm run dev
+```
+
+这里我们通过`-v`将容器内的src文件被挂载到本地主机的src文件，这样我们就可直接修改本地的文件来进行调试开发
 
 ### 统一环境部署
+
+将前端应用构建在与开发一致的容器环境中，保证构建内容的稳定统一，并能确保开发与部署的一致性。
