@@ -812,11 +812,14 @@ Object.prototype.toString.call(null) //"[object null]"
 #### 区别
 
 - package.json 是 install XX 的直接依赖,并随着 install 的改变,版本前有`^`号表示可以用之后的最新版本
-- package-lock.json 是 package.json 生成时候自动生成,包含 install 时的具体版本号,及其所有间接依赖,当之后 update 包时,直接依赖会更新,但间接依赖不更新
+
+- package-lock.json 是 package.json 生成时候自动生成,包含 install 时的具体版本号,及其所有间接依赖
+
+>任何更新node_modules和/或package.json依赖项的命令都会自动同步现有的锁文件。 这包括npm install，npm rm，npm update等。为防止发生此更新，您可以使用--no-save选项完全禁止保存，或者使用--no-shrinkwrap允许package.json在更新时 保持package-lock.json或npm-shrinkwrap.json不变,当之后 update 包时,直接依赖会更新,但间接依赖不更新
 
 #### 用法
 
-- 若 package.json 发生更新后,`npm install`将根据`package.json` install
+- 若 package.json 发生更新后,`npm install`将根据`package.json` 安装 .`npm install`的默认顺序是 npm-shrinkwrap.json > package-lock.json > package.json  
 - 若希望使用最初的锁定版本,则使用 `npm ci`下载`package-lock.json`中的依赖(注意，`npm ci` 在安装前会自动清除现存的 `node_modules`，所以 npm ci 天然规避了增量安装可能带来的不一致性等问题)
 
 ## week 9
@@ -1709,8 +1712,8 @@ JavaScript 代码有两种类型：一种是全局代
 
 #### github
 
-- git remote add origin git@github.com:nevermo2013/1905-git-demo.git 建立仓库的关联
-  - https 形式地址,一般需要用户名密码 `https://github.com/nevermo2013/1905-git-demo.git`
+- git remote add origin git@github.com:yourRerepo.git 建立仓库的关联
+  - https 形式地址,一般需要用户名密码 `https://github.com/yourRerepo.git`
   - ssh 形式地址
   - git remote remove origin 删除远程的源
 - git remote -v 查看仓库
@@ -5281,3 +5284,17 @@ FCP 度量标准衡量从页面开始加载到屏幕上呈现页面内容的任�
 #### Largest Contentful Paint (LCP)
 
 最大内容绘制（LCP）是衡量用户感知加载速度的重要，以用户为中心的度量标准，因为它标记了页面主要内容可能已加载时页面加载时间线中的时间点-快速的 LCP 有助于使用户确信页面`useful` .
+
+### Serverless + 前端部署
+
+<!-- todo -->
+
+#### why do we need serverless in deployment of Frontend
+
+<!-- - stable environment can ensure a constant output -->
+
+- flexble
+
+-
+
+#### How do we implement a serverless deployment
