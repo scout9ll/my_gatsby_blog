@@ -110,34 +110,36 @@ inspect
 
 - step1:创建`Dockerfile`
 
-```Dockerfile
-FROM node:12
+  ```Dockerfile
+  FROM node:12
 
-WORKDIR /app
+  WORKDIR /app
 
-COPY package*.json ./
+  COPY package*.json ./
 
-RUN npm install
+  RUN npm install
 
-COPY . .
-```
+  COPY . .
+  ```
 
 - step2:构建镜像
 
-```sh
- docker build -t scout911/vite-vue:1.0 .
-```
+  ```sh
+  docker build -t scout911/vite-vue:1.0 .
+  ```
 
-这里构建了一个名为scout911/vite-vue:1.0的镜像
+  这里构建了一个名为 scout911/vite-vue:1.0 的镜像
 
 - step3:生成开发环境的容器
 
-```sh
- docker run -v /home/practice/docker/docker-test/vite-docker/src:/app/src  -p 3000:3000  scout911/vite-vue:1.0  npm run dev
-```
+  ```sh
+  docker run -v /home/practice/docker/docker-test/vite-docker/src:/app/src  -p 3000:3000  scout911/vite-vue:1.0  npm run dev
+  ```
 
-这里我们通过`-v`将容器内的src文件被挂载到本地主机的src文件，这样我们就可直接修改本地的文件来进行调试开发
+  这里我们通过`-v`将容器内的 src 文件被挂载到本地主机的 src 文件，这样我们就可直接修改本地的文件来进行调试开发
 
 ### 统一环境部署
 
 将前端应用构建在与开发一致的容器环境中，保证构建内容的稳定统一，并能确保开发与部署的一致性。
+
+在容器内部署也非常简单，我们可以在上面的开发镜像的基础上加一个`nginx`就可以实现
