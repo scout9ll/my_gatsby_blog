@@ -6,11 +6,11 @@ Docker 是一个用于开发、发布和运行应用程序的开放平台。Dock
 
 ## 用 docker 来做什么
 
-### 快速、一致地交付应用程序
+- 快速、一致地交付应用程序
 
-### 响应式部署和扩展
+- 响应式部署和扩展
 
-### 在同一硬件上运行更多的工作负载
+- 在同一硬件上运行更多的工作负载
 
 ## docker 基本概念
 
@@ -68,7 +68,7 @@ Docker 镜像仓库存储 Docker 镜像。Docker Hub 是一个任何人都可以
 
 ### Installation & Tooling
 
-见官网
+[见官网](https://docs.docker.com/get-docker/)
 
 ### Build an Image
 
@@ -133,13 +133,19 @@ inspect
 - step3:生成开发环境的容器
 
   ```sh
-  docker run -v /home/practice/docker/docker-test/vite-docker/src:/app/src  -p 3000:3000  scout911/vite-vue:1.0  npm run dev
+  # linux
+  docker run -v $(pwd)/src:/app/src  -p 3000:3000  scout911/vite-vue:1.0  npm run dev
   ```
 
   这里我们通过`-v`将容器内的 src 文件被挂载到本地主机的 src 文件，这样我们就可直接修改本地的文件来进行调试开发
 
 ### 统一环境部署
 
-将前端应用构建在与开发一致的容器环境中，保证构建内容的稳定统一，并能确保开发与部署的一致性。
+将前端应用构建在与开发一致的`容器`环境中，确保了开发与生产的一致性，也保证的构建输出的唯一性。
 
-在容器内部署也非常简单，我们可以在上面的开发镜像的基础上加一个`nginx`就可以实现
+在现今前后端分离的模式下，我们前端的项目都是独立部署，一般有两种方式：
+
+- 通过静态代理在宿主机（例入 NGNIX）
+- 将前端文件上传到对象存储服务(例如阿里的 OSS,腾讯的 COS)
+
+这两种方式的区别在于对构建产物的处理方式。无论何种方式都可以结合`docker`的构建打包。
