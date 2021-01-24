@@ -815,11 +815,11 @@ Object.prototype.toString.call(null) //"[object null]"
 
 - package-lock.json 是 package.json 生成时候自动生成,包含 install 时的具体版本号,及其所有间接依赖
 
->任何更新node_modules和/或package.json依赖项的命令都会自动同步现有的锁文件。 这包括npm install，npm rm，npm update等。为防止发生此更新，您可以使用--no-save选项完全禁止保存，或者使用--no-shrinkwrap允许package.json在更新时 保持package-lock.json或npm-shrinkwrap.json不变,当之后 update 包时,直接依赖会更新,但间接依赖不更新
+> 任何更新 node_modules 和/或 package.json 依赖项的命令都会自动同步现有的锁文件。 这包括 npm install，npm rm，npm update 等。为防止发生此更新，您可以使用--no-save 选项完全禁止保存，或者使用--no-shrinkwrap 允许 package.json 在更新时 保持 package-lock.json 或 npm-shrinkwrap.json 不变,当之后 update 包时,直接依赖会更新,但间接依赖不更新
 
 #### 用法
 
-- 若 package.json 发生更新后,`npm install`将根据`package.json` 安装 .`npm install`的默认顺序是 npm-shrinkwrap.json > package-lock.json > package.json  
+- 若 package.json 发生更新后,`npm install`将根据`package.json` 安装 .`npm install`的默认顺序是 npm-shrinkwrap.json > package-lock.json > package.json
 - 若希望使用最初的锁定版本,则使用 `npm ci`下载`package-lock.json`中的依赖(注意，`npm ci` 在安装前会自动清除现存的 `node_modules`，所以 npm ci 天然规避了增量安装可能带来的不一致性等问题)
 
 ## week 9
@@ -1891,6 +1891,9 @@ funciton identityArr<T>(arg:T[]):T[]{
 ```
 
 - 泛型约束
+
+> `<T extends K>`
+> 使用`extends`来约束泛型`T`，泛型`T`必须是由`K`继承而来
 
 ```ts
 interface Lengthwise {
@@ -5298,3 +5301,13 @@ FCP 度量标准衡量从页面开始加载到屏幕上呈现页面内容的任�
 -
 
 #### How do we implement a serverless deployment
+
+### TS 高级类型
+
+#### Exclude
+
+#### Extract
+
+#### Pick
+
+#### ConstructorParameters
