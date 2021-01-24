@@ -59,10 +59,7 @@ Docker 镜像仓库存储 Docker 镜像。Docker Hub 是一个任何人都可以
 容器是由它的镜像以及你提供给它的任何配置选项定义的
 
 > 容器的运行模式 vs VM 的运行模式
-><div class="double-img" style="display:flex">
-  <img src="https://www.docker.com/sites/default/files/d8/2018-11/docker-containerized-appliction-blue-border_2.png" style="width:50%" loading="lazy" />
-  <img src="https://www.docker.com/sites/default/files/d8/2018-11/container-vm-whatcontainer_2.png" style="width:50%" loading="lazy" />
-</div>  
+> ![container-vs-vm](https://steve911.oss-cn-shanghai.aliyuncs.com/image/container-vs-vm.png)
 
 #### 卷(`volume`)
 
