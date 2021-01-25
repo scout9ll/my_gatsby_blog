@@ -1222,27 +1222,66 @@ Loaders 是用来告诉 webpack 如何转化处理某一类型的文件，并且
 
 > 常用 loader:`file-loader(deal png)`,`css-loader(deal style)`,`babel(deal es6)`
 
+loader 基本用法
+
+```ts
+function syncLoader(source: string, map) {
+  const options = require("loader-utils").getOptions(this)
+  const newSource = soureDealer(source)
+  return newSource
+}
+
+function asyncLoader(source) {
+  var callback = this.async()
+  var headerPath = path.resolve("header.js")
+
+  this.addDependency(headerPath)
+
+  fs.readFile(headerPath, "utf-8", function(err, header) {
+    if (err) return callback(err)
+    callback(null, header + "\n" + source)
+  })
+}
+```
+
 ##### plugin
 
 webpack 插件是一个具有 `apply` 属性的 `JavaScript` 对象。`apply` 属性会被 `webpack compiler` 调用，并且 `compiler` 对象可在整个编译生命周期访问。
 这个 apply 方法在安装插件时，会被 webpack compiler 调用一次。apply 方法可以接收一个 webpack compiler 对象的引用，从而可以在回调函数中访问到 compiler 对象。一个简单的插件结构如下：
 
+> compiler 和 compilation
+>
+> - compiler 时 webpack 构建实例，可以控制与监控构建流程
+> - compilation 是 compiler 构建中的编译时示例，主要涉及具体编译流程
+> compiler.hooks.compilation
+
+plugin 基本用法
+
 ```js
-function HelloWorldPlugin(options) {
-  // 使用 options 设置插件实例……
+class HelloCompilationPlugin {
+  apply(compiler) {
+    // Tap into compilation hook which gives compilation as argument to the callback function
+    compiler.hooks.compilation.tap('HelloCompilationPlugin', compilation => {
+      // Now we can tap into various hooks available through compilation
+      compilation.hooks.optimize.tap('HelloCompilationPlugin', () => {
+        console.log('Assets are being optimized.');
+      });
+    });
+  }
 }
 
-HelloWorldPlugin.prototype.apply = function(compiler) {
-  // 初始时通过apply将插件注入到 compiler周期钩子中
-  compiler.plugin("done", function(compilation) {
-    console.log("Hello World!")
-     // 现在，设置回调来访问 compilation(compiler的实例) 中的步骤：
-    compilation.plugin("optimize", function() {
-      console.log("Assets are being optimized.");
-  })
+class HelloAsyncPlugin {
+  apply(compiler) {
+    compiler.hooks.emit.tapAsync('HelloAsyncPlugin', (compilation, callback) => {
+      // Do something async...
+      setTimeout(function() {
+        console.log('Done with async work...');
+        callback();
+      }, 1000);
+    });
+  }
 }
 
-module.exports = HelloWorldPlugin
 ```
 
 > - 常用 plugin:`CommonsChunkPlugin (extract common module in different bundle)`,`HtmlWebpackPlugin(简单创建 HTML 文件，用于服务器访问)`,`UglifyJsPlugin(compress js file)`
