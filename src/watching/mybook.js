@@ -92,6 +92,12 @@ const mybooks = [
     img: "https://img3.doubanio.com/view/subject/s/public/s33712151.jpg",
     shortComment: "以精神分析与人本主义为导向的标准咨询模板"
   },
+  {
+    title: "English Patient",
+    src: "https://movie.douban.com/subject/1291853/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2408623752.jpg",
+    shortComment: "Every night I cut out my heart, but in the morning it was full again."
+  },
 ]
 
 export default mybooks
