@@ -300,7 +300,7 @@ reg.test(undefined) //返回true
 
 #### Iterables
 
-Iterables 意为可迭代的对象,当用`forEach`,`for of`时,会调用其[Symbol.iterator]方法(也可直接称作生成器`generator`),生成 iterator,然后依次调用`iterator.next()`完成迭代
+Iterables 意为可迭代的对象,当用`for of`时,会调用其[Symbol.iterator]方法(也可直接称作生成器`generator`),生成 iterator,然后依次调用`iterator.next()`完成迭代
 
 > `for of`内部实现
 
@@ -1253,7 +1253,7 @@ webpack 插件是一个具有 `apply` 属性的 `JavaScript` 对象。`apply` �
 >
 > - compiler 时 webpack 构建实例，可以控制与监控构建流程
 > - compilation 是 compiler 构建中的编译时示例，主要涉及具体编译流程
-> compiler.hooks.compilation
+>   compiler.hooks.compilation
 
 plugin 基本用法
 
@@ -1261,27 +1261,29 @@ plugin 基本用法
 class HelloCompilationPlugin {
   apply(compiler) {
     // Tap into compilation hook which gives compilation as argument to the callback function
-    compiler.hooks.compilation.tap('HelloCompilationPlugin', compilation => {
+    compiler.hooks.compilation.tap("HelloCompilationPlugin", compilation => {
       // Now we can tap into various hooks available through compilation
-      compilation.hooks.optimize.tap('HelloCompilationPlugin', () => {
-        console.log('Assets are being optimized.');
-      });
-    });
+      compilation.hooks.optimize.tap("HelloCompilationPlugin", () => {
+        console.log("Assets are being optimized.")
+      })
+    })
   }
 }
 
 class HelloAsyncPlugin {
   apply(compiler) {
-    compiler.hooks.emit.tapAsync('HelloAsyncPlugin', (compilation, callback) => {
-      // Do something async...
-      setTimeout(function() {
-        console.log('Done with async work...');
-        callback();
-      }, 1000);
-    });
+    compiler.hooks.emit.tapAsync(
+      "HelloAsyncPlugin",
+      (compilation, callback) => {
+        // Do something async...
+        setTimeout(function() {
+          console.log("Done with async work...")
+          callback()
+        }, 1000)
+      }
+    )
   }
 }
-
 ```
 
 > - 常用 plugin:`CommonsChunkPlugin (extract common module in different bundle)`,`HtmlWebpackPlugin(简单创建 HTML 文件，用于服务器访问)`,`UglifyJsPlugin(compress js file)`
@@ -5350,3 +5352,55 @@ FCP 度量标准衡量从页面开始加载到屏幕上呈现页面内容的任�
 #### Pick
 
 #### ConstructorParameters
+
+## week 40
+
+### what async do
+
+#### main stepss
+
+- generate a iterator
+- promise the yielded result
+
+#### simple implementation
+
+```ts
+async function someAsync() {
+  const vA = await takeTimeFunc()
+  const vB = await takeTimeFunc()
+  return vA + vB
+}
+```
+
+- generate a iterator
+
+```ts
+function* someAsyncGenerator() {
+  const vA = yield takeTimeFunc()
+  const vB = yield takeTimeFunc()
+  return vA + vB
+}
+
+const asyncIterator = someAsyncGenerator()
+
+someAsync = new Promise((resolve) => {
+  function handle(yieldedResult) {
+    const { value, done } = yieldedResult
+    if (done) {
+      return resolve(value)
+    }
+    if (value instanceof Promise) {
+      value.then(res => {
+        handle(asyncIterator.next(res))
+      })
+    } else {
+      handle(asyncIterator.next())
+    }
+  }
+  try {
+    handle(asyncIterator.next())
+  } catch (e) {
+    asyncIterator.throw(e)
+  }
+})
+```
