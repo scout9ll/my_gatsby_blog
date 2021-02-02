@@ -5357,7 +5357,7 @@ FCP 度量标准衡量从页面开始加载到屏幕上呈现页面内容的任�
 
 ### what async do
 
-#### main stepss
+#### main steps
 
 - generate a iterator
 - promise the yielded result
