@@ -145,6 +145,18 @@ const myMovies = [
       "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p792282381.jpg",
     shortComment: "敌人的敌人是朋友，你的天使可能是别人的恶魔",
   },
+  {
+    title: "The English Patient",
+    src: "https://movie.douban.com/subject/1291853/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2408623752.jpg",
+    shortComment: "Every night I cut out my heart, but in the morning it was full again."
+  },
+  {
+    title: "Whiplash",
+    src: "https://movie.douban.com/subject/25773932/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2220776342.jpg",
+    shortComment: "你愿成为别人眼中的greatest，还是自己世界的unique"
+  }
 ]
 
 export default myMovies

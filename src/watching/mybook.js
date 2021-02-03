@@ -91,7 +91,7 @@ const mybooks = [
     src: "https://book.douban.com/subject/35143790/",
     img: "https://img3.doubanio.com/view/subject/s/public/s33712151.jpg",
     shortComment: "以精神分析与人本主义为导向的标准咨询模板"
-  },
+  }
 ]
 
 export default mybooks
