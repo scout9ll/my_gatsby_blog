@@ -156,6 +156,12 @@ const myMovies = [
     src: "https://movie.douban.com/subject/25773932/",
     img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2220776342.jpg",
     shortComment: "你愿成为别人眼中的greatest，还是自己世界的unique"
+  },
+  {
+    title: "1917",
+    src: "https://movie.douban.com/subject/30252495/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2587146023.jpg",
+    shortComment: "仿佛是在玩使命召唤"
   }
 ]
 
