@@ -5071,6 +5071,7 @@ history.listen(function(route) {
 
 可变对象指在创建后的内容可以进行修改，不可变对象则不可修改。react 遵循每个元素都是不可变的原则，保证每次的试图更新都是全新的一帧，所以在`state`和`prop`的设计上都是不可变的。
 
+> 在 hook 中每一次渲染都有它自己的 Props and State
 > 在 js 中除引用类型外的数据类型都是不可变的
 
 #### mutable
@@ -5383,7 +5384,7 @@ function* someAsyncGenerator() {
 
 const asyncIterator = someAsyncGenerator()
 
-someAsync = new Promise((resolve) => {
+someAsync = new Promise(resolve => {
   function handle(yieldedResult) {
     const { value, done } = yieldedResult
     if (done) {
