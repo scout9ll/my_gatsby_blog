@@ -5405,3 +5405,9 @@ someAsync = new Promise(resolve => {
   }
 })
 ```
+
+## week 41
+
+### diff algorithms in mvvm
+
+<!-- todo -->
