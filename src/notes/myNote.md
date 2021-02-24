@@ -3660,6 +3660,16 @@ a instanceof A,判断 A 的`prototype`是否在 a 的`_proto_`上
 
 本质都是通过订阅发布的方式，对数据的操作进行封装，并使其统一流向一个 reducer，达到中心化管理的目的
 
+### vuex 的实现
+
+#### 响应式 store 数据
+
+通过`defineReaction`使 store 数据响应化，使其可以收集依赖，数据变化时 update 依赖
+
+#### 保证单项数据流
+
+通过`isMutation`限制非 commit 的数据变化
+
 ### The key of git flow
 
 ! _a great strategy of git workflow_
