@@ -91,6 +91,12 @@ const mybooks = [
     src: "https://book.douban.com/subject/35143790/",
     img: "https://img3.doubanio.com/view/subject/s/public/s33712151.jpg",
     shortComment: "以精神分析与人本主义为导向的标准咨询模板"
+  },
+  {
+    title: "时间的秩序",
+    src: "https://book.douban.com/subject/33424487/",
+    img: "https://img3.doubanio.com/view/subject/s/public/s32332471.jpg",
+    shortComment: "喜欢上一个人可能只需要一个回眸，但背后却是因为你所有过去的记忆，放弃一个人也是如此"
   }
 ]
 
