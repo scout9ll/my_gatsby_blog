@@ -5422,9 +5422,44 @@ someAsync = new Promise(resolve => {
 
 #### keywords
 
-- __广度优秀__
+- __广度优先__
 <!-- todo -->
 
 ### hook 中的异步
 
 ### vue 中的异步
+
+### 按需加载
+
+#### 包构建时
+
+在组件库构建时，除了构建完整的组件库包以外，还把每个组件单独构建了一个包，这样就可以独立引用每一个组件了。
+
+```js
+const cptConf = require('../src/config.json');
+const entry = {};
+
+cptConf.packages.map((item)=>{
+    entry[cptName] = `./src/packages/${item.name.toLowerCase()}/index.js`;
+});
+
+module.exports = {
+    entry
+};
+```
+
+#### 编译导入语句
+
+```ts
+import { Button,Switch } from '@nutui/nutui';
+```
+
+通过plugin编译为特定的组件路径
+
+```ts
+import Button from '@nutui/nutui/dist/packages/button/button.js';
+import Switch from '@nutui/nutui/dist/packages/switch/switch.js';  
+
+import '@nutui/nutui/dist/packages/button/button.css'; 
+import '@nutui/nutui/dist/packages/switch/switch.css';
+```
