@@ -2561,7 +2561,7 @@ class Example {
   - 布局：计算出渲染树的布局（layout）
   - 绘制：将渲染树绘制到屏幕 （painting）
 
-> js 线程 和 GUI 线程虽然可以独立运行，但为了保证性能浪费，它们直接相互阻塞，所以过多的`layout`修改（重排）会大量的调用渲染线程计算渲染树，阻塞主线程执行
+> js 线程 和 GUI 线程虽然可以独立运行，但为了保证性能浪费，它们之间相互阻塞，所以过多的`layout`修改（重排）会大量的调用渲染线程计算渲染树，阻塞主线程执行
 
 - 事件触发线程,事件列队,处理*事件循环*
 - 定时器线程,处理定时
@@ -5420,10 +5420,44 @@ someAsync = new Promise(resolve => {
 
 ### diff algorithms in mvvm
 
+#### purples
+
+用移动、替代、新建这些方式以最小代价更新节点
+
 #### keywords
 
-- __广度优先__
-<!-- todo -->
+- **VDOM**
+`vdom`是被diff的对象，它的数据结构是根据真实DOM的构成设计出来的，而从可以来表示一个DOM，通过操作`vdom`来模拟出变化后的视图。
+`vdom`的一般结构
+
+```ts
+interface VirturlElement{
+	// Redefine type here using our internal ComponentType type
+	type: string | ComponentType<P>;
+	props: P & { children: ComponentChildren };
+	ref?: Ref<any> | null;
+	_children: Array<VNode<any>> | null;
+	_parent: VNode | null;
+	_depth: number | null;
+	/**
+	 * The [first (for Fragments)] DOM child of a VNode
+	 */
+	_dom: PreactElement | null;
+	/**
+	 * The last dom child of a Fragment, or components that return a Fragment
+	 */
+	_nextDom: PreactElement | null;
+	_component: Component | null;
+	_hydrating: boolean | null;
+	constructor: undefined;
+	_original: number;
+}
+
+```
+
+- **广度优先**
+- **patch**
+  <!-- todo -->
 
 ### hook 中的异步
 
@@ -5436,30 +5470,52 @@ someAsync = new Promise(resolve => {
 在组件库构建时，除了构建完整的组件库包以外，还把每个组件单独构建了一个包，这样就可以独立引用每一个组件了。
 
 ```js
-const cptConf = require('../src/config.json');
-const entry = {};
+const cptConf = require("../src/config.json")
+const entry = {}
 
-cptConf.packages.map((item)=>{
-    entry[cptName] = `./src/packages/${item.name.toLowerCase()}/index.js`;
-});
+cptConf.packages.map(item => {
+  entry[cptName] = `./src/packages/${item.name.toLowerCase()}/index.js`
+})
 
 module.exports = {
-    entry
-};
+  entry,
+}
 ```
 
 #### 编译导入语句
 
 ```ts
-import { Button,Switch } from '@nutui/nutui';
+import { Button, Switch } from "@nutui/nutui"
 ```
 
-通过plugin编译为特定的组件路径
+通过 plugin 编译为特定的组件路径
 
 ```ts
-import Button from '@nutui/nutui/dist/packages/button/button.js';
-import Switch from '@nutui/nutui/dist/packages/switch/switch.js';  
+import Button from "@nutui/nutui/dist/packages/button/button.js"
+import Switch from "@nutui/nutui/dist/packages/switch/switch.js"
 
-import '@nutui/nutui/dist/packages/button/button.css'; 
-import '@nutui/nutui/dist/packages/switch/switch.css';
+import "@nutui/nutui/dist/packages/button/button.css"
+import "@nutui/nutui/dist/packages/switch/switch.css"
 ```
+
+### 数据库事务
+
+数据库事务( transaction)是访问并可能操作各种数据项的一个数据库操作序列，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。
+
+#### 事务四大特性(ACID)
+
+- 原子性（Atomicity)  
+  原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚。
+  > nnodb 通过 undo log 和 redo log 来实现。事务中，每当执行一条 SQL 语句对数据产生了影响，就会记录下来与之相反的操作到 undo log(撤销日志）中，例如，更新会记录之前的状态，删除会形成 insert，添加会形成 delete，一旦事务被回滚，则执行 undo log 中记录的操作，来完成恢复到之前的状态。这里是个 逻辑恢复哦！同时，每当执行一条事务中的 SQL，会将操作记录到 redo log 中，此时事务一旦被提交，就将该 redolog 中的操作，持久化到磁盘上，数据就持久的记录下来了（ACID 的 D）
+- 一致性（Consistency  
+  一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态.  
+  拿转账来说，假设用户 A 和用户 B 两者的钱加起来一共是 5000，那么不管 A 和 B 之间如何转账，转几次账，事务结束后两个用户的钱相加起来应该还得是 5000，这就是事务的一致性。
+
+- 隔离性（Isolation）  
+  隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。  
+  即要达到这么一种效果：对于任意两个并发的事务 T1 和 T2，在事务 T1 看来，T2 要么在 T1 开始之前就已经结束，要么在 T1 结束之后才开始，这样每个事务都感觉不到有其他事务在并发地执行。
+
+关于事务的隔离性数据库提供了多种隔离级别，稍后会介绍到。
+
+- 持久性（Durability）  
+  持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。
