@@ -1184,12 +1184,22 @@ this.hooks = {
   compilation: new SyncHook(),
 }
 
-//SingleEntryPlugin函数订阅compilation
+//SingleEntryPlugin函数订阅compilation,tap第一个参数作为订阅者名字，第二个参数为订阅响应
 this.hooks.compilation.tap("SingleEntryPlugin", option => {})
 
 //发布compilation钩子
 this.hooks.compilation.call(option)
 ```
+
+#### webpack中的模块
+
+webpack可识别以下的模块化形式
+
+- An ES2015 import statement
+- A CommonJS require() statement
+- An AMD define and require statement
+- An @import statement inside of a css/sass/less file.
+- An image url in a stylesheet url(...) or HTML <img src=...> file
 
 #### 打包过程
 
@@ -5507,7 +5517,7 @@ import "@nutui/nutui/dist/packages/switch/switch.css"
 - 原子性（Atomicity)  
   原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚。
   > nnodb 通过 undo log 和 redo log 来实现。事务中，每当执行一条 SQL 语句对数据产生了影响，就会记录下来与之相反的操作到 undo log(撤销日志）中，例如，更新会记录之前的状态，删除会形成 insert，添加会形成 delete，一旦事务被回滚，则执行 undo log 中记录的操作，来完成恢复到之前的状态。这里是个 逻辑恢复哦！同时，每当执行一条事务中的 SQL，会将操作记录到 redo log 中，此时事务一旦被提交，就将该 redolog 中的操作，持久化到磁盘上，数据就持久的记录下来了（ACID 的 D）
-- 一致性（Consistency  
+- 一致性（Consistency）  
   一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态.  
   拿转账来说，假设用户 A 和用户 B 两者的钱加起来一共是 5000，那么不管 A 和 B 之间如何转账，转几次账，事务结束后两个用户的钱相加起来应该还得是 5000，这就是事务的一致性。
 
@@ -5515,7 +5525,8 @@ import "@nutui/nutui/dist/packages/switch/switch.css"
   隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。  
   即要达到这么一种效果：对于任意两个并发的事务 T1 和 T2，在事务 T1 看来，T2 要么在 T1 开始之前就已经结束，要么在 T1 结束之后才开始，这样每个事务都感觉不到有其他事务在并发地执行。
 
-关于事务的隔离性数据库提供了多种隔离级别，稍后会介绍到。
+关于事务的隔离性数
+据库提供了多种隔离级别，稍后会介绍到。
 
 - 持久性（Durability）  
   持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。
