@@ -1191,9 +1191,9 @@ this.hooks.compilation.tap("SingleEntryPlugin", option => {})
 this.hooks.compilation.call(option)
 ```
 
-#### webpack中的模块
+#### webpack 中的模块
 
-webpack可识别以下的模块化形式
+webpack 可识别以下的模块化形式
 
 - An ES2015 import statement
 - A CommonJS require() statement
@@ -5437,32 +5437,31 @@ someAsync = new Promise(resolve => {
 #### keywords
 
 - **VDOM**
-`vdom`是被diff的对象，它的数据结构是根据真实DOM的构成设计出来的，而从可以来表示一个DOM，通过操作`vdom`来模拟出变化后的视图。
-`vdom`的一般结构
+  `vdom`是被 diff 的对象，它的数据结构是根据真实 DOM 的构成设计出来的，而从可以来表示一个 DOM，通过操作`vdom`来模拟出变化后的视图。
+  `vdom`的一般结构
 
 ```ts
-interface VirturlElement{
-	// Redefine type here using our internal ComponentType type
-	type: string | ComponentType<P>;
-	props: P & { children: ComponentChildren };
-	ref?: Ref<any> | null;
-	_children: Array<VNode<any>> | null;
-	_parent: VNode | null;
-	_depth: number | null;
-	/**
-	 * The [first (for Fragments)] DOM child of a VNode
-	 */
-	_dom: PreactElement | null;
-	/**
-	 * The last dom child of a Fragment, or components that return a Fragment
-	 */
-	_nextDom: PreactElement | null;
-	_component: Component | null;
-	_hydrating: boolean | null;
-	constructor: undefined;
-	_original: number;
+interface VirturlElement {
+  // Redefine type here using our internal ComponentType type
+  type: string | ComponentType<P>
+  props: P & { children: ComponentChildren }
+  ref?: Ref<any> | null
+  _children: Array<VNode<any>> | null
+  _parent: VNode | null
+  _depth: number | null
+  /**
+   * The [first (for Fragments)] DOM child of a VNode
+   */
+  _dom: PreactElement | null
+  /**
+   * The last dom child of a Fragment, or components that return a Fragment
+   */
+  _nextDom: PreactElement | null
+  _component: Component | null
+  _hydrating: boolean | null
+  constructor: undefined
+  _original: number
 }
-
 ```
 
 - **广度优先**
@@ -5530,3 +5529,38 @@ import "@nutui/nutui/dist/packages/switch/switch.css"
 
 - 持久性（Durability）  
   持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。
+
+### 小程序的双线程模型
+
+微信小程序团队自称其小程序是双线程模型，分别是逻辑层与渲染层，这个`双线程`让人感到迷惑，web 同样也有`UI绘制`和`js执行`两个线程呀，那么小程序的`双线程`到底特殊在哪呢，结合他们自己给的文档，我们来看看。
+
+#### 是什么
+
+> 分别是逻辑层与渲染层。逻辑层是单独的线程去执行 JavaScript，在这个环境下执行的都是有关小程序业务逻辑的代码。而界面渲染相关的任务全都在 WebView 线程里执行，通过逻辑层代码去控制渲染哪些界面，那么这一层当然就是所谓的渲染层。
+
+原来小程序所谓的双线程是指在 webview**进程**之外加入另一个 js 执行线程,然后就有了 2 个 js 线程？？？只能这样理解了
+
+#### 为什么
+
+> 我们在对小程序的架构设计时的要求只有一个，就是要快，包括要渲染快、加载快等。当用户点开某个小程序时，我们期望体验到的是只有很短暂的加载界面，在一个过渡动画之后可以马上看到小程序的主界面。
+
+出于这样一个目的，小程序必须得采用原生渲染的方式。
+
+> 由于小程序的宿主是微信，所以我们不太可能用纯客户端原生技术来编写小程序 。如果这么做，那小程序代码需要与微信代码一起编包，跟随微信发版本，这种方式跟开发节奏必然都是不对的。因此，我们需要像 Web 技术那样，有一份随时可更新的资源包放在云端，通过下载到本地，动态执行后即可渲染出界面。
+
+所以又需要文件动态加载
+
+> 但是，如果我们用纯 Web 技术来渲染小程序，在一些有复杂交互的页面上可能会面临一些性能问题，这是因为在 Web 技术中，UI 渲染跟 JavaScript 的脚本执行都在一个单线程中执行，这就容易导致一些逻辑任务抢占 UI 渲染的资源。
+
+纯 web 和纯原生都无法满足，那就相互结合一下(hybrid)  
+BTW，微信这似乎写错了,`UI 渲染跟 JavaScript 的脚本执行都在一个单线程中执行`，它们也是独立的线程，只不过在 web 策略中相互阻塞
+
+> 最终，我们选择类似于微信 JSSDK 这样的 Hybrid 技术，即界面主要由成熟的 Web 技术渲染，辅之以大量的接口提供丰富的客户端原生能力。同时，每个小程序页面都是用不同的 WebView 去渲染，这样可以提供更好的交互体验，更贴近原生体验，也避免了单个 WebView 的任务过于繁重。此外，界面渲染这一块我们定义了一套内置组件以统一体验，并且提供一些基础和通用的能力，进一步降低开发者的学习门槛。值得一提的是，内置组件有一部分较复杂组件是用客户端原生渲染的，以提供更好的性能。
+
+all of all，微信想通过一个独立的 JS 执行线程，保证视图的渲染和业务逻辑的计算同时进行，从而提高渲染与加载的速度。
+
+> 得益于客户端系统有 JavaScript 的解释引擎（在 iOS 下是用内置的 JavaScriptCore 框架，在安卓则是用腾讯 x5 内核提供的 JsCore 环境），我们可以创建一个单独的线程去执行 JavaScript
+
+#### 怎样实现
+
+#### 带来的问题
