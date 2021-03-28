@@ -162,7 +162,7 @@ const IndexPage = () => {
                 img={book.img}
                 key={book.src}
               />
-            ))}
+            )).reverse()}
           </div>
           <div
             className="category-info"
@@ -184,7 +184,7 @@ const IndexPage = () => {
                 img={movie.img}
                 key={movie.src}
               />
-            ))}
+            )).reverse()}
           </div>
           <div
             className="category-info"
