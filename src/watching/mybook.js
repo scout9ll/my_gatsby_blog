@@ -97,6 +97,12 @@ const mybooks = [
     src: "https://book.douban.com/subject/33424487/",
     img: "https://img3.doubanio.com/view/subject/s/public/s32332471.jpg",
     shortComment: "喜欢上一个人可能只需要一个回眸，但背后却是因为你所有过去的记忆，放弃一个人也是如此"
+  },
+  {
+    title: "夜晚的潜水艇",
+    src: "https://book.douban.com/subject/35005045/",
+    img: "https://img3.doubanio.com/view/subject/s/public/s33718940.jpg",
+    shortComment: "天马行空的想象，令人感动的文字,青涩又浪漫"
   }
 ]
 
