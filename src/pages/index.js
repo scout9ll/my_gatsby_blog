@@ -155,14 +155,9 @@ const IndexPage = () => {
             className="category-head"
             style={{ backgroundColor: " #a9eedc" }}
           >
-            {mybooks.map(book => (
-              <BookOrMovie
-                title={book.title}
-                src={book.src}
-                img={book.img}
-                key={book.src}
-              />
-            )).reverse()}
+            {mybooks
+              .map(book => <BookOrMovie {...book} key={book.src} />)
+              .reverse()}
           </div>
           <div
             className="category-info"
@@ -177,14 +172,9 @@ const IndexPage = () => {
             className="category-head"
             style={{ backgroundColor: " #84694e" }}
           >
-            {myMovies.map(movie => (
-              <BookOrMovie
-                title={movie.title}
-                src={movie.src}
-                img={movie.img}
-                key={movie.src}
-              />
-            )).reverse()}
+            {myMovies
+              .map(movie => <BookOrMovie {...movie} key={movie.src} />)
+              .reverse()}
           </div>
           <div
             className="category-info"
