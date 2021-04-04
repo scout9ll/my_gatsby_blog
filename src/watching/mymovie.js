@@ -168,6 +168,12 @@ const myMovies = [
     src: "https://movie.douban.com/subject/1395080/",
     img: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p1499616217.jpg",
     shortComment: "无论命运有多少次轮回，我都会在下个雨季找到你"
+  },
+  {
+    title: "Taste of cherry",
+    src: "https://movie.douban.com/subject/1296177/",
+    img: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2522781398.jpg",
+    shortComment: "乏味的生活需要樱桃的滋味"
   }
 ]
 
