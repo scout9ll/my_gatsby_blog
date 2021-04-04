@@ -162,6 +162,12 @@ const myMovies = [
     src: "https://movie.douban.com/subject/30252495/",
     img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2587146023.jpg",
     shortComment: "仿佛是在玩使命召唤"
+  },
+  {
+    title: "Be With You",
+    src: "https://movie.douban.com/subject/1395080/",
+    img: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p1499616217.jpg",
+    shortComment: "无论命运有多少次轮回，我都会在下个雨季找到你"
   }
 ]
 
