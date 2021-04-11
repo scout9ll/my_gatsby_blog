@@ -5564,3 +5564,80 @@ all of all，微信想通过一个独立的 JS 执行线程，保证视图的渲
 #### 怎样实现
 
 #### 带来的问题
+
+## week 42
+
+### Go 中的特殊语法之 defer
+
+```go
+func main() {
+ defer fmt.Println("world")
+ fmt.Println("hello")
+}
+
+// hello ; world
+```
+
+#### 作用
+
+`defer`语法会将一个函数压入一个栈列表内，这个栈列表中的函数会在其外部函数返回后依次出栈执行。  
+`defer`通常对用来清除动作的简单函数使用
+
+```go
+func CopyFile(dstName, srcName string) (written int64, err error) {
+    src, err := os.Open(srcName)
+    if err != nil {
+        return
+    }
+    defer src.Close()
+
+    dst, err := os.Create(dstName)
+    if err != nil {
+        return
+    }
+    defer dst.Close()
+
+    return io.Copy(dst, src)
+}
+```
+
+#### 规则
+
+延迟语句的行为是直接且可预测的
+
+- 延迟函数的**参数**在 defer 声明时就会被求值
+
+```go
+func a() {
+    i := 0
+    defer fmt.Println(i)
+    i++
+    return
+}
+// => 0
+```
+
+- 延迟函数执行的顺序是先进后出的
+
+```go
+func b() {
+    for i := 0; i < 4; i++ {
+        defer fmt.Print(i)
+    }
+}
+// => 3;2;1;0
+```
+
+- 延迟函数可以读写外部函数所命名返回的值
+
+```go
+func c() (i int) {
+    defer func() { i++ }()
+    return 1
+}
+
+func main() {
+  fmt.Print(c())
+}
+// => 2
+```
