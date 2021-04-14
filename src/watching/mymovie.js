@@ -174,6 +174,12 @@ const myMovies = [
     src: "https://movie.douban.com/subject/1296177/",
     img: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2522781398.jpg",
     shortComment: "乏味的生活需要樱桃的滋味"
+  },
+  {
+    title: "阿飛正傳",
+    src: "https://movie.douban.com/subject/1305690/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2525770523.jpg",
+    shortComment: "不是没有脚，而是不愿停。"
   }
 ]
 
