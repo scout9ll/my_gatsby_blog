@@ -91,7 +91,7 @@ const myMovies = [
     src: "https://movie.douban.com/subject/27053768/",
     img:
       "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2549814120.jpg",
-    shortComment: "",
+    shortComment: "It'll pass",
   },
   {
     title: "marriage story",
