@@ -4728,7 +4728,7 @@ array := [3]int{1,2,4}
 slice := array[0 : 3] // slice的取值前闭后开 [1,2]
 ```
 
-- 切片就像数组的引用  
+- 切片只存储底层数组的引用  
   切片并不存储任何数据，它只是描述了底层数组中的一段。(_与 python 和 js 中复制值独立存储的切片不同_)
   更改切片的元素会修改其底层数组中对应的元素。
   与它共享底层数组的切片都会观测到这些修改。
@@ -4793,10 +4793,18 @@ func main() {
 
 ##### 映射
 
+映射是一个存储键值对的无序集合。
+>映射是在底层数据结构之上封装的数据结构，本身只存储引用，因此在函数间传递映射并不会制造出该映射的一个副本
+
 - 创建
 
 ```go
+//用make声明映射，key为string value为int
+dict := make(map[string]int)
 
+//用对象字面量创建映射，key为字符串切片，value为int
+
+dict := map[[]string]int{}
 
 ```
 
@@ -4864,11 +4872,12 @@ func (f MyFloat) Abs() float64 {
 > 与 JavaScript 不同的是，Go 的对象是直接存储的值，Go 只有 slices, maps 和 channels 直接存储的是地址。
 
 ```go
-v := Vertex{3, 4}
 func (v *Vertex) Scale(f float64) {
   v.X = v.X * f
   v.Y = v.Y * f
 }
+
+v := Vertex{3, 4}
 
 v.Scale(5) // 实际执行(&v).Scale(5)
 
