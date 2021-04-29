@@ -4794,7 +4794,8 @@ func main() {
 ##### 映射
 
 映射是一个存储键值对的无序集合。
->映射是在底层数据结构之上封装的数据结构，本身只存储引用，因此在函数间传递映射并不会制造出该映射的一个副本
+
+> 映射是在底层数据结构之上封装的数据结构，本身只存储引用，因此在函数间传递映射并不会制造出该映射的一个副本
 
 - 创建
 
@@ -4901,7 +4902,7 @@ p.Scale(5) // 实际执行(*v).Scale(5)
 
 #### 接口(interface)
 
-接口是定义的一组待实现的行为的类型，这些被定义的行为不由接口直接实现，而是通过方法由用户定义的类型实现。接口让GO实现多态
+接口是定义的一组待实现的行为的类型，这些被定义的行为不由接口直接实现，而是通过方法由用户定义的类型实现。接口让 GO 实现多态
 
 ## week 37
 
@@ -4949,7 +4950,7 @@ Service Worker 旨在实现浏览器*离线本地应用*，通过在*前端*自�
 
 #### `cache-control`决定浏览器请求的缓存规则
 
-在 Service Worker 之后，若该请求在本地存在缓存，则读取其缓存标识，将其补充在请求头中（是补充，不是覆盖）；若第一次请求，则保存响应以及缓存标识。
+在 Service Worker 之后，若该请求在本地存在缓存，则读取其*缓存标识*，将其补充在请求头中（是**补充**，不是覆盖）；若第一次请求，则保存响应以及缓存标识。
 
 浏览器首先会根据其缓存标识中的`cache-control`来执行缓存，请求/响应链中的所有缓存机制都必须遵循`cache-control`的指令.(具体规则见[https://developers.goo...](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching#cache-control))
 
@@ -4957,6 +4958,8 @@ Service Worker 旨在实现浏览器*离线本地应用*，通过在*前端*自�
 
 根据`cache-control`的规则，我们应该以下面的策略设置`cache-control`
 ![http-cache-decision-tre](../images/http-cache-decision-tree.png)
+
+`cache-control`不为`no-cache`或`no-store`时，浏览器会根据`max-age`走强缓存
 
 #### `ETag`和`Last-Modified`验证缓存的响应
 
