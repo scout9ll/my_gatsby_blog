@@ -103,6 +103,12 @@ const mybooks = [
     src: "https://book.douban.com/subject/35005045/",
     img: "https://img3.doubanio.com/view/subject/s/public/s33718940.jpg",
     shortComment: "天马行空的想象，令人感动的文字,青涩又浪漫"
+  },
+  {
+    title: "Go语言实战",
+    src: "https://book.douban.com/subject/27015617/",
+    img: "https://img9.doubanio.com/view/subject/s/public/s29421285.jpg",
+    shortComment: "以一个demo开场，让读者能够带着问题循序渐进的全面学习GO语言，入门佳作！"
   }
 ]
 
