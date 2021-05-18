@@ -180,6 +180,12 @@ const myMovies = [
     src: "https://movie.douban.com/subject/1305690/",
     img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2525770523.jpg",
     shortComment: "不是没有脚，而是不愿停。"
+  },
+  {
+    title: "Perfume：The Story of a Murderer",
+    src: "https://movie.douban.com/subject/1760622/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2571500223.jpg",
+    shortComment: "要用世上最传奇的香水，献给恶臭的市场、乏味的生活、无味的自己"
   }
 ]
 
