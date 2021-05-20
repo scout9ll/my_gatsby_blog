@@ -4390,7 +4390,26 @@ function getMetadata(
 ): any
 ```
 
-// TODO
+#### Emit Decorator Metadata
+
+Enables experimental support for emitting type metadata for decorators which works with the module reflect-metadata.
+
+```js
+__decorate(
+  [
+    LogMethod,
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0),
+  ],
+  Demo.prototype,
+  "foo",
+  null
+)
+```
+
+> TypeScript strives to only include features which are confirmed to be added into the JavaScript language.  
+> There have been cases where a feature is compelling enough to be an exception to that rule, and these live as experimental compiler flags. It is possible that a version of these features may be different when/if they are added to the JavaScript language, and thus are considered risky.
 
 ## week 33
 
@@ -5700,7 +5719,7 @@ Go 语言里的并发指的是能让某个函数独立于其他函数运行的�
 
 而并发是指同时*管理*很多事情，这些事情可能只做了一半就被暂停去做别的事情了。
 
->这种“使用较少的资源做更多的事情”的哲学，也是指导 Go 语言设计的哲学
+> 这种“使用较少的资源做更多的事情”的哲学，也是指导 Go 语言设计的哲学
 
 #### 调度器
 
