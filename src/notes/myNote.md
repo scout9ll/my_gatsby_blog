@@ -646,6 +646,8 @@ attribute 会映射在 DOM 的 property 中，其以`NamedNodeMap`的形式存�
   - 情况下即便很久以后再去看这个函数依旧可以很容易知道这个函数需要哪些参数
   - 因为不用担心有副作用(side-effects),因此可以更好地工作
 
+> side-effects,是指函数做了和本身运算返回值无关的事，比如：修改了全局变量、修改了传入的参数、甚至是 console.log()，所以 ajax 操作，修改window，dom 都是算作副作用
+
 ### react 和 vue 子向父跨组件通信的几种方法
 
 #### react
@@ -5728,3 +5730,8 @@ go 用来调度`goroutine`到逻辑处理器的级制。
 #### 逻辑处理器
 
 逻辑处理器会绑定到唯一的操作系统线程，用来执行处理`goroutine`
+
+## week 44
+
+### 
+
