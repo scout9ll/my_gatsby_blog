@@ -2,7 +2,7 @@
 path: "/note"
 date: "2019-05-20"
 title: "note"
-lastTime: "2021-1-13"
+lastTime: "2021-5-20"
 words: "116694"
 ---
 
@@ -646,7 +646,7 @@ attribute 会映射在 DOM 的 property 中，其以`NamedNodeMap`的形式存�
   - 情况下即便很久以后再去看这个函数依旧可以很容易知道这个函数需要哪些参数
   - 因为不用担心有副作用(side-effects),因此可以更好地工作
 
-> side-effects,是指函数做了和本身运算返回值无关的事，比如：修改了全局变量、修改了传入的参数、甚至是 console.log()，所以 ajax 操作，修改window，dom 都是算作副作用
+> side-effects,是指函数做了和本身运算返回值无关的事，比如：修改了全局变量、修改了传入的参数、甚至是 console.log()，所以 ajax 操作，修改 window，dom 都是算作副作用
 
 ### react 和 vue 子向父跨组件通信的几种方法
 
@@ -5733,15 +5733,42 @@ go 用来调度`goroutine`到逻辑处理器的级制。
 
 #### 共享资源锁
 
-并发函数很容易造成对公共变量的竞争使用问题，因此go 提供了对共享资源加锁的机制来防止这一情况。  
+并发函数很容易造成对公共变量的竞争使用问题，因此 go 提供了对共享资源加锁的机制来防止这一情况。  
 实现该机制的方式有`atomic`和`sync`。
 
 - 原子函数，原子函数能够以很底层的加锁机制来同步访问整型变量和指针。
 
+```go
+    atomic.AddInt64(&counter, 1)
+    // 当前 goroutine 从线程退出，并放回到队列
+    runtime.Gosched()
+```
+
 - 互斥锁，互斥锁用于在代码上创建一个临界区，保证同一时间只有一个 goroutine 可以
-执行这个临界区代码。
+  执行这个临界区代码。
+
+```go
+  var mutex sync.Mutex
+  for count := 0; count < 2; count++ {
+    // 同一时刻只允许一个 goroutine 进入
+    // 这个临界区
+    mutex.Lock()
+    {
+      // 捕获 counter 的值
+      value := counter
+      // 当前 goroutine 从线程退出，并放回到队列
+      runtime.Gosched()
+      // 增加本地 value 变量的值
+      value++
+      // 将该值保存回 counter
+      counter = value
+    }
+    mutex.Unlock()
+    // 释放锁，允许其他正在等待的 goroutine
+    // 进入临界区
+  }
+```
 
 ## week 44
 
 ### 
-
