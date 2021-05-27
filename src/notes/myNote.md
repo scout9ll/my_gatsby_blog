@@ -5769,6 +5769,29 @@ go 用来调度`goroutine`到逻辑处理器的级制。
   }
 ```
 
+#### 通道
+
+对于共享资源，除了通过原子操作和锁之外，还一种更加利于开发并发的机制————通道，使用通道可以很方便的同步`goroutine`之间的数据。
+
+- 无缓冲通道
+
+```go
+noBufChannel := make(chan string)
+var ball string
+noBufChannel <- "ping-pong"
+ball, ok := <- noBufChannel
+```
+
+- 有缓存通道
+
+```go
+const (
+  numberGoroutines = 4  // 要使用的 goroutine 的数量tf
+  taskLoad         = 10 // 要处理的工作的数量
+)
+tasks := make(chan string, taskLoad)
+```
+
 ## week 44
 
-### 
+###
