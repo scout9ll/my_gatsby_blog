@@ -5794,4 +5794,19 @@ tasks := make(chan string, taskLoad)
 
 ## week 44
 
-###
+### js 中的 Reflect
+
+Reflect 是 js 内置的全局对象，可以用来操作 js 的对象。
+
+#### 特点
+
+`Reflect`和`Math`一样，没有构造函数，只有静态方法。  
+其提供的静态方法和`Proxy`的`handler`一模一样
+
+#### 功能
+
+可以间接操作对象，基本满足对象自身所需要的功能
+
+#### 有点不同
+
+没错，只有一点点细节不同，[看看细节](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/Comparing_Reflect_and_Object_methods)
