@@ -964,8 +964,10 @@ _right_
 
 给 script 标签设置`defer`和`async`也能延迟 load,两者都能异步 load(在解析 css,html 文件时下载，不阻塞 dom 的构建)
 
-- `async`*该 JS 文件*load 完后才执行该文件，`DCL(DomContentLoaded)`不涉及该文件的执行
+- `async`*该 JS 文件*load 完后*立即*执行该文件，`DCL(DomContentLoaded)`不涉及该文件的执行
 - `defer`*页面解析 parsing*完后才执行该文件，但在`DCL`之前需执行(详见[whatwg](https://html.spec.whatwg.org/#the-end))
+
+> `async`标签表示该资源不涉及页面的初次渲染，不依赖前置脚本，所以可以异步下载并且直接执行，`defer`表示资源需要延迟执行，作为页面渲染前需要执行的脚本
 
 ### lazy-load
 
