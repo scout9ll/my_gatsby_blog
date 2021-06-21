@@ -186,6 +186,16 @@ const myMovies = [
     src: "https://movie.douban.com/subject/1760622/",
     img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2571500223.jpg",
     shortComment: "要用世上最传奇的香水，献给恶臭的市场、乏味的生活、无味的自己"
+  },
+  {
+    title: "拆弹专家2",
+    src: "https://movie.douban.com/subject/30171424/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2621379901.jpg",
+  },
+  {
+    title: "Lazzaro felice",
+    src: "https://movie.douban.com/subject/27072795/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2521583093.jpg",
   }
 ]
 
