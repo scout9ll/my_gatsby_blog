@@ -5812,3 +5812,37 @@ Reflect 是 js 内置的全局对象，可以用来操作 js 的对象。
 #### 有点不同
 
 没错，只有一点点细节不同，[看看细节](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect/Comparing_Reflect_and_Object_methods)
+
+## week 45
+
+### API Gateway
+
+API Gateway 即我们在架构图中常看到的 API 网关，它通常是一个客服端访问后端服务需要经过的关口。
+
+#### 能够做什么
+
+- 安全
+- 限流
+- 缓存
+- 熔断
+- 重试
+- 负载
+- 反向路由
+- 认证、鉴权
+- 日志收集和监控
+
+#### 使用场景
+
+- Open API
+
+- 多端适配
+
+- 微服务化
+
+#### 市面上成熟的 API 网关
+
+- apigee
+
+- Kong
+
+- APISIX
