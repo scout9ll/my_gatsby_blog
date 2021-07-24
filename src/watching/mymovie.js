@@ -196,6 +196,18 @@ const myMovies = [
     title: "Lazzaro felice",
     src: "https://movie.douban.com/subject/27072795/",
     img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2521583093.jpg",
+  },
+  {
+    title: "Up in the Air",
+    src: "https://movie.douban.com/subject/3077791/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2151251263.jpg",
+    shortComment:"有点淡，有点乱，拍出了人生的常态。孤独的人呐，不知在哪着落。"
+  },
+  {
+    title: "The Departed",
+    src: "https://movie.douban.com/subject/3077791/",
+    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2151251263.jpg",
+    shortComment:"失望！奥斯卡最佳影片就这？作为一个翻拍作品，只有还原度高这一个优点了"
   }
 ]
 
