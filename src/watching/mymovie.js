@@ -205,8 +205,8 @@ const myMovies = [
   },
   {
     title: "The Departed",
-    src: "https://movie.douban.com/subject/3077791/",
-    img: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2151251263.jpg",
+    src: "https://movie.douban.com/subject/1315316/",
+    img: "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p1471403480.jpg",
     shortComment:"失望！奥斯卡最佳影片就这？作为一个翻拍作品，只有还原度高这一个优点了"
   }
 ]
