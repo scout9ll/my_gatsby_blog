@@ -1883,15 +1883,15 @@ $icons: ("home", "movie", "ticket", "cinema");
 - type, 决定类型的具体信息,创建一个类型实体
 - value，有意义的值，将会编译在 js 中执行
 
-| Declaration Type | Namespace | Type | Value |
-| ---------------- | :-------: | :--: | :---: |
-| Namespace        |     √     |      |   √   |
-| Class            |           |  √   |   √   |
-| Enum             |           |  √   |   √   |
-| Interface        |           |  √   |       |
-| Type Alias       |           |  √   |       |
-| Function         |           |      |   √   |
-| Variable         |           |      |   √   |
+| Declaration Type | Namespace | Type  | Value |
+| ---------------- | :-------: | :---: | :---: |
+| Namespace        |     √     |       |   √   |
+| Class            |           |   √   |   √   |
+| Enum             |           |   √   |   √   |
+| Interface        |           |   √   |       |
+| Type Alias       |           |   √   |       |
+| Function         |           |       |   √   |
+| Variable         |           |       |   √   |
 
 > 可以发现，Interface 和 Type Alias 都是创建一个类型实体，那么它们直接的区别是什么呢。  
 > Interface 是独立创建了一个对象类型接口，可以参与其他类型的创建（通过`extends` 和 `implement`）。而 Type Alias 则是根据已有的类型中获取成一个类型并命名（通过`&`和`type of`及基本变量）
@@ -5508,9 +5508,9 @@ interface VirturlElement {
   <!-- todo -->
 
 ### hook 中的异步
-
+hook和setState一样都是合并更新，批处理后执行render，导致无法直接拿到`state`，但其实际没有异步调用
 ### vue 中的异步
-
+vue中的Data是同步赋值的，但是其render是*异步*之后批处理执行render，其是真正的在异步调用中执行
 ### 按需加载
 
 #### 包构建时
