@@ -109,6 +109,12 @@ const mybooks = [
     src: "https://book.douban.com/subject/27015617/",
     img: "https://img9.doubanio.com/view/subject/s/public/s29421285.jpg",
     shortComment: "以一个demo开场，让读者能够带着问题循序渐进的全面学习GO语言，入门佳作！"
+  },
+  {
+    title: "过度的医疗",
+    src: "https://book.douban.com/subject/35455245/",
+    img: "https://img3.doubanio.com/view/subject/s/public/s33895040.jpg",
+    shortComment: "通常你患什么病取决于你去哪个医院、哪个诊室、哪个医生"
   }
 ]
 
