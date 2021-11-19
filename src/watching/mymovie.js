@@ -208,6 +208,12 @@ const myMovies = [
     src: "https://movie.douban.com/subject/1315316/",
     img: "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p1471403480.jpg",
     shortComment:"失望！奥斯卡最佳影片就这？作为一个翻拍作品，只有还原度高这一个优点了"
+  },
+  {
+    title: "燃烧",
+    src: "https://movie.douban.com/subject/26842702/",
+    img: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2520095279.jpg",
+    shortComment:"你能够感受到骨骼的贝斯吗？"
   }
 ]
 
