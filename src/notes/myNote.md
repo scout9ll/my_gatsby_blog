@@ -5846,3 +5846,29 @@ API Gateway 即我们在架构图中常看到的 API 网关，它通常是一个
 - Kong
 
 - APISIX
+
+## week46
+
+### 关于border-radius
+
+css上频繁使用的属性，用来设置边框圆角
+
+#### 它是简写
+
+border-radius 包含  border-top-left-radius、border-top-right-radius、border-bottom-right-radius，和 border-bottom-left-radius。
+
+#### 可以有两个值
+
+一个值代表一个圆的半径，两个值代表一个椭圆的两个轴
+```css
+border-radius:10px/20px;
+```
+
+#### 可以是百分比
+百分比的长度根据元素自身长宽的大小，单独用一个值是百分比时也表示一个椭圆。
+```css
+width:60px;
+height:100px;
+/* border-radius:6px/10px */
+border-radius:10%; 
+```
