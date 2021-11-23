@@ -115,6 +115,12 @@ const mybooks = [
     src: "https://book.douban.com/subject/35455245/",
     img: "https://img3.doubanio.com/view/subject/s/public/s33895040.jpg",
     shortComment: "通常你患什么病取决于你去哪个医院、哪个诊室、哪个医生"
+  },
+  {
+    title: "皮肤的秘密",
+    src: "https://book.douban.com/subject/30354451/",
+    img: "https://img2.doubanio.com/view/subject/s/public/s32311632.jpg",
+    shortComment: "所用宣称美容功效的产品都是智商税，我们能做的只是防晒"
   }
 ]
 
