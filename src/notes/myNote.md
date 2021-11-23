@@ -5872,3 +5872,35 @@ height:100px;
 /* border-radius:6px/10px */
 border-radius:10%; 
 ```
+
+### 响应式设计模型
+
+这里用四层维度来表示web响应式涉及到的内容
+
+#### user preferrence
+用户偏好，例如黑暗模式，静态模式，色盲模式这些可以直接设置在操作系统上的用户偏好
+```css
+@media (prefers-color-scheme:dark)
+```
+
+#### ViewPort&Form factors
+屏幕视口和外形规格，例如苹果的刘海屏，三星的折叠瓶
+```css
+@media (spanning: single-fold-vertical) {
+  --sidebar-width: env(fold-left);
+}
+```
+
+#### Marco layout
+页面的布局，例如不同屏幕大小下的页面的整体布局轮廓。
+```css
+@media
+```
+
+#### Container style
+容器(页面内的元素、组件)在其不同的大小下的样式。
+```css
+@contaniner
+```
+
+
