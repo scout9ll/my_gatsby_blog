@@ -220,6 +220,12 @@ const myMovies = [
     src: "https://movie.douban.com/subject/26580232/",
     img: "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2498971355.jpg",
     shortComment:"好一个文学系教授"
+  },
+  {
+    title: "色，戒",
+    src: "https://movie.douban.com/subject/1828115/",
+    img: "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p453716305.jpg",
+    shortComment:"性是唯一能感受到的真实"
   }
 ]
 
