@@ -226,6 +226,12 @@ const myMovies = [
     src: "https://movie.douban.com/subject/1828115/",
     img: "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p453716305.jpg",
     shortComment:"性是唯一能感受到的真实"
+  },
+  {
+    title: "断背山",
+    src: "https://movie.douban.com/subject/1418834/",
+    img: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2604889017.jpg",
+    shortComment:"让人无法抗拒的自然"
   }
 ]
 
