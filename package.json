@@ -1,9 +1,9 @@
 {
-  "name": "steve911-gastby-blog",
+  "name": "scout911-gastby-blog",
   "private": true,
-  "description": "steve911's blog",
+  "description": "scout911's blog",
   "version": "0.1.0",
-  "author": "steve911",
+  "author": "scout911",
   "dependencies": {
     "gatsby": "^4.3.0",
     "gatsby-image": "^3.11.0",

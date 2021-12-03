@@ -17,6 +17,7 @@ $pink: #ff69b4;
     position: absolute;
     top: 50px;
     left: -300px;
+    color: $white;
     transition: left 0.5s ease-out;
     font-size: 25px;
     .at__inner {
@@ -24,9 +25,10 @@ $pink: #ff69b4;
       margin: 20px 0;
       .at__block {
         position: absolute;
+        box-sizing: content-box;
         top: 0;
         left: 0;
-        padding: 5px;
+        padding: 3px 5px;
         width: 100%;
         height: 100%;
         background: $primary;

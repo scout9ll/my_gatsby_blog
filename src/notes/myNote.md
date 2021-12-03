@@ -2707,7 +2707,7 @@ class Person:
       first,last = nameString.split(',')
       return cls(last,first)
 
-person1 = Person('steve')
+person1 = Person('scout')
 person2 = Person('scout')
 
 ```

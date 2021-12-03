@@ -59,7 +59,7 @@ Docker 镜像仓库存储 Docker 镜像。Docker Hub 是一个任何人都可以
 容器是由它的镜像以及你提供给它的任何配置选项定义的
 
 > 容器的运行模式 vs VM 的运行模式
-> ![container-vs-vm](https://steve911.oss-cn-shanghai.aliyuncs.com/image/container-vs-vm.png)
+> ![container-vs-vm](https://scout911.oss-cn-shanghai.aliyuncs.com/image/container-vs-vm.png)
 
 #### 卷(`volume`)
 
@@ -68,7 +68,7 @@ Docker 镜像仓库存储 Docker 镜像。Docker Hub 是一个任何人都可以
 为了能够保证容器中的数据能够持久化，docker 提供了`卷`,`卷`是 docker 在主机存储空间中创建的一个目录，Docker 会管理这个目录的内容，它有自己的文件系统。我们可以通过`卷`让主机与容器及容器与容器之间共享并持久化数据。
 
 ![docker-volume-share](https://docs.docker.com/storage/images/volumes-shared-storage.svg)
-![docker-volume](https://steve911.oss-cn-shanghai.aliyuncs.com/image/docker-volume.png)
+![docker-volume](https://scout911.oss-cn-shanghai.aliyuncs.com/image/docker-volume.png)
 
 > 在 docker 早期，一般是通过`bind mounts`来共享主机与容器内的数据，这种方式能表现出更高的性能，因为它直接采用主机的文件系统，很适合用于开发。
 > ![types-of-mounts-bind](https://docs.docker.com/storage/images/types-of-mounts-bind.png)

@@ -89,13 +89,13 @@ let axios={
 - 实例
 
   ```js
-  fetch("steve911.com", {
+  fetch("scout911.com", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: {"name":"steve",
+    body: {"name":"scout",
   })
     .then(function(res) {
       if (res.ok) {

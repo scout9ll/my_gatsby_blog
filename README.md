@@ -1,4 +1,4 @@
-# Hi! Here is steve's blog
+# Hi! Here is scout's blog
 
 ## 关于博客
 

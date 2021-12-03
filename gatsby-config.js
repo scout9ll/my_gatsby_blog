@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `steve_911`,
+    title: `scout_911`,
     description: `record everything`,
     author: `@gatsbyjs`,
   },
@@ -96,7 +96,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/steve911-logo.png`, // This path is relative to the root of the site.
+        icon: `src/images/scout911-logo.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

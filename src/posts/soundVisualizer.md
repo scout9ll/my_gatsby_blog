@@ -121,4 +121,4 @@ function rockMusic() {
 
 这里只是简单的使用了 webAudio 的一个小小的分析器,我想这个东西应该还可以有很多有专业的东西可以挖掘;另外,在可视化中,我也只是用了简单的 canvas,有兴趣的同学可以利用其他的库自己设计各种炫酷的效果.
 
-最后,附上源码[git](https://github.com/steve9II/JS-30days-30miniprojects/tree/master/day16-soundVisualizer)
+最后,附上源码[git](https://github.com/scout9II/JS-30days-30miniprojects/tree/master/day16-soundVisualizer)

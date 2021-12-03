@@ -8,10 +8,10 @@ const About = () => {
     <Layout>
       <SEO title="关于" />
       <div className="about-container">
-        <h3>Hi! Here is steve's blog </h3>
+        <h3>Hi! Here is scout's blog </h3>
         <p>
           这个博客基于 React 框架 ,使用GatsbyJS 搭配 GraphQL 开发，托管在{" "}
-          <a href="https://github.com/steve9II/my_gatsby_blog">GitHub</a>{" "}
+          <a href="https://github.com/scout9II/my_gatsby_blog">GitHub</a>{" "}
           上,并利用webhook持续集成在自己的阿里云上
           <p>
             CSS样式借鉴了一个小众纯CSS框架PaperCss,Sass 模块的设计借鉴了 BEM

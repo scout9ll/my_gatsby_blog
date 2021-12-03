@@ -16,8 +16,8 @@ export default function Template({
       clientID: "8f16fd9d681947e2f3f8",
       clientSecret: "dfb43d6f99c32565cb14c109e03fcd42b417954b",
       repo: "my_gatsby_blog",
-      owner: "steve9II",
-      admin: ["steve9II"],
+      owner: "scout9II",
+      admin: ["scout9II"],
       id: window.location.pathname, // Ensure uniqueness and length less than 50
       distractionFreeMode: false, // Facebook-like distraction free mode
     })

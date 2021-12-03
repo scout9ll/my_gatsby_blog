@@ -58,7 +58,7 @@ const IndexPage = () => {
         <Image path="Mbatdy 1920.jpg" />
         <div className="animate-text-wrapper">
           <div className="at__inner">
-            <div className="at__content">hi! I am steve</div>
+            <div className="at__content">hi! I am scout</div>
             <div className="at__block"></div>
           </div>
           <div className="at__inner at__inner-2">
