@@ -252,7 +252,7 @@ window.addEventListener("scroll", debounce(func))
 
 - PS: 栈与堆
 
-> 栈内存，有序存储，容量小但分配效率高，易于回收是一种向低地址扩展的数据结构，并且是连续的存储空间，所以栈顶和栈的最大容量是固定的  
+> 栈内存，有序存储，容量小但分配效率高，易于回收是一种向低地址扩展的数据结构，并且是连续的存储空间，所以栈顶和栈的最大容量是*固定*的  
 > ![栈与堆](https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3785498651,2265829815&fm=26&gp=0.jpg)  
 > ![栈与堆](https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=6185001,4201650577&fm=26&gp=0.jpg)  
 > 堆，是一种向高地址扩展的数据结构，并且是不连续的，因为系统采用的是链表的方式存放空闲存储块，当然是不连续的，链表的遍历方向是由低向高的，所以堆能够申请的空间的大小其实等同于整个系统的虚拟内存，只要还有内存空间，那么堆就能够不受限制的申请空间，这种方式比较灵活，申请空间也较大。
@@ -355,7 +355,7 @@ for (const value of normalObj) {
     `.indexOf(value)`和`.findIndex(ninja =>ninja =="yoshi")`都返回满足的元素的索引;  
     `.sort(num1,num2 => num1>num2?return 1;return -1)`,通过回调比较相邻两个数对其排序,若为 1 则交换位置.  
     `filter(ninja => callback)`,返回 callback 为真的数组,  
-    `reduce(function(total, currentValue, currentIndex, arr), initialValue)`,累加器,回调的返回值最为 total 依次累加.
+    `reduce(function(total, currentValue, currentIndex, arr), initialValue)`,累加器,回调的返回值最为 total 依次累加.(_数组中正在处理的当前元素的索引。 如果提供了initialValue，则起始索引号为0，否则从索引1起始。_)
 
 - map
 
@@ -387,8 +387,8 @@ for (const value of normalObj) {
 
 - 常用使用方法：
 
-  - `str.search(reg)`返回匹配的索引,没有则返回-1
-  - `str.match(reg)`没有 g 修饰符时，结果是一个数组，里面有该第一个匹配项和额外的属性：index – 匹配项在字符串中所处在的位置，
+  - `str.search(reg)`返回匹配的索引,没有则返回-1.(`^`只会返回 0 或 -1)
+  - `str.match(reg)`没有 g 修饰符时，结果是一个数组，里面有该第一个匹配项和捕获的内容及额外的属性：index – 匹配项在字符串中所处在的位置，
     input – 原始字符串。；有 g 修饰符时，就会返回由所有匹配项组成的数组。在数组中没有`额外的属性`，而且`圆括号`也不会创建任何元素。
   - `str.replace(reg,function||str)`,返回替换后的 NEWstr,但不改变自生 str(与 python 不同)
   - `reg.test(str)`用于检测是否存在可以匹配的 str，返回 boolean 值,一般用`^`和`$`来检测整个字符串
@@ -520,7 +520,7 @@ for (const value of normalObj) {
 </tbody>
 </table>
 
-请注意，只有在文档 `document.getElementById(...)` 的上下文中才能调用 `getElementById` 和 `getElementsByName`。但元素中没有 `elem.getElementById(...)` 会报错。
+请注意，只有在文档 `document.getElementById(...)` 的上下文中才能调用 `getElementById` 和 `getElementsByName`。但元素中 `elem.getElementById(...)` 会报错。
 
 也可以在元素上调用其他方法，例如 `elem.querySelectorAll(...)` 将会在 `elem`（在 DOM 子树中）内部进行搜素。
 
@@ -661,7 +661,7 @@ attribute 会映射在 DOM 的 property 中，其以`NamedNodeMap`的形式存�
 - this.\$emit
 - Vue.bus
 - this.\$parent
-- context(redux)
+- context(vuex)
 
 ### react CSS 的几种写法
 
@@ -822,7 +822,7 @@ Object.prototype.toString.call(null) //"[object null]"
 #### 用法
 
 - 若 package.json 发生更新后,`npm install`将根据`package.json` 安装 .`npm install`的默认顺序是 npm-shrinkwrap.json > package-lock.json > package.json
-- 若希望使用最初的锁定版本,则使用 `npm ci`下载`package-lock.json`中的依赖(注意，`npm ci` 在安装前会自动清除现存的 `node_modules`，所以 npm ci 天然规避了增量安装可能带来的不一致性等问题)
+- 若希望直接使用最初的锁定版本,则使用 `npm ci`下载`package-lock.json`中的依赖(注意，`npm ci` 在安装前会自动清除现存的 `node_modules`，所以 npm ci 天然规避了增量安装可能带来的不一致性等问题)
 
 ## week 9
 
@@ -832,7 +832,7 @@ Object.prototype.toString.call(null) //"[object null]"
 
 一种设计思想,将一个大项目分解成一个个独立的小项目，使其可以分而治之，能够以最小的成本管理、开发、部署。该思想在前后端都有所应用。
 
-后端应用组件化,API 分离,去中心化,每个 API 独立部署
+后端应用组件化,API 分离,去中心化,每个 API *独立部署*
 
 前端模块、页面组件化,
 
@@ -991,6 +991,8 @@ _right_
 - 逻辑简单，不易编写复杂应用
 - 不易维护
 
+> 机器码和字节码  
+> 字节码通常在解释性语言中，字节码通过特定的解释器直接转为机器码运行在电脑中，例如js语言在V8下先编译为特定字节码再解释运行。
 ### intersectionObserver
 
 #### 定义
@@ -3928,7 +3930,7 @@ HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload), secret)
 
 ### requestAnimationFrame 是最极致的节流
 
-requestAnimationFrame 在每一次设备渲染前(一般为 60hz)才执行，保证更改 DOM 的脚本每一次执行都能在界面生效，也避免了不能生效脚本的执行（若两次执行间隔小于设备的渲染极限则后一次将不会生效）
+requestAnimationFrame 在每一次设备渲染前(一般为 60hz)才执行，保证更改 DOM 的脚本每一次执行都能在界面生效，也避免了不能生效(执行*渲染*)脚本的执行（若两次执行间隔小于设备的渲染极限则后一次将不会生效）
 
 #### example
 
