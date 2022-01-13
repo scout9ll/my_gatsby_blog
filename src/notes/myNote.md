@@ -830,7 +830,7 @@ Object.prototype.toString.call(null) //"[object null]"
 
 #### 微服务
 
-一种设计思想,将一个大项目分解成一个个独立的小项目，使其可以分而治之，能够以最小的成本管理、开发、部署。该思想在前后端都有所应用。
+一种设计思想,将一个大项目分解成一个个独立的小项目，使其可以分而治之，避免牵一发而动全身，能够以最小的成本管理、开发、部署。该思想在前后端都有所应用。
 
 后端应用组件化,API 分离,去中心化,每个 API *独立部署*
 
@@ -1009,8 +1009,6 @@ var options = {
 }
 //callback 当出现时候的回调函数
 var observer = new IntersectionObserver(callback, options)
-var target = document.querySelector("#listItem")
-observer.observe(target) //开始监听#listItem元素
 ```
 
 - `.observe(element)`
@@ -1567,7 +1565,7 @@ token 需从服务端获得后再在前端设置存储(`localStorage.set`)
 #### 区别
 
 encodeURI：只会处理空格 /s
-encodeURIComponent: 处理所有非数字字母 {^a-z0-9}
+encodeURIComponent: 处理所有非数字字母 \[^a-z0-9\]
 
 ### 订阅发布 和 观察者
 
@@ -1575,6 +1573,10 @@ encodeURIComponent: 处理所有非数字字母 {^a-z0-9}
 
 观察者的 `notify` 一般被设置为条件触发到所有监听者
 订阅发布的 `dispatch` 为主动触发到特定监听者,中间存在`filter`
+```js
+notify(value)
+dispatch('type',value)
+```
 
 ### rust
 
@@ -1590,7 +1592,7 @@ no garbage and runtime,通过内置丰富的类型和严格的编译检查实现
 
 `_proto_`是任何引用类型的*访问*属性
 
-该属性有一个属性`constructor`,和其他属性 -`constructor`为其构造函数, sonObj instanceof fatherFunction 就是通过判断 sonObj 中`_proto_`链中的`construtor`是否存在 fatherFunction.
+该属性有一个属性`constructor`,和其他属性 -`constructor`为其构造函数, sonObj instanceof fatherFunction 就是通过判断 sonObj 中`_proto_`链中的`construtor`是否存在一个为 fatherFunction.
 -`
 
 #### prototype
@@ -2495,7 +2497,7 @@ splitChunks 有两个功能
 
 #### vue
 
-当 vue 触发到该组件后会执行其异步函数,类似于:
+当 vue 触发到该组件后会执行其异步函数,*类似*于:
 
 ```js
 new axios.get("/async-component").then(asyncComponet => {
@@ -2579,7 +2581,7 @@ class Example {
 
 > js 线程 和 GUI 线程虽然可以独立运行，但为了保证性能浪费，它们之间相互阻塞，所以过多的`layout`修改（重排）会大量的调用渲染线程计算渲染树，阻塞主线程执行
 
-- 事件触发线程,事件列队,处理*事件循环*
+- 事件触发线程,事件队列,处理*事件循环*
 - 定时器线程,处理定时
 - 请求线程,处理异步请求
   - 其中为了防止二次回流,CSS 和初次未设置异步的 JS 文件会阻塞 dom 加载
@@ -2639,7 +2641,7 @@ npm run serve --project=testProject
 # .env.dev
 # key=value
 FOO=bar
-VUE_APP_SECRET=secret
+VUE_APP_SECRET=secret # process.env.VUE_APP_SECRET = secret
 ```
 
 ```bash
@@ -2759,7 +2761,7 @@ _特殊情况_：`require('./)`表示该文件的相对路径
 
 #### stream 是什么
 
-stream 是 node 中的流类型，stream 来源于操作系统，操作系统在一些 IO 操作时为避免一次性处理大量数据导致内存的不足的问题而采用的流式处理模式，将数据在管道中处理并像水流一样流向目标。
+stream 是 node 中的流类型，stream 来源于操作系统，操作系统在一些 IO 操作时为避免一次性处理大量数据导致*内存*的不足的问题而采用的流式处理模式，将数据在管道中处理并像水流一样流向目标。
 
 ![node-stream](https://user-gold-cdn.xitu.io/2019/7/10/16bdc4cdc5cdccc4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
@@ -2854,6 +2856,7 @@ const downloadFile = async (src, localFilePath, data) => {
 
 ### CallExpression||MemberExpression
 
+> 词法分析
 func() is a CallExpression
 thing.func is a MemberExpression
 thing is the object of the MemberExpression
