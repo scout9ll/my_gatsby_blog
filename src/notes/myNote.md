@@ -3047,7 +3047,7 @@ Last-Modified is the date and time at which the origin server believes the resou
 \*_Last-Modified 是以时间来判断，但是其能精确到 second,所以当版本的变化小于 second 时则无法成功判断，所以这时可以使用 Etag_
 
 ### commonJs 模块和 ES6 模块
-
+> 这里的 commonJs 指 node 中的模块使用方式，ES6 指浏览器中的最新的模块使用方式
 #### 加载原理
 
 - CommonJS 模块是运行时加载,在没有被执行完之前，它的结构（API）是不可知的 — 即使在它被执行完以后，它的结构也可以随时被其他代码修改
@@ -3060,7 +3060,7 @@ Last-Modified is the date and time at which the origin server believes the resou
 
 ### d.ts
 
-d 就是 declare,是类型声明文件，通过该文件赋予编辑器类型提示与检查的能力
+d 就是 declare,是类型声明文件，通过该文件赋予*编辑器*类型提示与检查的能力
 
 ### UMD 模块( (Universal Module Definition))
 
@@ -3343,7 +3343,7 @@ node 内核每次进行一次以下的阶段循环：
 - 定时器：本阶段执行已经被 setTimeout() 和 setInterval() 的调度回调函数。
 - 待定回调：执行延迟到下一个循环迭代的 I/O 回调。
 - idle, prepare：仅系统内部使用。
-- 轮询：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，那些由计时器和 setImmediate() 调度的之外），其余情况 node 将在适当的时候在此阻塞。
+- 轮询（等待I/O）：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，那些由计时器和 setImmediate() 调度的之外），其余情况 node 将在适当的时候在此阻塞。
   > 轮询的时间由最近的`timer`决定，例如有一个`setTimeout(fn,1000)`，那么轮询阶段持续的时间至少有 1000ms
 - 检测：setImmediate() 回调函数在这里执行。  
   _使用 setImmediate() 相对于 setTimeout() 的主要优势是，如果 setImmediate()是在 `I/O` 周期内被调度的，那它将会在其中任何的定时器之前执行，跟这里存在多少个定时器无关_
@@ -3386,8 +3386,10 @@ https://www.jb51.net/article/148997.html
 
 - 对象唯一性，每个由类生成的实例都有唯一的标识
 - 抽象性，抽象性是指将具有一致的数据结构（属性）和动作（操作）的对象抽象成类。一个类就是这样一种抽象，它反映了与应用有关的重要性质
+  > 需要实例化
 - 继承性，类之间的属性与动作可以继承
 - 多态性，类的多样性
+  > 同一方法名不同的实现
 
 ### js 中的逗号运算符
 
@@ -3522,6 +3524,8 @@ var img = __webpack_require__(418)("./" + process.config.npm_config_env + "/img/
   - 若没有满足的文件
     其引用返回 webpackMissingModule 函数
 
+> 若变量为node中的变量时会直接取值，如`process.env.NODE_ENV`
+
 ### ArrayBuffer 和 TypedArray 和 DataView 和 Blob
 
 #### ArrayBuffer
@@ -3572,7 +3576,8 @@ Blob 对象表示一个不可变、原始数据的 MIME 类型文件对象,可�
 new Blob(array:ArrayBuffer|| ArrayBufferView||Blob|| DOMString,options?:{type:String})
 
 var debug = {hello: "world"};
-var blob = new Blob([JSON.stringify(debug, null, 2)], {type : 'application/json'});
+//  序列化创建一个json类型文件
+var blob = new Blob([JSON.stringify(debug, null, 2)], {type : 'application/json'}); 
 
 ```
 
@@ -3615,8 +3620,7 @@ git push -f --all
 ### dpr
 
 `dpr`全称`device pixel ratio`,设备像素比。  
-设备像素比 = 物理像素 / 逻辑像素(px)
-
+设备像素比 = 物理像素 / 逻辑像素(px) (1次单位)
 #### 物理像素
 
 `physical pixel`  
@@ -3677,7 +3681,7 @@ a instanceof A,判断 A 的`prototype`是否在 a 的`_proto_`上
 - vuex
   dispatch(action) => commit(mutation)
 
-本质都是通过订阅发布的方式，对数据的操作进行封装，并使其统一流向一个 reducer，达到中心化管理的目的
+本质都是通过订阅发布的方式，对数据的*操作进行封装*，并使其*统一*流向一个 reducer，达到中心化管理的目的
 
 ### vuex 的实现
 
@@ -3831,7 +3835,7 @@ XHR,fetch
 服务端需要设置响应头来告知浏览器自己的跨域规则
 
 - `Access-Control-Allow-Origin`  
-  允许请求的来源域名，`content-type`,`authorization`等
+  允许请求的来源域名
 
 - `Access-Control-Expose-Headers`
 - `Access-Control-Max-Age`
@@ -4160,7 +4164,7 @@ greeter.id = 911 // error
 
 被`private`和`protected`修饰的属性、方法无法被外部直接访问。
 
-> 它们的区别是被继承的`protected`属性的实例可以访问，且构造函数也可以被标记成 protected，故构造器被 portect 的类自身不能实例化，但是继承它的类可以实例化 。
+> 它们的区别是被继承的`protected`属性的实例可以访问，且构造函数也可以被标记成 protected，故构造器被 protect 的类自身不能实例化，但是继承它的类可以实例化 。
 > 其实 private 只是提供 ts 编译时的检测，但实际上在 js 中还是可以访问。但如果用`#someProperty`，就能实现真正的私有，其原理是通过独立创建了一个`weakMap`来保存
 
 #### readonly 修饰符
@@ -4404,6 +4408,7 @@ function getMetadata(
 Enables experimental support for emitting type metadata for decorators which works with the module reflect-metadata.
 
 ```js
+// 通过开启Emit Decorator Metadata，被编译后会为被装饰的内容添加metadata,其中包括其类型信息,这些元数据可在js运行时在getMetadata中得到
 __decorate(
   [
     LogMethod,
@@ -4964,7 +4969,7 @@ offline : compiling with webpack in building
 #### runtime
 
 react：  
-coroutine fiber
+coroutine fiber（链表）
 
 vue:
 
@@ -5553,7 +5558,7 @@ import "@nutui/nutui/dist/packages/switch/switch.css"
 
 ### 数据库事务
 
-数据库事务( transaction)是访问并可能操作各种数据项的一个数据库操作序列，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。
+数据库事务( transaction)是访问并可能操作各种数据项的一个数据库*操作序列*，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。
 
 #### 事务四大特性(ACID)
 
@@ -5812,7 +5817,7 @@ Reflect 是 js 内置的全局对象，可以用来操作 js 的对象。
 
 #### 功能
 
-可以间接操作对象，基本满足对象自身所需要的功能
+可以*间接*操作对象，基本满足对象自身所需要的功能
 
 #### 有点不同
 
