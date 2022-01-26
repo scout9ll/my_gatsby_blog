@@ -177,4 +177,4 @@ state.test++
 document.body.addEventListener("click", () => state.test++)
 ```
 
-这里只是简单的绑定了原生 DOM 渲染,真正的 VUE 上是绑定被编译后的渲染函数,该函数创建`virtual dom`，然后智能地计算出最少需要重新渲染多少组件(`更新队列`,`diff比对`)，最后生成 DOM,这样能够把 DOM 操作次数减到最少,从而实现性能优化.
+这里只是简单的绑定了原生 DOM 渲染,真正的 VUE 上是绑定被编译后的渲染函数,该函数创建`virtual dom`，然后将前后的 `virtual dom` 进行 `diff` 并对其实际dom进行对应的操作（这个过程称为 `patch`）,这样能够把 DOM 操作次数减到最少,从而实现性能优化.
