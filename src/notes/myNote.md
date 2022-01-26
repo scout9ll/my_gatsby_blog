@@ -993,6 +993,7 @@ _right_
 
 > 机器码和字节码  
 > 字节码通常在解释性语言中，字节码通过特定的解释器直接转为机器码运行在电脑中，例如js语言在V8下先编译为特定字节码再解释运行。
+
 ### intersectionObserver
 
 #### 定义
@@ -1556,7 +1557,7 @@ token 需从服务端获得后再在前端设置存储(`localStorage.set`)
 
 #### api example
 
-> https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=5000557018&key=0D6563D96A865670FBA3171ADC40DDB0
+> <https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=5000557018&key=0D6563D96A865670FBA3171ADC40DDB0>
 
 ### encodeURIComponent 和 encodeURI
 
@@ -1573,6 +1574,7 @@ encodeURIComponent: 处理所有非数字字母 \[^a-z0-9\]
 
 观察者的 `notify` 一般被设置为条件触发到所有监听者
 订阅发布的 `dispatch` 为主动触发到特定监听者,中间存在`filter`
+
 ```js
 notify(value)
 dispatch('type',value)
@@ -2399,6 +2401,23 @@ URL 重写
 
 > 例如在 weex 中用 jsFile 来控制页面的逻辑
 
+### js 与 native 如何通讯
+
+主要使用native端的WebViewClient，WebChromeClient
+
+#### native 到 js
+
+native层可以直接通过 webview.loadUrl 或 webview.evaluateJavaScript 方法将js代码注入到html
+> html 即指 webview 这样的 jsruntime
+
+#### js 到 native
+
+- 直接注入，addJavaScriptInterface
+
+- URL拦截
+
+- JS方法拦截
+  
 ### Mysql 级联查询
 
 级联表如何一次查询所有关联数据,例如一个 user_id,必然关联很多表
@@ -2650,7 +2669,7 @@ vue-cli-service  serve --mode dev
 
 > 可通过 webpack.DefinePlugin 在客户端侧代码中使用环境变量
 > 例如在 vue-cli 中，集成的 webpack.DefinePlugin 在构建过程中，process.env.VUE*APP_SECRET 将会被相应的值所取代。在 VUE_APP_SECRET=secret 的情况下，它会被替换为 "secret"  
-> *在 cli 中还包括 NODE*ENV 和 BASE_URL 这两个可以被编译在客户端的环境变量*
+>*在 cli 中还包括 NODE*ENV 和 BASE_URL 这两个可以被编译在客户端的环境变量*
 
 #### process.argv
 
@@ -2776,7 +2795,7 @@ stream 是 node 中的流类型，stream 来源于操作系统，操作系统在
 
 stream 使用的两个关键对象，source 对象和 destination 对象
 
-案例参考：https://juejin.im/post/5d25ce36f265da1ba84ab97a#heading-3
+案例参考：<https://juejin.im/post/5d25ce36f265da1ba84ab97a#heading-3>
 
 > 大文件读写
 
@@ -3047,7 +3066,9 @@ Last-Modified is the date and time at which the origin server believes the resou
 \*_Last-Modified 是以时间来判断，但是其能精确到 second,所以当版本的变化小于 second 时则无法成功判断，所以这时可以使用 Etag_
 
 ### commonJs 模块和 ES6 模块
+
 > 这里的 commonJs 指 node 中的模块使用方式，ES6 指浏览器中的最新的模块使用方式
+
 #### 加载原理
 
 - CommonJS 模块是运行时加载,在没有被执行完之前，它的结构（API）是不可知的 — 即使在它被执行完以后，它的结构也可以随时被其他代码修改
@@ -3358,7 +3379,7 @@ node 内核每次进行一次以下的阶段循环：
 
 ### node 多进程
 
-https://www.jb51.net/article/148997.html
+<https://www.jb51.net/article/148997.html>
 
 ### 函数式、响应式和面对对象
 
@@ -3474,20 +3495,20 @@ module.exports = {
 (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./a/existent.png": 432,
-	"./b/existent.png": 433,
+ "./a/existent.png": 432,
+ "./b/existent.png": 433,
 };
 function webpackContext(req) {
-	return __webpack_require__(webpackContextResolve(req));
+ return __webpack_require__(webpackContextResolve(req));
 };
 function webpackContextResolve(req) {
-	var id = map[req];
-	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
-	return id;
+ var id = map[req];
+ if(!(id + 1)) // check for number or string
+  throw new Error("Cannot find module '" + req + "'.");
+ return id;
 };
 webpackContext.keys = function webpackContextKeys() {
-	return Object.keys(map);
+ return Object.keys(map);
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
@@ -3621,6 +3642,7 @@ git push -f --all
 
 `dpr`全称`device pixel ratio`,设备像素比。  
 设备像素比 = 物理像素 / 逻辑像素(px) (1次单位)
+
 #### 物理像素
 
 `physical pixel`  
@@ -4042,6 +4064,10 @@ todo
 
 Class cls = Class.forName(classStr);
 ```
+
+#### reflect in js
+
+解放Object的一些对自身进行操作的方法，直接使用Reflect来专门在js运行时操作对象
 
 ### IOC
 
@@ -4970,6 +4996,8 @@ offline : compiling with webpack in building
 
 react：  
 coroutine fiber（链表）
+> fiber 的目的为解决 vdom 递归创建与 diff 导致的js阻塞渲染。基本原理是利用链表与 RequestIdleCallback 实现更新过程可控（可拆分、挂起、恢复、中止）  
+> [可参考文章](https://juejin.cn/post/6984949525928476703)
 
 vue:
 
@@ -5417,7 +5445,15 @@ FCP 度量标准衡量从页面开始加载到屏幕上呈现页面内容的任�
 
 #### Exclude
 
+```ts
+Exclude<T,U> // 返回
+```
+
 #### Extract
+
+```ts
+Extract<T,U> // 返回
+```
 
 #### Pick
 
@@ -5514,13 +5550,19 @@ interface VirturlElement {
 ```
 
 - **广度优先**
+广度优秀遍历也称为层序遍历
+
 - **patch**
   <!-- todo -->
 
 ### hook 中的异步
+
 hook和setState一样都是合并更新，批处理后执行render，导致无法直接拿到`state`，但其实际没有异步调用
+
 ### vue 中的异步
+
 vue中的Data是同步赋值的，但是其render是*异步*之后批处理执行render，其是真正的在异步调用中执行
+
 ### 按需加载
 
 #### 包构建时
@@ -5697,7 +5739,7 @@ https 协议在传输中其实用到了两种加解密方式，针对传输数�
 
 #### 非对称加密对数据传输加密的 KEY
 
-HTTPS 的传输会先进行`SSL通信`，客户端向服务端第一次`SSL通信`后会返回一个证书，证书中包含证书公钥、CA 机构的数字签名、域名信息，通过 CA 机构的提供的公钥对签名进行验证通过之后，SSL 第一次握手结束，客户端以 Client Key Exchange 报文作为回应。报文中包含通信加密中使用的一种被称为 Pre-mastersecret 的随机密码串，即用来对之后的传输数据进行加密的`KEY`。该报文用公开密钥进行非对称加密。
+HTTPS 的传输会先进行`SSL通信`，客户端向服务端第一次`SSL通信`后会返回一个证书，证书中包含证书公钥、CA 机构的数字签名、域名信息，然后通过本地存储的（系统和浏览器中）对应 CA 证书提供的公钥对签名进行验证通过之后，SSL 第一次握手结束，客户端以 Client Key Exchange 报文作为回应。报文中包含通信加密中使用的一种被称为 Pre-mastersecret 的随机密码串，即用来对之后的传输数据进行加密的`KEY`。该报文用公开密钥进行非对称加密。
 
 > 此处认证机构的证书必须安全地转交给客户端。使用通信方式时，如何安全转交是一件很困难的事，因此，多数浏览器开发商发布版本时，会事先在内部植入常用认证机构的证书。
 
@@ -5870,14 +5912,18 @@ border-radius 包含  border-top-left-radius、border-top-right-radius、border-
 #### 可以有两个值
 
 一个值代表一个圆的半径，两个值代表一个椭圆的两个轴
+
 ```css
 border-radius:10px/20px;
 ```
 
 #### 可以是百分比
+
 百分比的长度根据元素自身长宽的大小，单独用一个值是百分比时也表示一个椭圆。
+
 ```css
 width:60px;
+
 height:100px;
 /* border-radius:6px/10px */
 border-radius:10%; 
@@ -5888,13 +5934,17 @@ border-radius:10%;
 这里用四层维度来表示web响应式涉及到的内容
 
 #### user preferrence
+
 用户偏好，例如黑暗模式，静态模式，色盲模式这些可以直接设置在操作系统上的用户偏好
+
 ```css
 @media (prefers-color-scheme:dark)
 ```
 
 #### ViewPort&Form factors
+
 屏幕视口和外形规格，例如苹果的刘海屏，三星的折叠瓶
+
 ```css
 @media (spanning: single-fold-vertical) {
   --sidebar-width: env(fold-left);
@@ -5902,17 +5952,20 @@ border-radius:10%;
 ```
 
 #### Marco layout
+
 页面的布局，例如不同屏幕大小下的页面的整体布局轮廓。
+
 ```css
 @media
 ```
 
 #### Container style
+
 容器(页面内的元素、组件)在其不同的大小下的样式。
+
 ```css
 @contaniner
 ```
-
 
 ### 匿名用户的标识
 
@@ -5933,3 +5986,5 @@ border-radius:10%;
   利用客户端的本次存储手段，在用户初次使用时直接生成一个标识存储在本地，用以之后的持久化记录
 
 > 设备指纹是为了一个设备唯一用户，不过指纹也有错误、被盗用的可能。直接随机生成的方法则非常简单，不过一旦用户清楚本地数据该用户标识就会被清除。可根据自己的意图选择合适的标识方式。
+
+### 语义化与搜索引擎 itemtype
