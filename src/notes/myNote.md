@@ -5554,6 +5554,16 @@ interface VirturlElement {
 
 - **patch**
   <!-- todo -->
+#### 一般策略
+
+1.  比较头节点
+    1.  相同（key and tag）=> 2
+    2.  不同直接创建 createEle(vdom)
+2.  比较子节点
+    1.  完全相同 =>end
+    2.  text => replace
+    3.  都是数组 => 3
+3.  子节点数组之间比较
 
 ### hook 中的异步
 
