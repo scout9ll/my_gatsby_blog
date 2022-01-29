@@ -5554,16 +5554,23 @@ interface VirturlElement {
 
 - **patch**
   <!-- todo -->
-#### 一般策略
+#### diff in snabbdom
 
-1.  比较头节点
-    1.  相同（key and tag）=> 2
-    2.  不同直接创建 createEle(vdom)
-2.  比较子节点
-    1.  完全相同 =>end
-    2.  text => replace
-    3.  都是数组 => 3
-3.  子节点数组之间比较
+1. 比较头节点
+   1. 相同（key and tag）=> 2
+   2. 不同直接创建 createEle(vdom)
+2. 比较子节点
+   1. 完全相同 =>end
+   2. text => replace
+   3. 都是数组 => 3
+3. 子节点数组之间比较
+   1. 剔除为null的头尾节点
+   2. 头头 or 尾尾相同 继续
+   3. 头尾相同，dom头尾交换
+   4. 新老是否存在相同key，存在则=>2,然后插入改key的老节点的dom
+   5. 3.1~3.4 遍历完所有节点后，新头尾指针剩下的节点在dom上新增，老头尾指针在dom上删除
+
+#### diff in inferno
 
 ### hook 中的异步
 
