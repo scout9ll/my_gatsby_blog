@@ -1206,27 +1206,21 @@ webpack 可识别以下的模块化形式
 - An @import statement inside of a css/sass/less file.
 - An image url in a stylesheet url(...) or HTML <img src=...> file
 
-#### 打包过程
+#### 主要流程
 
-<!-- todo -->
+- compiler 初始化: run=>compile() 创建 compilation
 
-- 读取文件分析模块依赖
-- 对模块进行解析执行(深度遍历)
-  <!-- (compilation) -->
-- 针对不同的模块使用相应的 loader `runLoader`后返回被处理后的 js code
-- 编译模块,(利用状态机`tokenizer`生成 token),生成抽象语法树 AST。
-  > 为什么不使用正则，正则贪心匹配会产生很多不必要的回溯。
-  - 词法分析
-  - 语法分析
-- 循环遍历 AST 树(`traverse`)，模块组装，拼接输出 js
+- 执行 compilation
 
-  - 修改对应 AST 节点,不同的节点`type`用不同的`traverser`
+  1. loaders
+  2. hashed
+  3. parser
+  4. 存在依赖则处理该依赖=>1，否则 seal：成功收集一个完整的 chunck 依赖树
+  5. 将对象数据根据依赖关系拼接字符串为一个 source
 
-  ```typescript
-  function traverse(ast, vistors)
-  ```
+- 将存在的 chunck source emit 为 bundle 文件
 
-  - AST 转为 JS code
+- compiler done
 
 #### loader 和 plugin
 
@@ -1266,8 +1260,8 @@ webpack 插件是一个具有 `apply` 属性的 `JavaScript` 对象。`apply` �
 
 > compiler 和 compilation
 >
-> - compiler 时 webpack 构建实例，可以控制与监控构建流程
-> - compilation 是 compiler 构建中的编译时示例，主要涉及具体编译流程
+> - compiler 是 webpack 根据 config 生成的构建实例，可以控制与监控整个构建流程（根据其 hook 存在 run,make,emit,done 等过程）。
+> - compilation 是 compiler 构建中的编译时实例，主要涉及具体对模块的编译流程（包括 loader,sealed,optimized,chunked,hashed,restored）
 >   compiler.hooks.compilation
 
 plugin 基本用法
