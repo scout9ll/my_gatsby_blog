@@ -6004,3 +6004,41 @@ border-radius:10%;
 > 设备指纹是为了一个设备唯一用户，不过指纹也有错误、被盗用的可能。直接随机生成的方法则非常简单，不过一旦用户清楚本地数据该用户标识就会被清除。可根据自己的意图选择合适的标识方式。
 
 ### 语义化与搜索引擎 itemtype
+
+## week 47
+
+### 批处理的几种方式
+
+#### 事务
+
+在 react、mobx 中对特定方法通过标记实现事务，一事务完成后同一执行一次
+
+```js
+function runTransaction(fn) {
+  isTransaction++
+  fn()
+  isTransaction--
+  dealTranscation()
+}
+function dealTranscation(fn) {
+  if (!isTransaction) {
+    runCb()
+  } else {
+    cbList.push(fn)
+  }
+}
+```
+
+#### 异步
+
+在 vue 中没有对特定的方法启用事务的形式，所有的 update 在异步之后归并处理
+
+```js
+function update() {
+  if (!cbList.length) {
+    nextTick(batchUpdate)
+  } else {
+    cbList.push()
+  }
+}
+```
